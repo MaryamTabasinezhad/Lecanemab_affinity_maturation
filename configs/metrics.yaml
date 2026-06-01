@@ -1,0 +1,40 @@
+# metrics.yaml — success metrics (CLAUDE.md §2). All deltas are vs WT lecanemab.
+# Thresholds marked TODO must be set WITH a recorded rationale (docs/decisions/)
+# before they are used as gates — do not invent cutoffs.
+reference: lecanemab_WT
+metrics:
+  - id: M1_affinity
+    stage: 5
+    definition: "multi-sample Boltz-2/AF3 ipTM + ipSAE on Fv–protofibril complex"
+    comparator: ">= WT (consensus improvement on >=2 independent scorers)"
+    threshold: TODO
+    source: R-MOSAIC
+  - id: M2_selectivity_monomer
+    stage: 6
+    definition: "Δprotofibril - Δmonomer"
+    comparator: "> 0 AND >= WT"
+    threshold: TODO
+    source: R-ANA
+  - id: M2b_selectivity_cafibril
+    stage: 6
+    definition: "Δprotofibril - ΔCAA-fibril"
+    comparator: "> 0 AND >= WT"
+    threshold: TODO
+    source: R-TG
+  - id: M3_developability
+    stage: 6
+    definition: "TAP flags, Aggrescan3D, NetSolP, viscosity"
+    comparator: "no new liabilities vs WT"
+    threshold: TODO
+    source: R-AMTRADE
+  - id: M4_humanness
+    stage: 6
+    definition: "BioPhi OASis percentile"
+    comparator: ">= WT"
+    threshold: TODO
+  - id: M5_experimental
+    stage: 8
+    definition: "BLI/SPR KD/koff to protofibril; monomer counter-screen"
+    comparator: "improved vs WT AND monomer screen negative"
+    threshold: TODO
+    source: R-YSD

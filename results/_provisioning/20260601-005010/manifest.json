@@ -1,0 +1,11 @@
+{
+  "step": "phase0_init",
+  "timestamp": "20260601-005010",
+  "root": "/global/project/hpcg6049/lecanemab-am",
+  "git_remote": "git@github.com:MaryamTabasinezhad/Lecanemab_affinity_maturation.git",
+  "git_branch": "main",
+  "git_sha": "no-git",
+  "with_envs": 0,
+  "python": "3.11",
+  "dry_run": 0
+}

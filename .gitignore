@@ -1,0 +1,15 @@
+# Heavy artifacts live on scratch + move via Globus — NOT git.
+*.sif
+*.duckdb
+*.duckdb.wal
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# Per-agent local Claude Code settings (permission posture is machine-local, not shared across clusters).
+.claude/
+data/interim/
+results/**/samples/
+results/**/*.pdb
+results/**/*.cif
+# The variant ledger binary is git-ignored (unmergeable across agents);
+# the git-shared form is db/exports/*.csv + coordination/manifests/*.tsv.

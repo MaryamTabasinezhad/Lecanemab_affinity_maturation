@@ -1,0 +1,19 @@
+# objective.yaml — locked design objective (see CLAUDE.md §2, decision D-001)
+target_antibody: "lecanemab (Leqembi / BAN2401); humanized mAb158 IgG1"
+optimize_for: "avidity-adjusted affinity for Aβ protofibrils/oligomers"
+preserve_or_improve:
+  - selectivity vs Aβ monomer
+  - selectivity vs fixed-N-terminus / CAA-type Aβ40 fibrils
+  - developability (stability, aggregation, viscosity)
+  - humanness
+do_not_optimize: "raw monovalent KD to the Aβ N-terminal epitope"
+target_species:
+  primary: "Aβ42 protofibril / fibril (type I, type II, Arctic)"
+counter_targets:
+  - "Aβ monomer / peptide"
+  - "fixed-N-terminus / CAA-type Aβ40 fibril"
+internal_structures: [9CO4, 9CKI, 5MY4]
+decisions: [D-001, D-002, D-003, D-004, D-005, D-006]
+notes: >
+  Epitope register is uncertain (OQ-1); structure-based steps use a pose
+  ensemble, not a single docked complex (D-002).
