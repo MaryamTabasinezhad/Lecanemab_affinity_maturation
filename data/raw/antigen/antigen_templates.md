@@ -26,13 +26,19 @@ Curated per CLAUDE.md §4. Roles map to the objective (§2): **target** = Aβ pr
 
 > R-TG: tg-SwDI (DI1/DI2/DI3) and human meningeal Aβ40 show "well-ordered and fixed N-termini" → lecanemab-spared (links to low ARIA-E, B4).
 
-## REFERENCE / homology
+## REFERENCE / homology — pose-ensemble template set (D-002, D-010 / OQ-7 resolved)
 
-| ID | What | Use |
-|---|---|---|
-| **5MY4** | Fab **c#17**, anti-**pyroglutamate**-Aβ (pE3-12) — *not* "D3" per RCSB | indirect epitope homology proxy cited by R-ELIFE; **see caveat** |
+Full-length **N-terminal anti-Aβ Fab co-structures** = the primary homology set for the lecanemab epitope (1–16) pose ensemble. 5MY4 is retained only as an annotated weak proxy.
 
-> ⚠ **5MY4 identity caveat (verified 2026-06-03, RCSB + R-ELIFE).** R-ELIFE (eLife 106156 / PMC12424645) models lecanemab "on the basis of **D3** antibody similarity (PDB **5MY4**), correctly accounting for sequence tolerances at positions **3–7**." Our B5/CLAUDE.md faithfully reflect that sentence. **However, the deposited content of 5MY4 (RCSB, JBC 2017) is "Fab c#17 in complex with human Aβ-pE3-12" — an anti-*pyroglutamate-Aβ* antibody against the N-truncated, modified pE3 species, not a full-length Aβ(1-16) N-terminal binder.** It is therefore a *weak/indirect* homology proxy for lecanemab's conformational N-terminal epitope. Better-matched **full-length N-terminal anti-Aβ Fab co-structures** exist (aducanumab **6CO3**, gantenerumab **5CSZ** Aβ1-11, 3D6/bapineuzumab Aβ1-7, WO2 **3BKJ** Aβ1-16) — **proposed addition to the pose ensemble (D-002), pending PI sign-off** (logged as OQ-7).
+| ID | What | Epitope | Role |
+|---|---|---|---|
+| **6CO3** | aducanumab–Aβ complex | Aβ 3–7 | primary homology (extended N-term) |
+| **5CSZ** | gantenerumab Fab + Aβ1-11 | Aβ 1–11 | primary homology |
+| **3BKJ** | WO2 Fab + Aβ1-16 | Aβ 1–16 | primary homology (**closest to lecanemab's 1–16 window**) |
+| **4HIX** | humanised 3D6 (bapineuzumab precursor) Fab + Aβ | Aβ N-term (1–7) | primary homology |
+| **5MY4** | Fab **c#17**, anti-**pyroglutamate**-Aβ (pE3-12) — *not* "D3" per RCSB | pE3-12 (truncated/modified) | **weak proxy only** (R-ELIFE cite; see caveat) |
+
+> ⚠ **5MY4 identity caveat (verified 2026-06-03, RCSB + R-ELIFE).** R-ELIFE (eLife 106156 / PMC12424645) models lecanemab "on the basis of **D3** antibody similarity (PDB **5MY4**), correctly accounting for sequence tolerances at positions **3–7**." Our B5/CLAUDE.md faithfully reflect that sentence. **However, the deposited content of 5MY4 (RCSB, JBC 2017) is "Fab c#17 in complex with human Aβ-pE3-12" — an anti-*pyroglutamate-Aβ* antibody against the N-truncated, modified pE3 species, not a full-length Aβ(1-16) N-terminal binder.** It is therefore a *weak/indirect* homology proxy for lecanemab's conformational N-terminal epitope. Better-matched **full-length N-terminal anti-Aβ Fab co-structures** (aducanumab **6CO3**, gantenerumab **5CSZ** Aβ1-11, 3D6/bapineuzumab **4HIX**, WO2 **3BKJ** Aβ1-16) are now the **primary homology set** and 5MY4 is demoted to a weak proxy — **OQ-7 resolved by PI 2026-06-03 → D-010** (see table above).
 
 ## Notes / open items
 - **Monomer template — RESOLVED (D-009):** primary = **1Z0Q** (Aβ42, aqueous, 30-model ensemble; sequence-matched to the Aβ42 targets). **1IYT rejected** (solved "in an apolar microenvironment" → helical, non-physiological for the soluble aqueous monomer). **2LFM** (Aβ40, aqueous) kept as the Aβ40-matched control to pair against the Aβ40 CAA counter-target (8QN7). Per D-002 + stochastic discipline, the Stage-2 counter-screen folds the Aβ monomer multi-seed (its own ensemble); 1Z0Q/2LFM are the validated experimental references.

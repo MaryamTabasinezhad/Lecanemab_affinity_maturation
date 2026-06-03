@@ -16,10 +16,9 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 ```bash
 cd /global/project/hpcg6049/lecanemab-am
 git pull origin main
-# OPEN DECISION (OQ-7): expand epitope-homology template set (6CO3/5CSZ/3BKJ/3D6) +
-#                       demote 5MY4 (= anti-pyroGlu Fab c#17, NOT D3) to weak proxy? -> PI sign-off.
 # DONE 2026-06-03: monomer template = 1Z0Q (D-009); antigen coords fetched to data/raw/antigen/coords/
 #                  (fetch_antigen_templates.sh, git-ignored); B5 D3/5MY4 sentence pinned + caveat.
+# DONE 2026-06-03: OQ-7 resolved (D-010) -> homology set 6CO3/5CSZ/3BKJ/4HIX; 5MY4 = weak proxy.
 # Stage 1 leftover: set configs/metrics.yaml thresholds once a Stage-2 WT baseline exists.
 # Phase 0 finish: MAP existing envs (colabfold/mpnn/rfdiffusion/rfd_clean/BindCraft/SE3nv already exist)
 #                 to lecam-* roles; build only what's missing; A100 smoke tests; confirm SLURM modules.
@@ -84,8 +83,9 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ### 2026-06-03 — Stage-1/2 prep: monomer template + antigen coords + 5MY4 discrepancy
 - **D-009:** Aβ-monomer counter-target resolved — **1Z0Q** (Aβ42 aqueous NMR, 30 models) primary; **1IYT rejected** (RCSB citation: solved "in an apolar microenvironment" → helical); **2LFM** (Aβ40) kept as Aβ40-matched control. All RCSB-grounded (no memory-typing). ADR → `docs/decisions/D-009-...md`.
 - **Antigen coords fetched:** new idempotent `scripts/stage1_inputs/fetch_antigen_templates.sh` pulled 10 mmCIFs (targets 9CO4/7Q4B/7Q4M/8BFZ; counters 9CKI/8QN7/8OLN/1Z0Q/2LFM; ref 5MY4) → `data/raw/antigen/coords/` (git-ignored; `.gitignore` updated; manifest in `coords/fetch_manifest.tsv`).
-- **5MY4 discrepancy (OQ-7):** verified via RCSB that PDB **5MY4 = anti-pyroglutamate-Aβ Fab "c#17" (pE3-12 epitope), NOT antibody "D3"** as R-ELIFE/CLAUDE.md B5 state. Our B5 faithfully quotes R-ELIFE (now **pinned**), but 5MY4 is a weak/indirect homology proxy. Proposed (PI sign-off): add full-length N-terminal anti-Aβ Fab co-structures (aducanumab 6CO3, gantenerumab 5CSZ, 3D6/bapineuzumab, WO2 3BKJ) to the pose ensemble; demote 5MY4. **Did NOT change CLAUDE.md/B5 or campaign params** — only annotated + opened OQ-7.
-- **Next:** PI call on OQ-7 → Phase-0 env mapping → Stage 2.
+- **5MY4 discrepancy (OQ-7):** verified via RCSB that PDB **5MY4 = anti-pyroglutamate-Aβ Fab "c#17" (pE3-12 epitope), NOT antibody "D3"** as R-ELIFE/CLAUDE.md B5 state. Our B5 faithfully quotes R-ELIFE (now **pinned**), but 5MY4 is a weak/indirect homology proxy.
+- **OQ-7 resolved same day (PI sign-off) → D-010:** primary epitope-homology set = full-length N-terminal anti-Aβ Fab co-structures **6CO3** (aducanumab), **5CSZ** (gantenerumab Aβ1-11), **3BKJ** (WO2 Aβ1-16, closest to lecanemab's window), **4HIX** (humanised 3D6/bapineuzumab); **5MY4 demoted to annotated weak proxy**. 4 new refs fetched to `coords/`. **CLAUDE.md/B5 wording unchanged** (faithful to R-ELIFE); the caveat + ADR are the correction layer.
+- **Next:** Phase-0 env MAPPING (existing colabfold/mpnn/rfdiffusion/rfd_clean/BindCraft/SE3nv → lecam-* roles) → Stage 2 (Fv model + multi-seed co-fold; homology pose ensemble from the D-010 set).
 
 ### 2026-06-01 — Phase 0 executed + Stage 1 research
 - Ran `00_init.sh` (real): repo tree, git repo + remote (SSH auth OK as `hamidghaedi`), coordination scaffold, `db/schema.sql`.

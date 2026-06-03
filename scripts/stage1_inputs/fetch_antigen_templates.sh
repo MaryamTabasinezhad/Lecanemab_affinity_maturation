@@ -46,8 +46,14 @@ TEMPLATES=(
   "8OLN:counter_SwDI_fixedN"
   "1Z0Q:counter_monomer_Abeta42_ref"   # primary monomer reference (D-009)
   "2LFM:counter_monomer_Abeta40_ctrl"  # Aβ40 monomer control (D-009)
-  # REFERENCE — epitope homology
-  "5MY4:ref_D3_homology"
+  # REFERENCE — epitope homology (pose ensemble, D-002 / D-010 / OQ-7)
+  # Full-length N-terminal anti-Aβ Fab co-structures (primary homology set):
+  "6CO3:ref_aducanumab_Abeta"        # aducanumab–Aβ (epitope 3-7)
+  "5CSZ:ref_gantenerumab_Abeta1-11"  # gantenerumab Fab + Aβ1-11
+  "3BKJ:ref_WO2_Abeta1-16"           # WO2 Fab + Aβ1-16 (closest to lecanemab 1-16 window)
+  "4HIX:ref_3D6_bapineuzumab_Abeta"  # humanised 3D6 (bapineuzumab precursor) Fab + Aβ
+  # Weak/indirect proxy cited by R-ELIFE (anti-pyroGlu pE3-12, NOT D3 — see caveat):
+  "5MY4:ref_c17_pyroGlu_weakproxy"
 )
 
 run() { if [[ "$DRY_RUN" == 1 ]]; then echo "[dry-run] $*"; else eval "$@"; fi; }

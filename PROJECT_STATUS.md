@@ -35,7 +35,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 **Done (2026-06-01):** Phase-0 scaffold (`00_init.sh`); `lecam` env built (conda-forge/bioconda); DuckDB ledger initialized (`variants`, 27 cols); lecanemab Fv sourced+verified+ANARCI-numbered (3 schemes, CDRs+Vernier); antigen templates identified; B1–B7 source sentences extracted.
 
 **Next (immediate):**
-1. **PI decision on OQ-7** — expand the epitope-homology template set (6CO3/5CSZ/3BKJ/3D6) + demote 5MY4 to weak proxy? (Affects Stage-2/3 pose ensemble.)
+1. ~~PI decision on OQ-7~~ **DONE (D-010: homology set 6CO3/5CSZ/3BKJ/4HIX; 5MY4 weak proxy).**
 2. Set `configs/metrics.yaml` thresholds + WT references once a Stage-2 WT baseline exists (currently TODO).
 3. ~~Pick Aβ-monomer counter-target template~~ **DONE (D-009: 1Z0Q primary, 2LFM Aβ40 control).**
 4. Pin exact B2 (>10⁶ selectivity, R-ANA) sentence (paywalled). B5 D3/5MY4 sentence **pinned 2026-06-03**; R-REV "no co-structure" sentence still to pin.
@@ -59,6 +59,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 | D-007 | 2026-06-01 | Build conda envs from **conda-forge/bioconda**, NOT the ComputeCanada CVMFS pip wheelhouse | CC `+computecanada` wheels target glibc 2.29/2.30 but the Frontenac login node is glibc 2.28 → compiled wheels (numpy/pandas/duckdb/biotite) fail to load; conda-forge builds are old-glibc-portable | env build this session |
 | D-008 | 2026-06-01 | Verified lecanemab Fv = **KEGG D11678 (WHO-INN)**, CDRs cross-confirmed by **BioArctic patent US9573994B2** | Satisfies §4 ≥2-source rule; both VH/VL CDRs match | `docs/sources/lecanemab_fv_provenance.md` |
 | D-009 | 2026-06-03 | Aβ-monomer counter-target = **1Z0Q** (Aβ42 aqueous NMR, 30 models) primary; **reject 1IYT** (apolar/helical); **2LFM** (Aβ40) as Aβ40-matched control | Sequence-matched to Aβ42 targets + aqueous disordered form; counter-screen folds monomer multi-seed (D-002) | `docs/decisions/D-009-...md`; RCSB-grounded |
+| D-010 | 2026-06-03 | Epitope-homology pose-ensemble set = **6CO3 (aducanumab), 5CSZ (gantenerumab), 3BKJ (WO2 1-16), 4HIX (3D6)**; **5MY4 demoted to weak proxy** | 5MY4 is anti-pyroGlu pE3-12 (verified RCSB), not lecanemab's full-length N-term epitope; full-length N-terminal Fabs match the 1–16 window (D-002 ensemble) | `docs/decisions/D-010-...md`; resolves OQ-7 |
 
 ---
 
@@ -72,7 +73,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 - **R-MODULES — HPC module names.** Frontenac CUDA/module names are placeholders in `slurm/` templates → confirm on first login before submitting (no guessing).
 - **OQ-5 — worker clusters.** Which clusters to hire (Narval / Nibi candidates from prior project) and when; activate via `clusters/<cluster>.env` + `clusters/<cluster>/CLAUDE.md`.
 - **OQ-6 — Globus endpoints.** Confirm per-cluster Globus endpoint UUIDs + base paths for `lecanemab-am` before any large transfer (`coordination/globus/endpoints.md`).
-- **OQ-7 — epitope homology template set (NEEDS PI DECISION).** R-ELIFE models lecanemab on "D3 antibody similarity (PDB **5MY4**)", but **5MY4's deposited content is anti-pyroglutamate-Aβ Fab c#17 (pE3-12)** — an N-truncated/modified epitope, a weak proxy for lecanemab's full-length N-terminal (1–16) conformational epitope (verified RCSB 2026-06-03). **Proposal:** expand the pose-ensemble homology set (D-002) with full-length N-terminal anti-Aβ Fab co-structures — aducanumab **6CO3** (3–7), gantenerumab **5CSZ** (Aβ1-11), 3D6/bapineuzumab (Aβ1-7), WO2 **3BKJ** (Aβ1-16) — and demote 5MY4 to an annotated weak proxy. Affects Stage-2/3 epitope modeling + OQ-1.
+- ~~**OQ-7 — epitope homology template set.**~~ **RESOLVED 2026-06-03 → D-010** (PI sign-off): primary homology set = 6CO3/5CSZ/3BKJ/4HIX (full-length N-terminal anti-Aβ Fabs); 5MY4 demoted to annotated weak proxy. Coordinates fetched. Feeds Stage-2/3 pose ensemble + OQ-1.
 
 ---
 
@@ -95,6 +96,6 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 
 ## Changelog
 
-- **2026-06-03** — Stage-1/2 prep: resolved Aβ-monomer counter-target template (**D-009**: 1Z0Q primary Aβ42, 2LFM Aβ40 control, 1IYT rejected as apolar/helical; RCSB-grounded). Added reproducible `scripts/stage1_inputs/fetch_antigen_templates.sh` → fetched 10 antigen/reference mmCIFs to `data/raw/antigen/coords/` (git-ignored; manifest in `coords/`). **Discrepancy found + resolved:** PDB **5MY4** (R-ELIFE "D3" homology ref) is actually anti-pyroglutamate-Aβ Fab c#17 (pE3-12), not a full-length N-terminal binder → pinned the exact R-ELIFE sentence, added 5MY4 identity caveat, opened **OQ-7** (expand pose-ensemble homology set with 6CO3/5CSZ/3BKJ/3D6). No campaign-parameter changes.
+- **2026-06-03** — Stage-1/2 prep: resolved Aβ-monomer counter-target template (**D-009**: 1Z0Q primary Aβ42, 2LFM Aβ40 control, 1IYT rejected as apolar/helical; RCSB-grounded). Added reproducible `scripts/stage1_inputs/fetch_antigen_templates.sh` → fetched antigen/reference mmCIFs to `data/raw/antigen/coords/` (git-ignored; manifest in `coords/`). **Discrepancy found:** PDB **5MY4** (R-ELIFE "D3" homology ref) is actually anti-pyroglutamate-Aβ Fab c#17 (pE3-12), not a full-length N-terminal binder → pinned the exact R-ELIFE sentence + added 5MY4 identity caveat. **OQ-7 resolved same day (PI) → D-010:** primary epitope-homology set = 6CO3 (aducanumab) / 5CSZ (gantenerumab) / 3BKJ (WO2 1-16) / 4HIX (3D6); 5MY4 demoted to weak proxy; 4 new refs fetched. No campaign-parameter changes.
 - **2026-06-01** — Phase 0 executed (`00_init.sh`): repo tree, git repo, coordination scaffold, `db/schema.sql`. Built `lecam` env from conda-forge/bioconda after finding CC wheelhouse incompatible with login-node glibc 2.28 (D-007). Initialized DuckDB ledger. **Stage 1:** sourced+verified lecanemab Fv (KEGG D11678 ↔ patent US9573994B2; D-008) → `data/raw/lecanemab_fv.fasta`; ANARCI-numbered (IMGT/Kabat/Chothia) + CDR/Vernier map (`scripts/stage1_inputs/number_fv.py` → `data/interim/fv_numbering/`); identified antigen templates (`data/raw/antigen/antigen_templates.md`); extracted B1–B7 sentences (`docs/sources/`). Relaxed `.claude/settings.json` deny-list to permit package installs (kept rm-rf/sudo/apt/shutdown blocks).
 - **2026-05-30** — Project created. Authored `CLAUDE.md`, `PROJECT_STATUS.md`, `DEVELOPMENT_PLAN.md`, `HANDOFF.md`, and `scripts/stage1_inputs/00_init.sh`. Strategy reframe (avidity + selectivity, not monovalent KD) and 8-stage plan locked (D-001…D-005). Adopted multi-cluster git-coordination (D-006); set project root to `/global/project/hpcg6049/lecanemab-am` and GitHub remote `MaryamTabasinezhad/Lecanemab_affinity_maturation`.
