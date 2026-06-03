@@ -20,8 +20,11 @@ git pull origin main
 #                  (fetch_antigen_templates.sh, git-ignored); B5 D3/5MY4 sentence pinned + caveat.
 # DONE 2026-06-03: OQ-7 resolved (D-010) -> homology set 6CO3/5CSZ/3BKJ/4HIX; 5MY4 = weak proxy.
 # Stage 1 leftover: set configs/metrics.yaml thresholds once a Stage-2 WT baseline exists.
-# Phase 0 finish: MAP existing envs (colabfold/mpnn/rfdiffusion/rfd_clean/BindCraft/SE3nv already exist)
-#                 to lecam-* roles; build only what's missing; A100 smoke tests; confirm SLURM modules.
+# DONE 2026-06-03: env MAPPING complete -> docs/env/env_mapping.md + clusters/frontenac.env CONDA_ENV_*.
+# Phase 0 remaining = BUILDS: lecam-ab (ImmuneBuilder/IgFold/AbLang2/AntiBERTy/BioPhi),
+#                 lecam-fold (Boltz-2/Chai-1 = Stage-5 ranker), lecam-dev (developability),
+#                 dedicated lecam-rosetta (flex_ddG/FoldX)/-md; +RFantibody/LigandMPNN.
+#                 Then A100 smoke tests (ColabFold/RFdiffusion/BindCraft 1-job) + confirm SLURM modules.
 # Stage 2 start: Fv model (ImmuneBuilder/IgFold) + multi-seed co-fold vs protofibril epitope.
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
@@ -80,7 +83,14 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 
 ## Session log (most recent first)
 
-### 2026-06-03 — Stage-1/2 prep: monomer template + antigen coords + 5MY4 discrepancy
+### 2026-06-03 (b) — Phase-0 env mapping
+- Inventoried existing conda envs (`conda list`, not assumed) → mapped to `lecam-*` roles in `clusters/frontenac.env`; authoritative table in `docs/env/env_mapping.md`.
+- **Usable now:** `lecam` (orchestration); design stack — ProteinMPNN (`mpnn`; repo `…/protein/ProteinMPNN`), RFdiffusion (`rfd_clean`/`rfdiffusion`/`SE3nv`), BindCraft+ColabDesign (`BindCraft`; repo `…/protein/alzheimer/bindcraft`); AF2 oracle (`colabfold` + 5.3G cached weights); PyRosetta 2026.3 (inside `BindCraft`); OpenMM 8.5.1 (interim, in colabfold/BindCraft).
+- **Build-needed:** `lecam-ab`, `lecam-fold` (**Boltz-2**/Chai-1 — the Stage-5 ranker per D-004; ColabFold/AF2 is supplementary, not a substitute), `lecam-dev`, dedicated `lecam-rosetta` (flex_ddG/AbLIFT/FoldX) + `lecam-md`; plus RFantibody/LigandMPNN/SolubleMPNN.
+- **Owed:** A100 smoke tests (ColabFold/RFdiffusion/BindCraft 1-job each) + confirm CUDA module names (`slurm/_template.sbatch` placeholder).
+- No CONDA_ENV_* consumers in scripts yet (only a comment), so repointing broke nothing.
+
+### 2026-06-03 (a) — Stage-1/2 prep: monomer template + antigen coords + 5MY4 discrepancy
 - **D-009:** Aβ-monomer counter-target resolved — **1Z0Q** (Aβ42 aqueous NMR, 30 models) primary; **1IYT rejected** (RCSB citation: solved "in an apolar microenvironment" → helical); **2LFM** (Aβ40) kept as Aβ40-matched control. All RCSB-grounded (no memory-typing). ADR → `docs/decisions/D-009-...md`.
 - **Antigen coords fetched:** new idempotent `scripts/stage1_inputs/fetch_antigen_templates.sh` pulled 10 mmCIFs (targets 9CO4/7Q4B/7Q4M/8BFZ; counters 9CKI/8QN7/8OLN/1Z0Q/2LFM; ref 5MY4) → `data/raw/antigen/coords/` (git-ignored; `.gitignore` updated; manifest in `coords/fetch_manifest.tsv`).
 - **5MY4 discrepancy (OQ-7):** verified via RCSB that PDB **5MY4 = anti-pyroglutamate-Aβ Fab "c#17" (pE3-12 epitope), NOT antibody "D3"** as R-ELIFE/CLAUDE.md B5 state. Our B5 faithfully quotes R-ELIFE (now **pinned**), but 5MY4 is a weak/indirect homology proxy.

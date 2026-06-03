@@ -17,10 +17,21 @@ Env names may differ per cluster — the canonical name is in clusters/<cluster>
 
 *ANARCI needs HMMER; install via conda (confirm).
 
+> **Env→role mapping (Frontenac, 2026-06-03):** see `docs/env/env_mapping.md`. Several roles are
+> already covered by pre-existing envs (colabfold, mpnn, rfd_clean/rfdiffusion/SE3nv, BindCraft);
+> canonical names live in `clusters/frontenac.env`.
+
 ## Manual / licensed / container checklist (do NOT guess install commands)
-- [ ] PyRosetta license + install
-- [ ] FoldX license + binary
+- [x] PyRosetta — present (2026.3) in the **BindCraft** env (`CONDA_ENV_PYROSETTA`)
+- [ ] FoldX license + binary  (still missing)
+- [ ] Rosetta flex_ddG + AbLIFT  (still missing → `lecam-rosetta`)
 - [ ] AlphaFold3 container + model params (access-gated)
-- [ ] Boltz-2 + Chai-1 model weights
-- [ ] RFantibody + BindCraft repos + weights (isolate envs)
+- [ ] Boltz-2 + Chai-1 model weights  (→ `lecam-fold`; the Stage-5 ranker, D-004)
+- [x] BindCraft repo+env — present (`…/protein/alzheimer/bindcraft`, env `BindCraft`)
+- [x] ColabFold (AF2) — env + weights present (`~/.cache/colabfold/params`, 5.3G)
+- [x] ProteinMPNN repo — present (`…/protein/ProteinMPNN`); runtime env `mpnn`
+- [x] RFdiffusion — env `rfd_clean`/`rfdiffusion` (rfdiffusion 1.1.0)
+- [ ] RFantibody, LigandMPNN, SolubleMPNN  (still missing)
+- [ ] `lecam-ab` (ImmuneBuilder/IgFold/AbLang2/AntiBERTy/BioPhi) — not built
+- [ ] `lecam-dev` (Aggrescan3D/NetSolP/SoluProt/TAP/DeepViscosity) — not built
 - [ ] Confirm CUDA/cuDNN + module names per cluster (Frontenac A100; workers TBD)
