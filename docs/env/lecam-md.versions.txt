@@ -1,0 +1,14 @@
+# lecam-md — pinned versions (Frontenac, 2026-06-03). OpenMM MD / conformational ensembles.
+# CUDA platform VERIFIED on A100 (driver 595.58, job 11570164: 5 ns implicit-solvent MD). numpy<2 (mdtraj/openmm).
+# Run: env -u PYTHONPATH PYTHONNOUSERSITE=1 LD_LIBRARY_PATH=$CONDA_PREFIX/lib conda run -n lecam-md python ...
+## python
+python 3.11.15
+
+## key packages
+cuda-nvrtc                12.4.127             he02047a_2    conda-forge
+cuda-version              12.4                 h3060b56_3    conda-forge
+mdtraj                    1.11.1          np2py311hb255e1c_1    conda-forge
+numpy                     1.26.4          py311h64a7726_0    conda-forge
+openmm                    8.2.0           py311h5db57db_0    conda-forge
+pdbfixer                  1.12               pyhd8ed1ab_1    conda-forge
+scipy                     1.13.1          py311h517d4fd_0    conda-forge

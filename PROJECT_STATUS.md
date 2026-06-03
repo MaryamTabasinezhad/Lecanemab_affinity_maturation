@@ -1,6 +1,6 @@
 # PROJECT_STATUS.md — lecanemab-am
 
-**Last updated:** 2026-06-03  ·  **Updated by:** Hamid (with Claude)  ·  **Phase:** Phase 0 (envs done; Boltz-2 A100-verified) → Stage 2 started (WT Fv model built)
+**Last updated:** 2026-06-03  ·  **Updated by:** Hamid (with Claude)  ·  **Phase:** Phase 0 (envs done) → **Stage 2 COMPLETE** (Fv model + co-fold + pose gate + B3 MD); next Stage 3/4
 **GitHub:** `git@github.com:MaryamTabasinezhad/Lecanemab_affinity_maturation.git`  ·  **Project root:** `/global/project/hpcg6049/lecanemab-am` (Frontenac)  ·  **Coordinator:** Frontenac · **Workers:** none active yet
 
 ---
@@ -18,7 +18,7 @@ Immediate next action: **PI decision on OQ-7** (epitope-homology template set); 
 |---|---|---|
 | 0 | Provisioning (repo, envs, HPC paths, ledger) | ◐ scaffold+ledger+`lecam`+`lecam-ab`+`lecam-fold`+`lecam-chai` built; **Boltz-2 A100-verified** (R-MODULES resolved); build-needed `lecam-dev`/AF3 + remaining smoke tests (Chai/ColabFold/RFdiffusion/BindCraft) |
 | 1 | Inputs, Targets & Objective Lock-In | ◐ Fv+CDRs+antigens+B1–B7 done; monomer template resolved (D-009) + coords fetched; metrics thresholds await Stage-2 baseline; OQ-7 homology-set open |
-| 2 | Structural Modeling & Conformational Ensembles | ◐ **gate MET** (2.4): 2.1 Fv model, 2.2 co-fold (iptm 0.961±0.019), 2.4 pose-cluster — dominant family 68%, consensus epitope Aβ 1-11/13-15, CDR-H3-led paratope; only 2.3 MD ensemble (`lecam-md`) + ipSAE remain |
+| 2 | Structural Modeling & Conformational Ensembles | ☑ **complete**: 2.1 Fv model; 2.2 co-fold (ipSAE Fv-Aβ 0.53±0.26); 2.4 pose-cluster (family 68%, epitope Aβ 1-11/13-15, CDR-H3 paratope, OQ-1 informed); 2.3 MD → **B3 confirmed** (Aβ N-term flexible: RMSF 2.1Å, 98% coil; core 6-11 ordered). (AlphaFlow optional.) |
 | 3 | Paratope Mapping & Design-Space Definition | ☐ |
 | 4 | Variant Generation (multi-track) | ☐ |
 | 5 | In Silico Affinity Scoring & Consensus Ranking | ☐ |
@@ -97,6 +97,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 
 ## Changelog
 
+- **2026-06-03 (j)** — Built **`lecam-md`** (OpenMM 8.2 CUDA + pdbfixer + mdtraj; A100-verified) and ran **Stage 2.3 MD** (`scripts/stage2_model/md_flexibility.py`, `slurm/stage2_md.sbatch`, A100 job 11570164, 5 ns implicit GBn2, Fv-framework-restrained). **B3 CONFIRMED:** engaged Aβ N-terminus (1-5) stays flexible — RMSF **2.10 Å**, **97.5% coil** — while the contacted core (6-11) is most ordered (RMSF 1.04 Å); C-term (12-16) RMSF 2.09 Å; CDR-H3 RMSF 0.77 Å. → `results/stage2/md-flex-11570164/md_flexibility.json`. **Stage 2 now complete** (gate + flexible-N). Caveat: 5 ns/implicit/single-pose → qualitative.
 - **2026-06-03 (i)** — **ipSAE on the 25 WT co-fold poses** (`scripts/stage2_model/compute_ipsae.py` wrapping official `scripts/_tools/ipsae.py` v4, pae10/dist10): **Fv–Aβ interface ipSAE = 0.53±0.26 (range 0.07–0.88)** vs intra-Fv VH–VL ipSAE 0.96. Confirms the iptm-0.96 caveat — interface confidence is moderate and **high-variance** (the real pose uncertainty iptm masked). Recorded as the headline M1 WT baseline in `metrics.yaml` (gate on Δ-ipSAE, not absolute iptm). → `results/stage2/cofold-wt-Abeta1-16-11544623/ipsae_summary.json`.
 - **2026-06-03 (h)** — **Stage 2.4 — pose clustering + epitope-register (Stage-2 GATE MET)** (`scripts/stage2_model/analyze_poses.py`, env `lecam`/biotite+scipy): analyzed the 25 co-fold poses → consensus epitope Aβ **1-11,13,14,15** (core 2-10 @100%); **OQ-1 informed** — footprint covers both lit "3-7" and B6 hotspots (Y10/E11/H13/H14/Q15; not K16). Dominant pose family **68%** (17/25), footprint Jaccard 0.864. Paratope **CDR-H3-led** (H3=10 residues, +L3/L1/H1/H2 +Vernier-flank FR). Gate: self-consistent family ✅, N-terminal/B3 ✅, not-contradicting-B6 ✅ — with documented uncertainty (iptm overconfident; pose=hypothesis, D-002). → `results/stage2/cofold-wt-Abeta1-16-11544623/pose_hypotheses.json`. Remaining Stage 2: 2.3 MD/AlphaFlow flexible-N ensemble (`lecam-md`) + ipSAE.
 - **2026-06-03 (g)** — **Stage 2.2 — multi-seed Boltz-2 co-fold** WT Fv + Aβ N-terminal **1-16** peptide (`slurm/stage2_cofold.sbatch`, `configs/stage2/cofold_wt_Abeta1-16.yaml`, A100 job 11544623, 5 min): 5 seeds × 5 samples = **25 models kept** (scratch) → WT baseline **iptm 0.961±0.019, ptm 0.974, plddt 0.944**; chain-pair iptm shows the peptide contacts **both VH (0.94) and VL (0.93)** (CDR-spanning paratope). Summary+manifest → `results/stage2/cofold-wt-Abeta1-16-11544623/`. WT baseline recorded in `metrics.yaml` M1 (as reference, not threshold). **Caveat:** Ab-Ag iptm is overconfident (guardrail 2/R-EGFR) → use Δ-vs-WT + ipSAE, not absolute. **Next:** 2.4 cluster the 25 poses + check epitope register vs B6 (Stage-2 gate, OQ-1); compute ipSAE; 2.3 MD ensemble (needs `lecam-md`).

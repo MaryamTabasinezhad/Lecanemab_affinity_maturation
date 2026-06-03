@@ -34,5 +34,6 @@ Env names may differ per cluster — the canonical name is in clusters/<cluster>
 - [x] RFdiffusion — env `rfd_clean`/`rfdiffusion` (rfdiffusion 1.1.0)
 - [ ] RFantibody, LigandMPNN, SolubleMPNN  (still missing)
 - [x] `lecam-ab` — **built 2026-06-03** (ImmuneBuilder/IgFold/AntiBERTy/AbLang2 verified; `scripts/env/build_lecam-ab.frontenac.sh`); BioPhi/Sapiens deferred to own env
+- [x] `lecam-md` — **built 2026-06-03** (OpenMM 8.2 CUDA + pdbfixer + mdtraj; A100-verified job 11570164; `scripts/env/build_lecam-md.frontenac.sh`); AlphaFlow optional/TODO
 - [ ] `lecam-dev` (Aggrescan3D/NetSolP/SoluProt/TAP/DeepViscosity) — not built
 - [x] Frontenac A100: driver 595.58.03 (CUDA 13.2); **no system CUDA module needed** for torch-bundled-CUDA tools; **no `--partition`** (auto-routes to gpubase_*). (Workers TBD.)

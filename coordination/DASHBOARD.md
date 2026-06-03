@@ -1,17 +1,18 @@
 # Campaign Dashboard — lecanemab-am
 
-**Last updated:** 2026-06-03 by frontenac — **Stage-2 GATE MET** (2.1/2.2/2.4 + ipSAE): epitope Aβ 1-11/13-15, pose family 68%, CDR-H3 paratope, ipSAE Fv-Aβ 0.53±0.26 (M1 baseline); only 2.3 MD remains; no SLURM jobs running.
+**Last updated:** 2026-06-03 by frontenac — **STAGE 2 COMPLETE**: Fv model + co-fold (ipSAE 0.53±0.26) + pose gate + 2.3 MD (B3 confirmed: Aβ N-term flexible). All 7 lecam-* envs except lecam-dev built. No SLURM jobs running.
 
 ## Cluster status
 | Cluster | Agent | Current work | SLURM jobs | Last update |
 |---|---|---|---|---|
-| Frontenac | F | Stage-2 gate met (pose ensemble); next 2.3 MD flexible-N (build lecam-md) + ipSAE, then Stage 3 | — | 2026-06-03 |
+| Frontenac | F | Stage 2 complete (gate + B3 MD); next Stage 3/4 (paratope→variant gen); build lecam-dev for Stage 6 | — | 2026-06-03 |
 | Narval | Narval | not activated | — | — |
 | Nibi | Nibi | not activated | — | — |
 
 ## Recent actions
 | Date | Agent | Action |
 |---|---|---|
+| 2026-06-03 | frontenac | Built **lecam-md** (OpenMM CUDA, A100-verified) + **Stage 2.3 MD**: B3 confirmed (Aβ N-term RMSF 2.1Å/98% coil; core ordered) → STAGE 2 COMPLETE |
 | 2026-06-03 | frontenac | **ipSAE on 25 poses**: Fv-Aβ 0.53±0.26 (vs VH-VL 0.96) → iptm-inflation confirmed; M1 baseline = ipSAE → ipsae_summary.json |
 | 2026-06-03 | frontenac | **Stage 2.4 pose-cluster + register (GATE MET)**: consensus epitope Aβ1-11/13-15, family 68%, CDR-H3-led; OQ-1 informed → pose_hypotheses.json |
 | 2026-06-03 | frontenac | **Stage 2.2 Boltz-2 co-fold** WT Fv + Aβ1-16 (job 11544623, 25 samples): iptm 0.961±0.019, peptide contacts both VH&VL → results/stage2/cofold-wt-Abeta1-16-11544623 |

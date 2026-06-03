@@ -1,0 +1,61 @@
+{
+  "stage": 2,
+  "step": "2.3_md_flexibility",
+  "platform": "CUDA",
+  "seed_pose": "/global/scratch/hpc6049/lecanemab-am/results/stage2/cofold-wt-Abeta1-16-11544623/seed_2/boltz_results_cofold_wt_Abeta1-16/predictions/cofold_wt_Abeta1-16/cofold_wt_Abeta1-16_model_3.pdb",
+  "ns": 5.0,
+  "n_frames": 500,
+  "n_framework_CA_restrained": 180,
+  "abeta_rmsf_A": {
+    "1": 4.066,
+    "2": 2.723,
+    "3": 1.63,
+    "4": 0.927,
+    "5": 1.144,
+    "6": 0.959,
+    "7": 0.801,
+    "8": 0.858,
+    "9": 1.221,
+    "10": 1.311,
+    "11": 1.109,
+    "12": 1.569,
+    "13": 1.897,
+    "14": 1.55,
+    "15": 2.165,
+    "16": 3.257
+  },
+  "abeta_coil_fraction": {
+    "1": 1.0,
+    "2": 0.906,
+    "3": 0.968,
+    "4": 1.0,
+    "5": 1.0,
+    "6": 1.0,
+    "7": 1.0,
+    "8": 0.034,
+    "9": 0.14,
+    "10": 0.108,
+    "11": 0.076,
+    "12": 0.044,
+    "13": 0.054,
+    "14": 0.842,
+    "15": 0.966,
+    "16": 1.0
+  },
+  "abeta_rmsf_means_A": {
+    "Nterm_1_5": 2.098,
+    "core_6_11": 1.043,
+    "Cterm_12_16": 2.088
+  },
+  "abeta_coil_means": {
+    "Nterm_1_5": 0.975,
+    "core_6_11": 0.393,
+    "Cterm_12_16": 0.581
+  },
+  "cdrh3_rmsf_A": 0.769,
+  "B3_verdict": {
+    "abeta_largely_coil": true,
+    "nterm_flexible": true,
+    "note": "B3 = engaged A\u03b2 N-terminus stays flexible/unstructured. Implicit-solvent MD with Fv-framework CA restraints; short timescale -> qualitative. Pose=hypothesis (D-002)."
+  }
+}

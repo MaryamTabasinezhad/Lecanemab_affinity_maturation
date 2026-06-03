@@ -13,7 +13,7 @@ Env names differ from the canonical `lecam-*` labels (CLAUDE.md §5); this table
 | Co-folding oracles | `lecam-fold` (Boltz-2) + `lecam-chai` (Chai-1) | **lecam-fold**, **lecam-chai** built 2026-06-03; **colabfold** (AF2) | ✅ Boltz-2+Chai-1 | AF3 = container (pending) |
 | Variant generation | `lecam-design` | **mpnn**, **rfd_clean**/**rfdiffusion**/**SE3nv**, **BindCraft** | ◐ strong | RFantibody, LigandMPNN, SolubleMPNN |
 | Physics scoring | `lecam-rosetta` | **BindCraft** (PyRosetta only) | ◐ partial | Rosetta flex_ddG, AbLIFT, FoldX (licensed) |
-| Conformational ensembles | `lecam-md` | OpenMM 8.5.1 inside colabfold/BindCraft | ◐ partial | dedicated env; AlphaFlow (opt) |
+| Conformational ensembles | `lecam-md` | **lecam-md** built 2026-06-03 (OpenMM 8.2 CUDA, A100-verified) | ✅ | AlphaFlow (opt) still TODO |
 | Developability | `lecam-dev` | *(none)* | ⛔ missing | build: Aggrescan3D, NetSolP, SoluProt, TAP, DeepViscosity, DE-STRESS |
 
 ## Existing envs — what's actually installed (verified 2026-06-03)
@@ -33,7 +33,7 @@ Env names differ from the canonical `lecam-*` labels (CLAUDE.md §5); this table
 2. ~~**`lecam-fold` / Boltz-2**~~ **BUILT 2026-06-03** (`scripts/env/build_lecam-fold.frontenac.sh`): Boltz-2 2.2.1, CUDA torch 2.6 cu124, `boltz.main` imports, `pip check` clean; weights cached on scratch (`$SCRATCH/cache/boltz`, 7.9G incl. the **affinity** model `boltz2_aff.ckpt`). **Chai-1 also BUILT** in its own env `lecam-chai` (`build_lecam-chai.frontenac.sh`; weights `$SCRATCH/cache/chai`, 6.6G incl. traced ESM2-3B) — separate because chai_lab conflicts with Boltz on requests/protobuf/pandas/rdkit. **Still pending:** AF3 (container, access-gated) + **A100 GPU fold smoke tests** for both. ColabFold/AF2 remains supplementary only (guardrail 2).
 3. **`lecam-dev`** — developability gate tools (Stage 6).
 4. **`lecam-rosetta`** — flex_ddG + AbLIFT + FoldX (licensed; PyRosetta already usable via BindCraft env).
-5. **`lecam-md`** — dedicated OpenMM/GROMACS env (interim: OpenMM 8.5.1 in colabfold/BindCraft).
+5. ~~**`lecam-md`**~~ **BUILT 2026-06-03** (`scripts/env/build_lecam-md.frontenac.sh`): OpenMM 8.2 (CUDA, A100-verified job 11570164) + pdbfixer + mdtraj. AlphaFlow (optional) still TODO.
 6. **Design extras** — RFantibody (antibody-specific RFdiffusion), LigandMPNN, SolubleMPNN.
 
 ## ⚠ pip build gotchas on Frontenac (apply to EVERY pip-based env build)

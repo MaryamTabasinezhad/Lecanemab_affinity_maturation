@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Phase 0 envs done → **Stage 2: GATE MET** (2.1 Fv model, 2.2 co-fold iptm 0.961±0.019, 2.4 pose-cluster). Consensus epitope Aβ 1-11/13-15 (OQ-1 informed), dominant pose family 68%, CDR-H3-led paratope. Remaining: 2.3 MD flexible-N ensemble (needs lecam-md) + ipSAE. metrics.yaml M1 has WT baseline; threshold still a decision.
+**Phase / Stage:** Phase 0 envs done → **STAGE 2 COMPLETE**: 2.1 Fv model, 2.2 co-fold (ipSAE Fv-Aβ 0.53±0.26), 2.4 pose-cluster/register gate (epitope Aβ 1-11/13-15, family 68%, CDR-H3 paratope, OQ-1 informed), 2.3 MD → **B3 confirmed** (Aβ N-term RMSF 2.1Å/98% coil; core ordered). **Next: Stage 3** (paratope/design-space — largely pre-mapped by 2.4) → **Stage 4** variant generation. metrics.yaml M1 baseline = ipSAE; threshold still a decision. lecam-dev still to build (Stage 6).
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -37,10 +37,13 @@ git pull origin main
 # DONE 2026-06-03: Stage 2.4 pose-cluster + epitope-register -> GATE MET (pose_hypotheses.json).
 #                 Consensus epitope Aβ 1-11/13-15; dominant family 68%; CDR-H3-led paratope; OQ-1 informed.
 #                 scripts/stage2_model/analyze_poses.py (lecam; LD_LIBRARY_PATH=$CONDA_PREFIX/lib).
-# DONE 2026-06-03: ipSAE computed on 25 poses (compute_ipsae.py + _tools/ipsae.py v4): Fv-Aβ 0.53±0.26
-#                 (vs intra-Fv VH-VL 0.96) -> metrics.yaml M1 headline baseline. High variance = real pose uncertainty.
-# Stage 2 remaining: 2.3 MD/AlphaFlow ensemble -> FLEXIBLE N-terminus check (B3); needs lecam-md (OpenMM; not built).
-#                 Then Stage 3 (paratope/design-space; largely pre-answered by 2.4) -> Stage 4 variant generation.
+# DONE 2026-06-03: lecam-md built (OpenMM 8.2 CUDA, A100-verified); Stage 2.3 MD -> B3 CONFIRMED
+#                 (Aβ N-term flexible RMSF 2.1Å/98% coil; core 6-11 ordered) -> results/stage2/md-flex-11570164.
+#                 STAGE 2 COMPLETE.
+# Next: Stage 3 (paratope mapping / design-space) — mostly pre-answered by 2.4 (CDR-H3-led paratope, epitope
+#       Aβ 1-11/13-15). Then Stage 4 variant generation (T1 framework/Vernier first per D-003).
+#       Stage-6 envs still to build: lecam-dev (developability), dedicated lecam-rosetta (flex_ddG/FoldX).
+#       Set metrics.yaml M1 threshold as a Δ-ipSAE gate (decision). AlphaFlow (2.3 alt) optional.
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
 
@@ -97,6 +100,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (j) — lecam-md built + Stage 2.3 MD (B3 confirmed)
+- Built `lecam-md` (conda-forge OpenMM 8.2 **CUDA** + pdbfixer + mdtraj; `scripts/env/build_lecam-md.frontenac.sh`). CUDA platform A100-verified (login lists only Reference/CPU — no GPU there).
+- `scripts/stage2_model/md_flexibility.py` + `slurm/stage2_md.sbatch`: 5 ns implicit-solvent (amber14/GBn2) MD of the best-ipSAE pose (seed2/model_3), Fv-framework CA restrained, CDR+Aβ free. A100 job 11570164 (15 min, CUDA, 500 frames).
+- **B3 confirmed:** Aβ N-term(1-5) RMSF **2.10 Å** / **97.5% coil**; core(6-11) RMSF 1.04 Å (most ordered = engaged); C-term(12-16) RMSF 2.09 Å; CDR-H3 RMSF 0.77 Å. → flexible/unstructured engaged N-terminus, contrasting fixed-N counter-targets (B4). → `results/stage2/md-flex-11570164/md_flexibility.json`.
+- Run rule: `LD_LIBRARY_PATH=$CONDA_PREFIX/lib` (OpenMM libstdc++/nvrtc vs CC StdEnv).
 
 ### 2026-06-03 (i) — ipSAE on the 25 WT co-fold poses
 - `scripts/stage2_model/compute_ipsae.py` wraps official `scripts/_tools/ipsae.py` v4 (Dunbrack 2025; supports Boltz npz+pdb), pae_cutoff=10 dist_cutoff=10. → `ipsae_summary.json` (+ manifest_ipsae.json).
