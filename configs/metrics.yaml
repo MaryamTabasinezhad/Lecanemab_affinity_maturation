@@ -7,8 +7,15 @@ metrics:
     stage: 5
     definition: "multi-sample Boltz-2/AF3 ipTM + ipSAE on Fv–protofibril complex"
     comparator: ">= WT (consensus improvement on >=2 independent scorers)"
-    threshold: TODO
+    threshold: TODO   # set as a DELTA-vs-WT gate (not absolute) once ipSAE + >=2 scorers exist; rationale -> docs/decisions
     source: R-MOSAIC
+    wt_baseline_Abeta1_16:   # measured Stage 2.2 (2026-06-03): Boltz-2 25-sample (5 seeds x 5), single-seq
+      iptm_mean: 0.961
+      iptm_std: 0.019
+      ptm_mean: 0.974
+      complex_plddt_mean: 0.944
+      run: results/stage2/cofold-wt-Abeta1-16-11544623
+      caveat: "Ab-Ag iptm is overconfident/poorly calibrated (guardrail 2, R-EGFR). Use DELTA vs WT + ipSAE, NOT absolute iptm. Epitope here = Aβ1-16 peptide, NOT the full protofibril (later OQ-1/Stage-5 step)."
   - id: M2_selectivity_monomer
     stage: 6
     definition: "Δprotofibril - Δmonomer"

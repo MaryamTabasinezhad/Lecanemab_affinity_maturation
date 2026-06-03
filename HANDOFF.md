@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Phase 0 envs done (Boltz-2 A100-verified) → **Stage 2 in progress** (2.1 WT Fv model built; next 2.2 Boltz-2 co-fold vs epitope, 2.3 ensemble). Stage-1 gate item (metrics thresholds) still awaits Stage-2 WT baseline scores.
+**Phase / Stage:** Phase 0 envs done → **Stage 2 in progress** (2.1 WT Fv model + 2.2 Boltz-2 co-fold vs Aβ1-16 done — WT baseline iptm 0.961±0.019 measured). Next: 2.4 pose-cluster + epitope-register check (Stage-2 gate, OQ-1) + ipSAE; 2.3 MD ensemble (needs lecam-md). metrics.yaml now has the WT baseline (M1); threshold still a decision.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -31,9 +31,13 @@ git pull origin main
 # DONE 2026-06-03: Stage 2.1 WT Fv model (ABodyBuilder2) -> results/stage2/fv-wt-20260603/ + data/interim/fv_model.pdb.
 #                 RUN compiled-dep envs with: env -u PYTHONPATH PYTHONNOUSERSITE=1 \
 #                   LD_LIBRARY_PATH=/global/home/hpc6049/.conda/envs/<env>/lib conda run -n <env> python ...
-# Stage 2 next: 2.2 multi-seed Boltz-2 co-fold of Fv vs protofibril epitope (D-010 homology ensemble;
-#               use lecam-fold on A100, boltz YAML protein(Fv)+protein(Abeta epitope), multi-seed, keep all samples);
-#               2.3 MD/AlphaFlow ensemble of Abeta N-terminus + CDR loops (needs lecam-md — not built yet).
+# DONE 2026-06-03: Stage 2.2 Boltz-2 co-fold WT Fv + Aβ1-16 (job 11544623): 25 samples,
+#                 iptm 0.961±0.019 -> results/stage2/cofold-wt-Abeta1-16-11544623/ (samples on scratch).
+#                 Reusable: slurm/stage2_cofold.sbatch + scripts/stage2_model/aggregate_cofold.py.
+# Stage 2 next: 2.4 cluster the 25 poses (Fv-Aβ contacts) + epitope-register check vs B6 hotspots
+#               (Y10/E11/H13/H14/Q15/K16) and lit "tolerant 3-7" -> pose_hypotheses.json; this is the
+#               Stage-2 GATE (self-consistent pose family, B3-consistent, not contradicting B6) + OQ-1.
+#               Compute ipSAE from PAE. 2.3 MD/AlphaFlow ensemble (needs lecam-md — not built).
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
 
@@ -90,6 +94,11 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (g) — Stage 2.2: Boltz-2 co-fold WT Fv + Aβ1-16
+- `slurm/stage2_cofold.sbatch` + `configs/stage2/cofold_wt_Abeta1-16.yaml` (Fv H/L + Aβ1-16 `DAEFRHDSGYEVHHQK`, single-seq). A100 job 11544623 (5 min). 5 seeds × 5 samples = **25 models** (all kept on scratch, D-004 discipline). Aggregated by `scripts/stage2_model/aggregate_cofold.py`.
+- **WT baseline:** iptm 0.961±0.019 (min 0.916/max 0.984), ptm 0.974, complex_plddt 0.944. Chain-pair iptm: H-P 0.94, L-P 0.93, H-L 0.985 → peptide contacts **both VH and VL** (CDR-spanning paratope). → `results/stage2/cofold-wt-Abeta1-16-11544623/summary.json` (+ manifest); recorded in metrics.yaml M1.
+- **CAVEAT (do not over-read):** Ab-Ag iptm is overconfident/poorly calibrated (guardrail 2, R-EGFR); 0.96 ≠ correct pose. Use Δ-vs-WT + ipSAE; pose is a hypothesis (D-002). Epitope = 1-16 peptide, not the protofibril.
 
 ### 2026-06-03 (f) — Stage 2.1: WT Fv model (ABodyBuilder2)
 - `scripts/stage2_model/model_fv_wt.py` (env lecam-ab) → refined Fv `results/stage2/fv-wt-20260603/fv_model.pdb` (+ `data/interim/fv_model.pdb`), `geometry_report.json`, `manifest.json`.

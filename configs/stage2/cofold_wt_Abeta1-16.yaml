@@ -1,0 +1,18 @@
+# Stage 2.2 — Boltz-2 co-fold input: WT lecanemab Fv (VH=H, VL=L) + Aβ N-terminal 1-16 peptide (P).
+# Aβ1-16 = DAEFRHDSGYEVHHQK (identical in Aβ40/42; covers lit N-terminal epitope + B6 hotspots
+#   Y10/E11/H13/H14/Q15/K16). msa: empty -> single-sequence (offline on compute node; deltas-vs-WT
+#   are computed with the SAME mode for every variant, per CLAUDE.md §8). Pose is a hypothesis (D-002).
+version: 1
+sequences:
+  - protein:
+      id: H
+      sequence: EVQLVESGGGLVQPGGSLRLSCSASGFTFSSFGMHWVRQAPGKGLEWVAYISSGSSTIYYGDTVKGRFTISRDNAKNSLFLQMSSLRAEDTAVYYCAREGGYYYGRSYYTMDYWGQGTTVTVSS
+      msa: empty
+  - protein:
+      id: L
+      sequence: DVVMTQSPLSLPVTPGAPASISCRSSQSIVHSNGNTYLEWYLQKPGQSPKLLIYKVSNRFSGVPDRFSGSGSGTDFTLRISRVEAEDVGIYYCFQGSHVPPTFGPGTKLEIK
+      msa: empty
+  - protein:
+      id: P
+      sequence: DAEFRHDSGYEVHHQK
+      msa: empty

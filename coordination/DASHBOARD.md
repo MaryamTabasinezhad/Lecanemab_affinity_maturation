@@ -1,17 +1,18 @@
 # Campaign Dashboard — lecanemab-am
 
-**Last updated:** 2026-06-03 by frontenac — **Stage 2 started: WT Fv model built** (ABodyBuilder2; CDR-H3 flagged); Boltz-2 A100-verified; envs lecam-ab/-fold/-chai built; no SLURM jobs running.
+**Last updated:** 2026-06-03 by frontenac — **Stage 2.1+2.2 done**: WT Fv model + Boltz-2 co-fold vs Aβ1-16 (iptm 0.961±0.019, 25 samples); next pose-cluster/register gate; no SLURM jobs running.
 
 ## Cluster status
 | Cluster | Agent | Current work | SLURM jobs | Last update |
 |---|---|---|---|---|
-| Frontenac | F | Stage 2.1 WT Fv model done; next 2.2 Boltz-2 co-fold vs epitope (A100), 2.3 ensemble (build lecam-md) | — | 2026-06-03 |
+| Frontenac | F | Stage 2.2 co-fold done (WT iptm baseline); next 2.4 pose-cluster + epitope-register gate (OQ-1) + ipSAE; 2.3 needs lecam-md | — | 2026-06-03 |
 | Narval | Narval | not activated | — | — |
 | Nibi | Nibi | not activated | — | — |
 
 ## Recent actions
 | Date | Agent | Action |
 |---|---|---|
+| 2026-06-03 | frontenac | **Stage 2.2 Boltz-2 co-fold** WT Fv + Aβ1-16 (job 11544623, 25 samples): iptm 0.961±0.019, peptide contacts both VH&VL → results/stage2/cofold-wt-Abeta1-16-11544623 |
 | 2026-06-03 | frontenac | **Stage 2.1 WT Fv model** (ABodyBuilder2): framework 0.25Å / CDR-H3 0.82Å pred error → results/stage2/fv-wt-20260603 |
 | 2026-06-03 | frontenac | **Boltz-2 A100 smoke test PASSED** (job 11542978, GB1 ptm 0.909); boltz[cuda]+torch2.12 cu130 required; R-MODULES resolved (no partition/CUDA module) |
 | 2026-06-03 | frontenac | Built **lecam-fold** (Boltz-2, +affinity model) & **lecam-chai** (Chai-1) co-folding oracles; weights cached on scratch (7.9G+6.6G); split envs (dep conflict) |
