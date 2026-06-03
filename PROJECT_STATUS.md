@@ -1,6 +1,6 @@
 # PROJECT_STATUS.md — lecanemab-am
 
-**Last updated:** 2026-06-03  ·  **Updated by:** Hamid (with Claude)  ·  **Phase:** Phase 0 (envs done) → **Stage 2 COMPLETE** (Fv model + co-fold + pose gate + B3 MD); next Stage 3/4
+**Last updated:** 2026-06-03  ·  **Updated by:** Hamid (with Claude)  ·  **Phase:** Stage 2 complete → **Stage 4 T1 started** (first CDR-preserving framework variants in ledger)
 **GitHub:** `git@github.com:MaryamTabasinezhad/Lecanemab_affinity_maturation.git`  ·  **Project root:** `/global/project/hpcg6049/lecanemab-am` (Frontenac)  ·  **Coordinator:** Frontenac · **Workers:** none active yet
 
 ---
@@ -20,7 +20,7 @@ Immediate next action: **PI decision on OQ-7** (epitope-homology template set); 
 | 1 | Inputs, Targets & Objective Lock-In | ◐ Fv+CDRs+antigens+B1–B7 done; monomer template resolved (D-009) + coords fetched; metrics thresholds await Stage-2 baseline; OQ-7 homology-set open |
 | 2 | Structural Modeling & Conformational Ensembles | ☑ **complete**: 2.1 Fv model; 2.2 co-fold (ipSAE Fv-Aβ 0.53±0.26); 2.4 pose-cluster (family 68%, epitope Aβ 1-11/13-15, CDR-H3 paratope, OQ-1 informed); 2.3 MD → **B3 confirmed** (Aβ N-term flexible: RMSF 2.1Å, 98% coil; core 6-11 ordered). (AlphaFlow optional.) |
 | 3 | Paratope Mapping & Design-Space Definition | ☐ |
-| 4 | Variant Generation (multi-track) | ☐ |
+| 4 | Variant Generation (multi-track) | ◐ **T1 started** (CDR-preserving): AbLang2/OAS-prior framework reversions → 3 single mutants in ledger (LEC-AM-T1-0001..3); framework already humanized (few candidates) → AbLIFT/Rosetta VH-VL redesign pending `lecam-rosetta`. T2/T3/T4 not started |
 | 5 | In Silico Affinity Scoring & Consensus Ranking | ☐ |
 | 6 | Selectivity Counter-Design, Humanness & Developability | ☐ |
 | 7 | Format, Valency & Delivery Engineering | ☐ |
@@ -86,7 +86,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 | Git remote (GitHub) | ☑ set (`origin`, SSH auth OK as `hamidghaedi`) |
 | Coordination scaffold (`clusters/`, `coordination/`) | ☑ created |
 | Conda envs | ◐ **mapped 2026-06-03** (`docs/env/env_mapping.md`): `lecam`✅; **`lecam-ab`✅** (ImmuneBuilder/IgFold/AntiBERTy/AbLang2); **`lecam-fold`✅ Boltz-2** + **`lecam-chai`✅ Chai-1** (weights cached on scratch; GPU smoke tests owed); design via existing `mpnn`/`rfd_clean`/`rfdiffusion`/`SE3nv`/`BindCraft`; AF2 via `colabfold`; PyRosetta via `BindCraft`. **Build-needed:** `lecam-dev`, dedicated `lecam-rosetta`/`-md`; +RFantibody/LigandMPNN; AF3 container; BioPhi/Sapiens (own env) |
-| DuckDB ledger | ☑ initialized (`db/variants.duckdb`, `variants` 27 cols) |
+| DuckDB ledger | ☑ initialized + **3 T1 variants loaded** (`db/variants.duckdb`; git-shared `db/exports/variants.csv`) |
 | Lecanemab Fv sequence | ☑ sourced + verified (2 sources) + ANARCI-numbered (IMGT/Kabat/Chothia) + CDRs/Vernier |
 | Antigen templates | ◐ IDs identified + **coords fetched** (`data/raw/antigen/coords/`, git-ignored); monomer template **resolved (D-009)**; EMDB maps deferred (Globus); **OQ-7** homology-set open |
 | `docs/sources/` extracts (B1–B7) | ◐ written; **B5 D3/5MY4 sentence pinned + 5MY4 identity caveat (OQ-7)**; B2 + R-REV sentences still flagged |
@@ -97,6 +97,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 
 ## Changelog
 
+- **2026-06-03 (k)** — **Stage 4 T1 started** (CDR-preserving framework/Vernier; D-003). `scripts/stage4_gen/t1_framework_lm.py` (AbLang2 paired, OAS prior): per-position log-odds (logit[mut]−logit[wt], normalization-free → guardrail 4); all IMGT CDRs protected; Vernier tagged. **Finding: lecanemab framework is already strongly OAS-consistent** — only 3 framework positions clear log-odds≥0.5: **LC:A17D (2.92), HC:T70S (1.11), HC:S24A (1.09)** → registered LEC-AM-T1-0001..3 (`db/variants.duckdb` + `db/exports/variants.csv`; FASTA/manifest in `results/stage4/t1-20260603/`). The AbLIFT/Rosetta VH-VL interface-redesign half of T1 is pending `lecam-rosetta`. Next: score T1 (Boltz-2 Δ-ipSAE vs WT) + Stage-6 developability/humanness; T2/T3/T4.
 - **2026-06-03 (j)** — Built **`lecam-md`** (OpenMM 8.2 CUDA + pdbfixer + mdtraj; A100-verified) and ran **Stage 2.3 MD** (`scripts/stage2_model/md_flexibility.py`, `slurm/stage2_md.sbatch`, A100 job 11570164, 5 ns implicit GBn2, Fv-framework-restrained). **B3 CONFIRMED:** engaged Aβ N-terminus (1-5) stays flexible — RMSF **2.10 Å**, **97.5% coil** — while the contacted core (6-11) is most ordered (RMSF 1.04 Å); C-term (12-16) RMSF 2.09 Å; CDR-H3 RMSF 0.77 Å. → `results/stage2/md-flex-11570164/md_flexibility.json`. **Stage 2 now complete** (gate + flexible-N). Caveat: 5 ns/implicit/single-pose → qualitative.
 - **2026-06-03 (i)** — **ipSAE on the 25 WT co-fold poses** (`scripts/stage2_model/compute_ipsae.py` wrapping official `scripts/_tools/ipsae.py` v4, pae10/dist10): **Fv–Aβ interface ipSAE = 0.53±0.26 (range 0.07–0.88)** vs intra-Fv VH–VL ipSAE 0.96. Confirms the iptm-0.96 caveat — interface confidence is moderate and **high-variance** (the real pose uncertainty iptm masked). Recorded as the headline M1 WT baseline in `metrics.yaml` (gate on Δ-ipSAE, not absolute iptm). → `results/stage2/cofold-wt-Abeta1-16-11544623/ipsae_summary.json`.
 - **2026-06-03 (h)** — **Stage 2.4 — pose clustering + epitope-register (Stage-2 GATE MET)** (`scripts/stage2_model/analyze_poses.py`, env `lecam`/biotite+scipy): analyzed the 25 co-fold poses → consensus epitope Aβ **1-11,13,14,15** (core 2-10 @100%); **OQ-1 informed** — footprint covers both lit "3-7" and B6 hotspots (Y10/E11/H13/H14/Q15; not K16). Dominant pose family **68%** (17/25), footprint Jaccard 0.864. Paratope **CDR-H3-led** (H3=10 residues, +L3/L1/H1/H2 +Vernier-flank FR). Gate: self-consistent family ✅, N-terminal/B3 ✅, not-contradicting-B6 ✅ — with documented uncertainty (iptm overconfident; pose=hypothesis, D-002). → `results/stage2/cofold-wt-Abeta1-16-11544623/pose_hypotheses.json`. Remaining Stage 2: 2.3 MD/AlphaFlow flexible-N ensemble (`lecam-md`) + ipSAE.

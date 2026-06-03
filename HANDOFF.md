@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Phase 0 envs done → **STAGE 2 COMPLETE**: 2.1 Fv model, 2.2 co-fold (ipSAE Fv-Aβ 0.53±0.26), 2.4 pose-cluster/register gate (epitope Aβ 1-11/13-15, family 68%, CDR-H3 paratope, OQ-1 informed), 2.3 MD → **B3 confirmed** (Aβ N-term RMSF 2.1Å/98% coil; core ordered). **Next: Stage 3** (paratope/design-space — largely pre-mapped by 2.4) → **Stage 4** variant generation. metrics.yaml M1 baseline = ipSAE; threshold still a decision. lecam-dev still to build (Stage 6).
+**Phase / Stage:** Stage 2 complete → **Stage 4 T1 started**: AbLang2/OAS-prior CDR-preserving framework reversions → 3 single mutants in ledger (LEC-AM-T1-0001..3: LC:A17D, HC:T70S, HC:S24A). Framework already humanized → AbLIFT/Rosetta VH-VL half of T1 pending lecam-rosetta. Next: SCORE T1 (Boltz-2 Δ-ipSAE vs WT, reuse stage2_cofold harness per variant) + developability (build lecam-dev); then T2/T3/T4.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -40,10 +40,12 @@ git pull origin main
 # DONE 2026-06-03: lecam-md built (OpenMM 8.2 CUDA, A100-verified); Stage 2.3 MD -> B3 CONFIRMED
 #                 (Aβ N-term flexible RMSF 2.1Å/98% coil; core 6-11 ordered) -> results/stage2/md-flex-11570164.
 #                 STAGE 2 COMPLETE.
-# Next: Stage 3 (paratope mapping / design-space) — mostly pre-answered by 2.4 (CDR-H3-led paratope, epitope
-#       Aβ 1-11/13-15). Then Stage 4 variant generation (T1 framework/Vernier first per D-003).
-#       Stage-6 envs still to build: lecam-dev (developability), dedicated lecam-rosetta (flex_ddG/FoldX).
-#       Set metrics.yaml M1 threshold as a Δ-ipSAE gate (decision). AlphaFlow (2.3 alt) optional.
+# DONE 2026-06-03: Stage 4 T1 (LM-prior) -> 3 framework variants in ledger (LEC-AM-T1-0001..3).
+#       Loader: scripts/_tools/ledger_load_csv.py (lecam). Gen: scripts/stage4_gen/t1_framework_lm.py (lecam-ab).
+# Next: (1) SCORE T1 variants = per-variant Boltz-2 multi-seed co-fold vs Aβ1-16, Δ-ipSAE vs WT
+#       (reuse slurm/stage2_cofold.sbatch + aggregate_cofold/compute_ipsae; make a per-variant YAML);
+#       (2) build lecam-dev (developability) + lecam-rosetta (AbLIFT/flex_ddG/FoldX) to expand+score T1;
+#       (3) T2/T3/T4 tracks; (4) set metrics.yaml M1 threshold as Δ-ipSAE gate (decision).
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
 
@@ -100,6 +102,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (k) — Stage 4 T1 (framework, LM-prior) — first variants in ledger
+- `scripts/stage4_gen/t1_framework_lm.py` (lecam-ab, AbLang2 paired OAS prior): CDR-preserving framework/Vernier point mutants by per-position log-odds (logit[mut]−logit[wt]); IMGT CDRs protected; Vernier (Kabat) tagged.
+- **Finding:** lecanemab framework is strongly OAS-consistent — only 3 positions clear log-odds≥0.5: **LC:A17D (2.92), HC:T70S (1.11), HC:S24A (1.09)** (all framework, no Vernier). Not padded with marginal noise (guardrail 4).
+- Registered LEC-AM-T1-0001..3 → `db/variants.duckdb` (via `scripts/_tools/ledger_load_csv.py`) + `db/exports/variants.csv` (git-shared). FASTA/CSV/manifest in `results/stage4/t1-20260603/`.
+- T1's AbLIFT/Rosetta VH-VL interface-redesign sub-method pending `lecam-rosetta`.
 
 ### 2026-06-03 (j) — lecam-md built + Stage 2.3 MD (B3 confirmed)
 - Built `lecam-md` (conda-forge OpenMM 8.2 **CUDA** + pdbfixer + mdtraj; `scripts/env/build_lecam-md.frontenac.sh`). CUDA platform A100-verified (login lists only Reference/CPU — no GPU there).

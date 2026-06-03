@@ -1,0 +1,4 @@
+variant_id,parent,track,chain,mutations,n_mut,edit_dist_to_wt,status,source_config
+LEC-AM-T1-0001,lecanemab_WT,T1,LC,LC:A17D,1,1,generated,"{""method"": ""AbLang2(paired) OAS prior"", ""logodds"": 2.919, ""region"": ""framework"", ""seq_pos"": 17, ""run_id"": ""t1-20260603"", ""logodds_threshold"": 0.5}"
+LEC-AM-T1-0002,lecanemab_WT,T1,HC,HC:T70S,1,1,generated,"{""method"": ""AbLang2(paired) OAS prior"", ""logodds"": 1.109, ""region"": ""framework"", ""seq_pos"": 63, ""run_id"": ""t1-20260603"", ""logodds_threshold"": 0.5}"
+LEC-AM-T1-0003,lecanemab_WT,T1,HC,HC:S24A,1,1,generated,"{""method"": ""AbLang2(paired) OAS prior"", ""logodds"": 1.086, ""region"": ""framework"", ""seq_pos"": 23, ""run_id"": ""t1-20260603"", ""logodds_threshold"": 0.5}"
