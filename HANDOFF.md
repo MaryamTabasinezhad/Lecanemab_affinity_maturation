@@ -20,11 +20,12 @@ git pull origin main
 #                  (fetch_antigen_templates.sh, git-ignored); B5 D3/5MY4 sentence pinned + caveat.
 # DONE 2026-06-03: OQ-7 resolved (D-010) -> homology set 6CO3/5CSZ/3BKJ/4HIX; 5MY4 = weak proxy.
 # Stage 1 leftover: set configs/metrics.yaml thresholds once a Stage-2 WT baseline exists.
-# DONE 2026-06-03: env MAPPING complete -> docs/env/env_mapping.md + clusters/frontenac.env CONDA_ENV_*.
-# Phase 0 remaining = BUILDS: lecam-ab (ImmuneBuilder/IgFold/AbLang2/AntiBERTy/BioPhi),
-#                 lecam-fold (Boltz-2/Chai-1 = Stage-5 ranker), lecam-dev (developability),
-#                 dedicated lecam-rosetta (flex_ddG/FoldX)/-md; +RFantibody/LigandMPNN.
+# DONE 2026-06-03: env MAPPING -> docs/env/env_mapping.md; lecam-ab BUILT (ImmuneBuilder/IgFold/AntiBERTy/AbLang2).
+# Phase 0 remaining = BUILDS: lecam-fold (Boltz-2/Chai-1 = Stage-5 ranker), lecam-dev (developability),
+#                 dedicated lecam-rosetta (flex_ddG/FoldX)/-md; +RFantibody/LigandMPNN; BioPhi/Sapiens (own env).
 #                 Then A100 smoke tests (ColabFold/RFdiffusion/BindCraft 1-job) + confirm SLURM modules.
+# PIP ON FRONTENAC (every env): env -u PYTHONPATH PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null conda run -n <env> \
+#                 pip install --index-url https://pypi.org/simple ...   (CC wheelhouse + _manylinux shim else break wheels)
 # Stage 2 start: Fv model (ImmuneBuilder/IgFold) + multi-seed co-fold vs protofibril epitope.
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
@@ -82,6 +83,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (c) — Built lecam-ab env
+- `scripts/env/build_lecam-ab.frontenac.sh` (reproducible) → **ImmuneBuilder/ABodyBuilder2, IgFold, AntiBERTy, AbLang2** all verified loading (py3.10, CPU **torch 2.5.1**, numpy 2.2.6). Model weights pre-downloaded on login node (compute nodes have no internet). Versions: `docs/env/lecam-ab.versions.txt`.
+- **Frontenac pip hazards solved (generalizable — applies to lecam-fold/-dev builds):** (1) CC wheelhouse hijack → `PIP_CONFIG_FILE=/dev/null` + explicit `--index-url`; (2) CC `_manylinux` shim on `PYTHONPATH` disables manylinux wheels (36 tags, source-build fallback fails on tokenizers/Rust) → **`env -u PYTHONPATH`** (→657 tags); (3) `PYTHONNOUSERSITE=1` silences pydantic plugin warning.
+- Version pins that matter: **transformers 4.40.2** (antiberty 0.1.3 breaks on 5.x: `all_tied_weights_keys`); **torch 2.5.1** not 2.6 (2.6 `weights_only=True` default breaks IgFold ckpt load); setuptools<81 + matplotlib for IgFold.
+- **Deferred:** BioPhi/Sapiens (humanness, Stage 6) → own env, fairseq/Flask conflicts.
 
 ### 2026-06-03 (b) — Phase-0 env mapping
 - Inventoried existing conda envs (`conda list`, not assumed) → mapped to `lecam-*` roles in `clusters/frontenac.env`; authoritative table in `docs/env/env_mapping.md`.

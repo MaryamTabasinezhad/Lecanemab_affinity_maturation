@@ -32,6 +32,6 @@ Env names may differ per cluster — the canonical name is in clusters/<cluster>
 - [x] ProteinMPNN repo — present (`…/protein/ProteinMPNN`); runtime env `mpnn`
 - [x] RFdiffusion — env `rfd_clean`/`rfdiffusion` (rfdiffusion 1.1.0)
 - [ ] RFantibody, LigandMPNN, SolubleMPNN  (still missing)
-- [ ] `lecam-ab` (ImmuneBuilder/IgFold/AbLang2/AntiBERTy/BioPhi) — not built
+- [x] `lecam-ab` — **built 2026-06-03** (ImmuneBuilder/IgFold/AntiBERTy/AbLang2 verified; `scripts/env/build_lecam-ab.frontenac.sh`); BioPhi/Sapiens deferred to own env
 - [ ] `lecam-dev` (Aggrescan3D/NetSolP/SoluProt/TAP/DeepViscosity) — not built
 - [ ] Confirm CUDA/cuDNN + module names per cluster (Frontenac A100; workers TBD)

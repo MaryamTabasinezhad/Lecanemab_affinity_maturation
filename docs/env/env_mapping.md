@@ -9,7 +9,7 @@ Env names differ from the canonical `lecam-*` labels (CLAUDE.md §5); this table
 | Role (§5) | Canonical | Existing env(s) on Frontenac | Coverage | Gap to fill |
 |---|---|---|---|---|
 | Orchestration | `lecam` | **lecam** | ✅ full | — |
-| Antibody modeling & LMs | `lecam-ab` | *(none)* | ⛔ missing | build: ImmuneBuilder, IgFold, AbLang2, AntiBERTy, BioPhi/Sapiens |
+| Antibody modeling & LMs | `lecam-ab` | **lecam-ab** (built 2026-06-03) | ✅ core | ImmuneBuilder+IgFold+AntiBERTy+AbLang2 verified; **BioPhi/Sapiens deferred** to own env |
 | Co-folding oracles | `lecam-fold` | **colabfold** (AF2 only) | ◐ partial | build: **Boltz-2**, Chai-1; AF3 container |
 | Variant generation | `lecam-design` | **mpnn**, **rfd_clean**/**rfdiffusion**/**SE3nv**, **BindCraft** | ◐ strong | RFantibody, LigandMPNN, SolubleMPNN |
 | Physics scoring | `lecam-rosetta` | **BindCraft** (PyRosetta only) | ◐ partial | Rosetta flex_ddG, AbLIFT, FoldX (licensed) |
@@ -29,12 +29,20 @@ Env names differ from the canonical `lecam-*` labels (CLAUDE.md §5); this table
 | **BindCraft** | 3.10 | bindcraft + colabdesign 1.1.3, jax 0.6.0, openmm 8.5.1, **pyrosetta 2026.3** | `lecam-design` (BindCraft/ColabDesign), `lecam-rosetta` (PyRosetta) | repo `…/protein/alzheimer/bindcraft`; doubles as PyRosetta host |
 
 ## Build-needed (provisioning backlog — Phase 0)
-1. **`lecam-ab`** — antibody structure (ImmuneBuilder/ABodyBuilder2, IgFold) + LMs (AbLang2, AntiBERTy, BioPhi/Sapiens). Needed Stage 2/3/6.
+1. ~~**`lecam-ab`**~~ **BUILT 2026-06-03** (`scripts/env/build_lecam-ab.frontenac.sh`, versions in `lecam-ab.versions.txt`): ImmuneBuilder/ABodyBuilder2 + IgFold + AntiBERTy + AbLang2, all verified loading (CPU torch 2.5.1; weights cached on login node). **Remaining for this role:** BioPhi/Sapiens humanness (Stage 6) → recommend a separate `lecam-hum` env (fairseq/Flask conflicts).
 2. **`lecam-fold` / Boltz-2** — the Stage-5 affinity ranker (D-004 = multi-sample Boltz-2/AF3 ipTM+ipSAE). ColabFold/AF2 is **supplementary**, not a substitute (AF-Multimer weak on CDR-H3/epitope pose — guardrail 2). Chai-1 + AF3 container also pending.
 3. **`lecam-dev`** — developability gate tools (Stage 6).
 4. **`lecam-rosetta`** — flex_ddG + AbLIFT + FoldX (licensed; PyRosetta already usable via BindCraft env).
 5. **`lecam-md`** — dedicated OpenMM/GROMACS env (interim: OpenMM 8.5.1 in colabfold/BindCraft).
 6. **Design extras** — RFantibody (antibody-specific RFdiffusion), LigandMPNN, SolubleMPNN.
+
+## ⚠ pip build gotchas on Frontenac (apply to EVERY pip-based env build)
+The CC StdEnv breaks PyPI pip installs two ways — both must be neutralized or wheels fail / source-build:
+1. **CC wheelhouse hijack** — `PIP_CONFIG_FILE` points at a CVMFS config whose find-links serve `+computecanada` wheels (glibc 2.29/2.30) that break on system glibc 2.28. → set `PIP_CONFIG_FILE=/dev/null` and an explicit `--index-url`.
+2. **`_manylinux` shim** — `PYTHONPATH=/cvmfs/.../custom/python/site-packages` contains a `_manylinux.py` that **disables manylinux detection** (pip sees 36 tags, no manylinux → rejects all PyPI manylinux wheels → falls back to source builds, e.g. tokenizers needs Rust and fails). → run pip with **`env -u PYTHONPATH`** (restores 657 tags incl `manylinux_2_17_x86_64`).
+3. `PYTHONNOUSERSITE=1` — silences the harmless `anaconda-cloud-auth` GLIBC_2.30 plugin warning from a py3.12 pydantic in `~/.local`.
+
+Canonical wrapper: `env -u PYTHONPATH PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null conda run -n <env> pip install --index-url https://pypi.org/simple ...`
 
 ## Smoke tests still owed (A100, before first heavy submit)
 - [ ] ColabFold 1-target fold (verify GPU + cached weights)

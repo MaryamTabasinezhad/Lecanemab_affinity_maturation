@@ -16,7 +16,7 @@ Immediate next action: **PI decision on OQ-7** (epitope-homology template set); 
 
 | Stage | Title | Status |
 |---|---|---|
-| 0 | Provisioning (repo, envs, HPC paths, ledger) | ◐ scaffold+ledger+`lecam` done; **envs mapped** (`docs/env/env_mapping.md`); build-needed `lecam-ab`/`-fold`(Boltz-2)/`-dev` + A100 smoke tests pending |
+| 0 | Provisioning (repo, envs, HPC paths, ledger) | ◐ scaffold+ledger+`lecam` done; envs mapped; **`lecam-ab` built**; build-needed `lecam-fold`(Boltz-2)/`-dev` + A100 smoke tests pending |
 | 1 | Inputs, Targets & Objective Lock-In | ◐ Fv+CDRs+antigens+B1–B7 done; monomer template resolved (D-009) + coords fetched; metrics thresholds await Stage-2 baseline; OQ-7 homology-set open |
 | 2 | Structural Modeling & Conformational Ensembles | ☐ |
 | 3 | Paratope Mapping & Design-Space Definition | ☐ |
@@ -39,7 +39,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 2. Set `configs/metrics.yaml` thresholds + WT references once a Stage-2 WT baseline exists (currently TODO).
 3. ~~Pick Aβ-monomer counter-target template~~ **DONE (D-009: 1Z0Q primary, 2LFM Aβ40 control).**
 4. Pin exact B2 (>10⁶ selectivity, R-ANA) sentence (paywalled). B5 D3/5MY4 sentence **pinned 2026-06-03**; R-REV "no co-structure" sentence still to pin.
-4. Phase-0 finish: ~~env mapping~~ **DONE** (`docs/env/env_mapping.md`); remaining **builds** = `lecam-ab` (ImmuneBuilder/IgFold/AbLang2/AntiBERTy/BioPhi), `lecam-fold` (**Boltz-2**/Chai-1), `lecam-dev` (developability), +RFantibody/LigandMPNN; A100 smoke tests (ColabFold/RFdiffusion/BindCraft 1-job each); confirm SLURM module names.
+4. Phase-0 finish: ~~env mapping~~ **DONE**; ~~`lecam-ab`~~ **BUILT** (ImmuneBuilder/IgFold/AntiBERTy/AbLang2). Remaining **builds** = `lecam-fold` (**Boltz-2**/Chai-1 — Stage-5 ranker), `lecam-dev` (developability), +RFantibody/LigandMPNN, BioPhi/Sapiens (own env); A100 smoke tests (ColabFold/RFdiffusion/BindCraft 1-job each); confirm SLURM module names.
 5. Begin Stage 2: Fv model (ImmuneBuilder/IgFold) + multi-seed co-fold against the protofibril epitope.
 
 **Blocked:** none.
@@ -84,7 +84,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 | Repo skeleton | ☑ created (`00_init.sh`) |
 | Git remote (GitHub) | ☑ set (`origin`, SSH auth OK as `hamidghaedi`) |
 | Coordination scaffold (`clusters/`, `coordination/`) | ☑ created |
-| Conda envs | ◐ **mapped 2026-06-03** (`docs/env/env_mapping.md`): `lecam`✅; design covered by existing `mpnn`/`rfd_clean`/`rfdiffusion`/`SE3nv`/`BindCraft`; AF2 via `colabfold` (+weights); PyRosetta via `BindCraft`. **Build-needed:** `lecam-ab`, `lecam-fold`(Boltz-2), `lecam-dev`, dedicated `lecam-rosetta`/`-md`; +RFantibody/LigandMPNN |
+| Conda envs | ◐ **mapped 2026-06-03** (`docs/env/env_mapping.md`): `lecam`✅; **`lecam-ab`✅ built** (ImmuneBuilder/IgFold/AntiBERTy/AbLang2); design via existing `mpnn`/`rfd_clean`/`rfdiffusion`/`SE3nv`/`BindCraft`; AF2 via `colabfold` (+weights); PyRosetta via `BindCraft`. **Build-needed:** `lecam-fold`(Boltz-2), `lecam-dev`, dedicated `lecam-rosetta`/`-md`; +RFantibody/LigandMPNN; BioPhi/Sapiens (own env) |
 | DuckDB ledger | ☑ initialized (`db/variants.duckdb`, `variants` 27 cols) |
 | Lecanemab Fv sequence | ☑ sourced + verified (2 sources) + ANARCI-numbered (IMGT/Kabat/Chothia) + CDRs/Vernier |
 | Antigen templates | ◐ IDs identified + **coords fetched** (`data/raw/antigen/coords/`, git-ignored); monomer template **resolved (D-009)**; EMDB maps deferred (Globus); **OQ-7** homology-set open |
@@ -96,6 +96,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 
 ## Changelog
 
+- **2026-06-03 (c)** — Built **`lecam-ab`** env (`scripts/env/build_lecam-ab.frontenac.sh`; versions in `docs/env/lecam-ab.versions.txt`): ImmuneBuilder/ABodyBuilder2, IgFold, AntiBERTy, AbLang2 — all verified loading (py3.10, CPU torch 2.5.1, numpy 2.2.6; weights cached on login node). Resolved Frontenac pip hazards: CC wheelhouse hijack (`PIP_CONFIG_FILE=/dev/null`) **and** the CC `_manylinux` shim on `PYTHONPATH` that disabled manylinux wheels (`env -u PYTHONPATH`); pinned transformers 4.40.2 (antiberty breaks on 5.x) and torch 2.5.1 (2.6 weights_only break vs IgFold ckpts). **Deferred:** BioPhi/Sapiens humanness → own env (fairseq/Flask conflicts).
 - **2026-06-03 (b)** — Phase-0 **env mapping** (`docs/env/env_mapping.md`): inventoried existing conda envs (verified via `conda list`) and mapped to `lecam-*` roles in `clusters/frontenac.env`. Covered now: orchestration (`lecam`), design (ProteinMPNN`mpnn`, RFdiffusion`rfd_clean`/`rfdiffusion`/`SE3nv`, BindCraft+ColabDesign`BindCraft`), AF2 oracle (`colabfold`+5.3G weights), PyRosetta (in `BindCraft`), OpenMM (interim). Located repos (ProteinMPNN, BindCraft) + ColabFold weights. **Build-needed:** `lecam-ab`, `lecam-fold`(Boltz-2/Chai-1), `lecam-dev`, dedicated `lecam-rosetta`(flex_ddG/FoldX)/`-md`; +RFantibody/LigandMPNN/SolubleMPNN. A100 smoke tests still owed.
 - **2026-06-03 (a)** — Stage-1/2 prep: resolved Aβ-monomer counter-target template (**D-009**: 1Z0Q primary Aβ42, 2LFM Aβ40 control, 1IYT rejected as apolar/helical; RCSB-grounded). Added reproducible `scripts/stage1_inputs/fetch_antigen_templates.sh` → fetched antigen/reference mmCIFs to `data/raw/antigen/coords/` (git-ignored; manifest in `coords/`). **Discrepancy found:** PDB **5MY4** (R-ELIFE "D3" homology ref) is actually anti-pyroglutamate-Aβ Fab c#17 (pE3-12), not a full-length N-terminal binder → pinned the exact R-ELIFE sentence + added 5MY4 identity caveat. **OQ-7 resolved same day (PI) → D-010:** primary epitope-homology set = 6CO3 (aducanumab) / 5CSZ (gantenerumab) / 3BKJ (WO2 1-16) / 4HIX (3D6); 5MY4 demoted to weak proxy; 4 new refs fetched. No campaign-parameter changes.
 - **2026-06-01** — Phase 0 executed (`00_init.sh`): repo tree, git repo, coordination scaffold, `db/schema.sql`. Built `lecam` env from conda-forge/bioconda after finding CC wheelhouse incompatible with login-node glibc 2.28 (D-007). Initialized DuckDB ledger. **Stage 1:** sourced+verified lecanemab Fv (KEGG D11678 ↔ patent US9573994B2; D-008) → `data/raw/lecanemab_fv.fasta`; ANARCI-numbered (IMGT/Kabat/Chothia) + CDR/Vernier map (`scripts/stage1_inputs/number_fv.py` → `data/interim/fv_numbering/`); identified antigen templates (`data/raw/antigen/antigen_templates.md`); extracted B1–B7 sentences (`docs/sources/`). Relaxed `.claude/settings.json` deny-list to permit package installs (kept rm-rf/sudo/apt/shutdown blocks).
