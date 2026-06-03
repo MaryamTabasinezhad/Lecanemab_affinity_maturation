@@ -1,0 +1,12 @@
+{
+  "stage": 2,
+  "step": "2.4_pose_analysis",
+  "tool": "biotite+scipy (lecam)",
+  "n_poses": 25,
+  "scratch_dir": "/global/scratch/hpc6049/lecanemab-am/results/stage2/cofold-wt-Abeta1-16-11544623",
+  "contact_cutoff_A": 4.5,
+  "git_commit": "6a46838f8ae95a1104789aeed6639768b0a91337",
+  "outputs": [
+    "pose_hypotheses.json"
+  ]
+}

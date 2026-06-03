@@ -1,0 +1,287 @@
+{
+  "stage": 2,
+  "step": "2.4_pose_cluster_epitope_register",
+  "n_poses": 25,
+  "epitope_footprint_freq": {
+    "1": 0.96,
+    "2": 1.0,
+    "3": 1.0,
+    "4": 1.0,
+    "5": 1.0,
+    "6": 1.0,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 0.96,
+    "12": 0.28,
+    "13": 0.72,
+    "14": 0.88,
+    "15": 0.76,
+    "16": 0.32
+  },
+  "consensus_epitope_positions_ge50pct": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    13,
+    14,
+    15
+  ],
+  "consensus_epitope_residues": "DAEFRHDSGYEHHQ",
+  "paratope_cdr_residues_ge50pct": [
+    {
+      "chain": "H",
+      "resid": 50,
+      "cdr": "FR",
+      "freq": 1.0
+    },
+    {
+      "chain": "H",
+      "resid": 59,
+      "cdr": "FR",
+      "freq": 1.0
+    },
+    {
+      "chain": "L",
+      "resid": 31,
+      "cdr": "L1",
+      "freq": 1.0
+    },
+    {
+      "chain": "L",
+      "resid": 98,
+      "cdr": "L3",
+      "freq": 1.0
+    },
+    {
+      "chain": "H",
+      "resid": 31,
+      "cdr": "H1",
+      "freq": 1.0
+    },
+    {
+      "chain": "H",
+      "resid": 101,
+      "cdr": "H3",
+      "freq": 1.0
+    },
+    {
+      "chain": "L",
+      "resid": 97,
+      "cdr": "L3",
+      "freq": 1.0
+    },
+    {
+      "chain": "H",
+      "resid": 109,
+      "cdr": "H3",
+      "freq": 1.0
+    },
+    {
+      "chain": "H",
+      "resid": 57,
+      "cdr": "H2",
+      "freq": 1.0
+    },
+    {
+      "chain": "L",
+      "resid": 32,
+      "cdr": "L1",
+      "freq": 1.0
+    },
+    {
+      "chain": "L",
+      "resid": 96,
+      "cdr": "L3",
+      "freq": 1.0
+    },
+    {
+      "chain": "L",
+      "resid": 99,
+      "cdr": "L3",
+      "freq": 1.0
+    },
+    {
+      "chain": "H",
+      "resid": 32,
+      "cdr": "H1",
+      "freq": 1.0
+    },
+    {
+      "chain": "H",
+      "resid": 99,
+      "cdr": "H3",
+      "freq": 1.0
+    },
+    {
+      "chain": "H",
+      "resid": 53,
+      "cdr": "H2",
+      "freq": 0.96
+    },
+    {
+      "chain": "L",
+      "resid": 101,
+      "cdr": "L3",
+      "freq": 0.96
+    },
+    {
+      "chain": "H",
+      "resid": 105,
+      "cdr": "H3",
+      "freq": 0.92
+    },
+    {
+      "chain": "H",
+      "resid": 100,
+      "cdr": "H3",
+      "freq": 0.92
+    },
+    {
+      "chain": "H",
+      "resid": 108,
+      "cdr": "H3",
+      "freq": 0.88
+    },
+    {
+      "chain": "H",
+      "resid": 104,
+      "cdr": "H3",
+      "freq": 0.84
+    },
+    {
+      "chain": "H",
+      "resid": 33,
+      "cdr": "H1",
+      "freq": 0.84
+    },
+    {
+      "chain": "H",
+      "resid": 56,
+      "cdr": "H2",
+      "freq": 0.8
+    },
+    {
+      "chain": "H",
+      "resid": 52,
+      "cdr": "H2",
+      "freq": 0.8
+    },
+    {
+      "chain": "H",
+      "resid": 47,
+      "cdr": "FR",
+      "freq": 0.72
+    },
+    {
+      "chain": "L",
+      "resid": 27,
+      "cdr": "L1",
+      "freq": 0.72
+    },
+    {
+      "chain": "H",
+      "resid": 102,
+      "cdr": "H3",
+      "freq": 0.68
+    },
+    {
+      "chain": "H",
+      "resid": 107,
+      "cdr": "H3",
+      "freq": 0.68
+    },
+    {
+      "chain": "H",
+      "resid": 28,
+      "cdr": "H1",
+      "freq": 0.64
+    },
+    {
+      "chain": "L",
+      "resid": 30,
+      "cdr": "L1",
+      "freq": 0.56
+    },
+    {
+      "chain": "H",
+      "resid": 106,
+      "cdr": "H3",
+      "freq": 0.56
+    },
+    {
+      "chain": "H",
+      "resid": 35,
+      "cdr": "FR",
+      "freq": 0.52
+    },
+    {
+      "chain": "L",
+      "resid": 1,
+      "cdr": "FR",
+      "freq": 0.52
+    }
+  ],
+  "pose_clusters": {
+    "n_clusters": 7,
+    "sizes": {
+      "1": 2,
+      "2": 1,
+      "3": 2,
+      "4": 17,
+      "5": 1,
+      "6": 1,
+      "7": 1
+    },
+    "largest_fraction": 0.68,
+    "mean_pairwise_Abeta_ca_rmsd": 3.395,
+    "cutoff_A": 3.0
+  },
+  "footprint_self_consistency_mean_jaccard": 0.864,
+  "register_comparison": {
+    "B6_hotspots": [
+      10,
+      11,
+      13,
+      14,
+      15,
+      16
+    ],
+    "B6_hotspots_in_consensus": [
+      10,
+      11,
+      13,
+      14,
+      15
+    ],
+    "lit_3to7": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "lit_3to7_in_consensus": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "gate": {
+    "self_consistent_pose_family": true,
+    "n_terminal_engaged_B3": true,
+    "not_contradicting_B6": true,
+    "note": "Pose is a hypothesis (D-002); Ab-Ag iptm overconfident (guardrail 2). B3 flexible-N check is the MD step (2.3). Register treated as a hypothesis set (B6)."
+  }
+}

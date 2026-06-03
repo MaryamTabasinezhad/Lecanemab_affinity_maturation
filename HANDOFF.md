@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Phase 0 envs done → **Stage 2 in progress** (2.1 WT Fv model + 2.2 Boltz-2 co-fold vs Aβ1-16 done — WT baseline iptm 0.961±0.019 measured). Next: 2.4 pose-cluster + epitope-register check (Stage-2 gate, OQ-1) + ipSAE; 2.3 MD ensemble (needs lecam-md). metrics.yaml now has the WT baseline (M1); threshold still a decision.
+**Phase / Stage:** Phase 0 envs done → **Stage 2: GATE MET** (2.1 Fv model, 2.2 co-fold iptm 0.961±0.019, 2.4 pose-cluster). Consensus epitope Aβ 1-11/13-15 (OQ-1 informed), dominant pose family 68%, CDR-H3-led paratope. Remaining: 2.3 MD flexible-N ensemble (needs lecam-md) + ipSAE. metrics.yaml M1 has WT baseline; threshold still a decision.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -34,10 +34,12 @@ git pull origin main
 # DONE 2026-06-03: Stage 2.2 Boltz-2 co-fold WT Fv + Aβ1-16 (job 11544623): 25 samples,
 #                 iptm 0.961±0.019 -> results/stage2/cofold-wt-Abeta1-16-11544623/ (samples on scratch).
 #                 Reusable: slurm/stage2_cofold.sbatch + scripts/stage2_model/aggregate_cofold.py.
-# Stage 2 next: 2.4 cluster the 25 poses (Fv-Aβ contacts) + epitope-register check vs B6 hotspots
-#               (Y10/E11/H13/H14/Q15/K16) and lit "tolerant 3-7" -> pose_hypotheses.json; this is the
-#               Stage-2 GATE (self-consistent pose family, B3-consistent, not contradicting B6) + OQ-1.
-#               Compute ipSAE from PAE. 2.3 MD/AlphaFlow ensemble (needs lecam-md — not built).
+# DONE 2026-06-03: Stage 2.4 pose-cluster + epitope-register -> GATE MET (pose_hypotheses.json).
+#                 Consensus epitope Aβ 1-11/13-15; dominant family 68%; CDR-H3-led paratope; OQ-1 informed.
+#                 scripts/stage2_model/analyze_poses.py (lecam; LD_LIBRARY_PATH=$CONDA_PREFIX/lib).
+# Stage 2 remaining: 2.3 MD/AlphaFlow ensemble of Aβ N-terminus + CDR loops to confirm FLEXIBLE N-terminus
+#                 (B3) -> requires building lecam-md (OpenMM; not built). Compute ipSAE from Boltz PAE
+#                 (interface-specific; for Stage-5 ranking). Then Stage 3 (paratope/design-space).
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
 
@@ -94,6 +96,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (h) — Stage 2.4: pose cluster + epitope register (GATE MET)
+- `scripts/stage2_model/analyze_poses.py` (lecam/biotite+scipy) on the 25 poses → `pose_hypotheses.json` + `manifest_2.4.json`.
+- Consensus epitope (≥50% poses): Aβ **1-11, 13, 14, 15** (positions 2-10 @ 100%; V12 28%, K16 32%). Paratope CDR-H3-led (10 H3 residues; + L3/L1/H1/H2 + Vernier-flank FR e.g. H50/H59).
+- **OQ-1 informed:** footprint covers BOTH lit "3-7" (all 100%) and B6 hotspots (Y10/E11/H13/H14/Q15; not K16) → neither contradicted; kept as hypothesis set (D-002).
+- Pose family: largest cluster 17/25 (**68%**), Aβ-CA mean pairwise RMSD 3.4 Å, footprint Jaccard 0.864. Gate ✅ (self-consistent family, N-terminal/B3, not-contradicting-B6) with documented uncertainty.
 
 ### 2026-06-03 (g) — Stage 2.2: Boltz-2 co-fold WT Fv + Aβ1-16
 - `slurm/stage2_cofold.sbatch` + `configs/stage2/cofold_wt_Abeta1-16.yaml` (Fv H/L + Aβ1-16 `DAEFRHDSGYEVHHQK`, single-seq). A100 job 11544623 (5 min). 5 seeds × 5 samples = **25 models** (all kept on scratch, D-004 discipline). Aggregated by `scripts/stage2_model/aggregate_cofold.py`.
