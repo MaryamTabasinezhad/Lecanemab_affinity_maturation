@@ -37,9 +37,10 @@ git pull origin main
 # DONE 2026-06-03: Stage 2.4 pose-cluster + epitope-register -> GATE MET (pose_hypotheses.json).
 #                 Consensus epitope Aβ 1-11/13-15; dominant family 68%; CDR-H3-led paratope; OQ-1 informed.
 #                 scripts/stage2_model/analyze_poses.py (lecam; LD_LIBRARY_PATH=$CONDA_PREFIX/lib).
-# Stage 2 remaining: 2.3 MD/AlphaFlow ensemble of Aβ N-terminus + CDR loops to confirm FLEXIBLE N-terminus
-#                 (B3) -> requires building lecam-md (OpenMM; not built). Compute ipSAE from Boltz PAE
-#                 (interface-specific; for Stage-5 ranking). Then Stage 3 (paratope/design-space).
+# DONE 2026-06-03: ipSAE computed on 25 poses (compute_ipsae.py + _tools/ipsae.py v4): Fv-Aβ 0.53±0.26
+#                 (vs intra-Fv VH-VL 0.96) -> metrics.yaml M1 headline baseline. High variance = real pose uncertainty.
+# Stage 2 remaining: 2.3 MD/AlphaFlow ensemble -> FLEXIBLE N-terminus check (B3); needs lecam-md (OpenMM; not built).
+#                 Then Stage 3 (paratope/design-space; largely pre-answered by 2.4) -> Stage 4 variant generation.
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
 
@@ -96,6 +97,11 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (i) — ipSAE on the 25 WT co-fold poses
+- `scripts/stage2_model/compute_ipsae.py` wraps official `scripts/_tools/ipsae.py` v4 (Dunbrack 2025; supports Boltz npz+pdb), pae_cutoff=10 dist_cutoff=10. → `ipsae_summary.json` (+ manifest_ipsae.json).
+- **Fv–Aβ interface ipSAE = 0.531 ± 0.256 (range 0.07–0.88)**; H-P 0.531, L-P 0.494; intra-Fv VH-VL 0.964 (sanity, genuine). The headline iptm 0.961 was inflated by VH-VL; ipSAE is the interface-specific number → recorded as M1 baseline in metrics.yaml.
+- **Interpretation:** contact footprint is consistent (2.4 Jaccard 0.86) but interface *confidence* is moderate + high-variance → pose genuinely uncertain (D-002); rank variants by Δ-ipSAE with multi-sample consensus, never absolute iptm.
 
 ### 2026-06-03 (h) — Stage 2.4: pose cluster + epitope register (GATE MET)
 - `scripts/stage2_model/analyze_poses.py` (lecam/biotite+scipy) on the 25 poses → `pose_hypotheses.json` + `manifest_2.4.json`.

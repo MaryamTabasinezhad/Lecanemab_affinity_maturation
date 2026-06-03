@@ -1,6 +1,6 @@
 # Campaign Dashboard — lecanemab-am
 
-**Last updated:** 2026-06-03 by frontenac — **Stage-2 GATE MET** (2.1/2.2/2.4): consensus epitope Aβ 1-11/13-15, dominant pose family 68%, CDR-H3-led paratope, OQ-1 informed; only 2.3 MD + ipSAE remain; no SLURM jobs running.
+**Last updated:** 2026-06-03 by frontenac — **Stage-2 GATE MET** (2.1/2.2/2.4 + ipSAE): epitope Aβ 1-11/13-15, pose family 68%, CDR-H3 paratope, ipSAE Fv-Aβ 0.53±0.26 (M1 baseline); only 2.3 MD remains; no SLURM jobs running.
 
 ## Cluster status
 | Cluster | Agent | Current work | SLURM jobs | Last update |
@@ -12,6 +12,7 @@
 ## Recent actions
 | Date | Agent | Action |
 |---|---|---|
+| 2026-06-03 | frontenac | **ipSAE on 25 poses**: Fv-Aβ 0.53±0.26 (vs VH-VL 0.96) → iptm-inflation confirmed; M1 baseline = ipSAE → ipsae_summary.json |
 | 2026-06-03 | frontenac | **Stage 2.4 pose-cluster + register (GATE MET)**: consensus epitope Aβ1-11/13-15, family 68%, CDR-H3-led; OQ-1 informed → pose_hypotheses.json |
 | 2026-06-03 | frontenac | **Stage 2.2 Boltz-2 co-fold** WT Fv + Aβ1-16 (job 11544623, 25 samples): iptm 0.961±0.019, peptide contacts both VH&VL → results/stage2/cofold-wt-Abeta1-16-11544623 |
 | 2026-06-03 | frontenac | **Stage 2.1 WT Fv model** (ABodyBuilder2): framework 0.25Å / CDR-H3 0.82Å pred error → results/stage2/fv-wt-20260603 |

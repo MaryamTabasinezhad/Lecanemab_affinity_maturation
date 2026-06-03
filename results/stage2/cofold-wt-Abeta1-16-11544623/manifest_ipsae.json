@@ -1,0 +1,13 @@
+{
+  "stage": 2,
+  "step": "ipSAE",
+  "tool": "ipsae.py v4",
+  "n_poses": 25,
+  "pae_cutoff": 10,
+  "dist_cutoff": 10,
+  "scratch_dir": "/global/scratch/hpc6049/lecanemab-am/results/stage2/cofold-wt-Abeta1-16-11544623",
+  "git_commit": "7ffd74a54ae8ebfcf8b1208866a01b4abe75963f",
+  "outputs": [
+    "ipsae_summary.json"
+  ]
+}
