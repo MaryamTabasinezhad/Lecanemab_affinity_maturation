@@ -1,0 +1,9 @@
+# Phase-0 Boltz-2 GPU smoke-test input — GB1 (protein G B1 domain, 56 aa).
+# Single-sequence mode (msa: empty) so it runs OFFLINE on a compute node
+# (no MMseqs2 server). Tests the GPU path + offline weights, not accuracy.
+version: 1
+sequences:
+  - protein:
+      id: A
+      sequence: MTYKLILNGKTLKGETTTEAVDAATAEKVFKQYANDNGVDGEWTYDDATKTFTVTE
+      msa: empty

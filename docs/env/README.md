@@ -26,7 +26,7 @@ Env names may differ per cluster — the canonical name is in clusters/<cluster>
 - [ ] FoldX license + binary  (still missing)
 - [ ] Rosetta flex_ddG + AbLIFT  (still missing → `lecam-rosetta`)
 - [ ] AlphaFold3 container + model params (access-gated)
-- [x] Boltz-2 — env `lecam-fold` built; weights cached `$SCRATCH/cache/boltz` (7.9G, incl. affinity model)
+- [x] Boltz-2 — env `lecam-fold` built (boltz[cuda], torch 2.12 cu130) + **A100-verified** (GB1, ptm 0.909); weights cached `$SCRATCH/cache/boltz` (7.9G, incl. affinity model)
 - [x] Chai-1 — env `lecam-chai` built (separate; dep conflict); weights `$SCRATCH/cache/chai` (6.6G, incl. ESM2-3B)
 - [x] BindCraft repo+env — present (`…/protein/alzheimer/bindcraft`, env `BindCraft`)
 - [x] ColabFold (AF2) — env + weights present (`~/.cache/colabfold/params`, 5.3G)
@@ -35,4 +35,4 @@ Env names may differ per cluster — the canonical name is in clusters/<cluster>
 - [ ] RFantibody, LigandMPNN, SolubleMPNN  (still missing)
 - [x] `lecam-ab` — **built 2026-06-03** (ImmuneBuilder/IgFold/AntiBERTy/AbLang2 verified; `scripts/env/build_lecam-ab.frontenac.sh`); BioPhi/Sapiens deferred to own env
 - [ ] `lecam-dev` (Aggrescan3D/NetSolP/SoluProt/TAP/DeepViscosity) — not built
-- [ ] Confirm CUDA/cuDNN + module names per cluster (Frontenac A100; workers TBD)
+- [x] Frontenac A100: driver 595.58.03 (CUDA 13.2); **no system CUDA module needed** for torch-bundled-CUDA tools; **no `--partition`** (auto-routes to gpubase_*). (Workers TBD.)

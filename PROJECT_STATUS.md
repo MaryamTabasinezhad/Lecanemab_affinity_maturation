@@ -16,7 +16,7 @@ Immediate next action: **PI decision on OQ-7** (epitope-homology template set); 
 
 | Stage | Title | Status |
 |---|---|---|
-| 0 | Provisioning (repo, envs, HPC paths, ledger) | ◐ scaffold+ledger+`lecam` done; envs mapped; **`lecam-ab`+`lecam-fold`(Boltz-2)+`lecam-chai`(Chai-1) built** (weights cached); build-needed `lecam-dev`/AF3 + A100 smoke tests pending |
+| 0 | Provisioning (repo, envs, HPC paths, ledger) | ◐ scaffold+ledger+`lecam`+`lecam-ab`+`lecam-fold`+`lecam-chai` built; **Boltz-2 A100-verified** (R-MODULES resolved); build-needed `lecam-dev`/AF3 + remaining smoke tests (Chai/ColabFold/RFdiffusion/BindCraft) |
 | 1 | Inputs, Targets & Objective Lock-In | ◐ Fv+CDRs+antigens+B1–B7 done; monomer template resolved (D-009) + coords fetched; metrics thresholds await Stage-2 baseline; OQ-7 homology-set open |
 | 2 | Structural Modeling & Conformational Ensembles | ☐ |
 | 3 | Paratope Mapping & Design-Space Definition | ☐ |
@@ -40,7 +40,8 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 3. ~~Pick Aβ-monomer counter-target template~~ **DONE (D-009: 1Z0Q primary, 2LFM Aβ40 control).**
 4. Pin exact B2 (>10⁶ selectivity, R-ANA) sentence (paywalled). B5 D3/5MY4 sentence **pinned 2026-06-03**; R-REV "no co-structure" sentence still to pin.
 4. Phase-0 finish: ~~env mapping~~ **DONE**; ~~`lecam-ab`~~ **BUILT**; ~~`lecam-fold`/Boltz-2 + `lecam-chai`/Chai-1~~ **BUILT** (weights cached on scratch). Remaining **builds** = `lecam-dev` (developability), AF3 container, dedicated `lecam-rosetta`/`-md`, +RFantibody/LigandMPNN, BioPhi/Sapiens (own env); **A100 GPU smoke tests** (Boltz-2/Chai-1/ColabFold/RFdiffusion/BindCraft 1-job each) + confirm SLURM module names.
-5. Begin Stage 2: Fv model (ImmuneBuilder/IgFold) + multi-seed co-fold against the protofibril epitope.
+5. ~~Boltz-2 A100 smoke test~~ **DONE** (job 11542978, ptm 0.909; R-MODULES resolved). Remaining smoke tests: Chai-1, ColabFold, RFdiffusion, BindCraft.
+6. Begin Stage 2: Fv model (ImmuneBuilder/IgFold via `lecam-ab`) + multi-seed Boltz-2 co-fold (`lecam-fold`) against the protofibril epitope (D-010 homology ensemble).
 
 **Blocked:** none.
 
@@ -70,7 +71,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 - **OQ-3 — avidity metric.** Define a concrete valency-aware "avidity-adjusted affinity" score for in-silico use (Stage 6).
 - **OQ-4 — Fc / ARIA scope.** Decide whether Fc effector engineering is in-scope (currently optional, Stage 7).
 - **R-ENV — tooling conflicts.** AF3 / Boltz-2 / RFantibody / BindCraft likely need isolated envs or containers; resolve at Phase 0.
-- **R-MODULES — HPC module names.** Frontenac CUDA/module names are placeholders in `slurm/` templates → confirm on first login before submitting (no guessing).
+- ~~**R-MODULES — HPC module names.**~~ **RESOLVED 2026-06-03** (Boltz-2 A100 smoke test, job 11542978): A100 node driver 595.58.03 (CUDA 13.2); torch-bundled-CUDA tools need **no system CUDA module**; **no `--partition`** flag (SLURM auto-routes `gpu:a100` to `gpubase_*`). Recorded in `slurm/_template.sbatch`. (Only revisit if a tool needs system-CUDA compilation, or for worker clusters.)
 - **OQ-5 — worker clusters.** Which clusters to hire (Narval / Nibi candidates from prior project) and when; activate via `clusters/<cluster>.env` + `clusters/<cluster>/CLAUDE.md`.
 - **OQ-6 — Globus endpoints.** Confirm per-cluster Globus endpoint UUIDs + base paths for `lecanemab-am` before any large transfer (`coordination/globus/endpoints.md`).
 - ~~**OQ-7 — epitope homology template set.**~~ **RESOLVED 2026-06-03 → D-010** (PI sign-off): primary homology set = 6CO3/5CSZ/3BKJ/4HIX (full-length N-terminal anti-Aβ Fabs); 5MY4 demoted to annotated weak proxy. Coordinates fetched. Feeds Stage-2/3 pose ensemble + OQ-1.
@@ -89,13 +90,14 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 | Lecanemab Fv sequence | ☑ sourced + verified (2 sources) + ANARCI-numbered (IMGT/Kabat/Chothia) + CDRs/Vernier |
 | Antigen templates | ◐ IDs identified + **coords fetched** (`data/raw/antigen/coords/`, git-ignored); monomer template **resolved (D-009)**; EMDB maps deferred (Globus); **OQ-7** homology-set open |
 | `docs/sources/` extracts (B1–B7) | ◐ written; **B5 D3/5MY4 sentence pinned + 5MY4 identity caveat (OQ-7)**; B2 + R-REV sentences still flagged |
-| SLURM templates verified on Frontenac | ☐ not verified (module names placeholder) |
+| SLURM templates verified on Frontenac | ☑ verified 2026-06-03 (Boltz-2 A100 job 11542978; no --partition, no CUDA module) |
 | Worker clusters activated | ☐ none (Frontenac only) |
 
 ---
 
 ## Changelog
 
+- **2026-06-03 (e)** — **Boltz-2 A100 GPU smoke test PASSED** (job 11542978, frnt154, ~1 min): single-seq GB1 fold from offline scratch weights → valid 56-res structure, ptm 0.909 / complex_plddt 0.94 (`slurm/smoke_boltz2.sbatch` + `slurm/smoke/boltz2_gb1.yaml`). Fixed: Boltz-2's GPU forward path **requires the `boltz[cuda]` extra** (cuequivariance kernels) — pip resolved torch 2.12 cu130 (build script + versions updated). **R-MODULES resolved:** A100 driver 595.58.03 (CUDA 13.2), no system CUDA module needed, no `--partition` (auto-routes to gpubase_*); recorded in `slurm/_template.sbatch`.
 - **2026-06-03 (d)** — Built **`lecam-fold`** (Boltz-2 2.2.1) and **`lecam-chai`** (Chai-1 0.6.1) co-folding oracles (`scripts/env/build_lecam-{fold,chai}.frontenac.sh`; versions in `docs/env/lecam-{fold,chai}.versions.txt`). Both: py3.11, CUDA torch 2.6 cu124, numpy<2; imports verified, `pip check` clean. Weights pre-fetched to **scratch** (login node, since compute nodes are offline): Boltz `$SCRATCH/cache/boltz` 7.9G (struct + **affinity** model + CCD), Chai `$SCRATCH/cache/chai` 6.6G (6 components + traced ESM2-3B + conformers). **Split into two envs** because chai_lab conflicts with Boltz on requests/protobuf/pandas/rdkit (§5 isolation rule). Created the scratch tree (`$SCRATCH_ROOT`); cache-path vars added to `clusters/frontenac.env`. **Owed:** A100 GPU fold smoke tests + AF3 container.
 - **2026-06-03 (c)** — Built **`lecam-ab`** env (`scripts/env/build_lecam-ab.frontenac.sh`; versions in `docs/env/lecam-ab.versions.txt`): ImmuneBuilder/ABodyBuilder2, IgFold, AntiBERTy, AbLang2 — all verified loading (py3.10, CPU torch 2.5.1, numpy 2.2.6; weights cached on login node). Resolved Frontenac pip hazards: CC wheelhouse hijack (`PIP_CONFIG_FILE=/dev/null`) **and** the CC `_manylinux` shim on `PYTHONPATH` that disabled manylinux wheels (`env -u PYTHONPATH`); pinned transformers 4.40.2 (antiberty breaks on 5.x) and torch 2.5.1 (2.6 weights_only break vs IgFold ckpts). **Deferred:** BioPhi/Sapiens humanness → own env (fairseq/Flask conflicts).
 - **2026-06-03 (b)** — Phase-0 **env mapping** (`docs/env/env_mapping.md`): inventoried existing conda envs (verified via `conda list`) and mapped to `lecam-*` roles in `clusters/frontenac.env`. Covered now: orchestration (`lecam`), design (ProteinMPNN`mpnn`, RFdiffusion`rfd_clean`/`rfdiffusion`/`SE3nv`, BindCraft+ColabDesign`BindCraft`), AF2 oracle (`colabfold`+5.3G weights), PyRosetta (in `BindCraft`), OpenMM (interim). Located repos (ProteinMPNN, BindCraft) + ColabFold weights. **Build-needed:** `lecam-ab`, `lecam-fold`(Boltz-2/Chai-1), `lecam-dev`, dedicated `lecam-rosetta`(flex_ddG/FoldX)/`-md`; +RFantibody/LigandMPNN/SolubleMPNN. A100 smoke tests still owed.

@@ -20,10 +20,12 @@ git pull origin main
 #                  (fetch_antigen_templates.sh, git-ignored); B5 D3/5MY4 sentence pinned + caveat.
 # DONE 2026-06-03: OQ-7 resolved (D-010) -> homology set 6CO3/5CSZ/3BKJ/4HIX; 5MY4 = weak proxy.
 # Stage 1 leftover: set configs/metrics.yaml thresholds once a Stage-2 WT baseline exists.
-# DONE 2026-06-03: env MAPPING; lecam-ab BUILT; lecam-fold (Boltz-2) + lecam-chai (Chai-1) BUILT, weights cached on scratch.
+# DONE 2026-06-03: envs mapped; lecam-ab + lecam-fold(Boltz-2) + lecam-chai(Chai-1) built, weights cached.
+# DONE 2026-06-03: Boltz-2 A100 smoke test PASSED (job 11542978, ptm 0.909); R-MODULES resolved
+#                 (no --partition, no CUDA module; A100 driver 595.58). sbatch: slurm/smoke_boltz2.sbatch.
 # Phase 0 remaining = BUILDS: lecam-dev (developability), AF3 container, dedicated lecam-rosetta (flex_ddG/FoldX)/-md;
 #                 +RFantibody/LigandMPNN; BioPhi/Sapiens (own env).
-#                 Then A100 GPU smoke tests (Boltz-2/Chai-1/ColabFold/RFdiffusion/BindCraft 1-job) + confirm SLURM modules.
+#                 Remaining smoke tests: Chai-1, ColabFold, RFdiffusion, BindCraft (pattern: copy smoke_boltz2.sbatch).
 # PIP ON FRONTENAC (every env): env -u PYTHONPATH PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null conda run -n <env> \
 #                 pip install --index-url https://pypi.org/simple ...   (CC wheelhouse + _manylinux shim else break wheels)
 # Stage 2 start: Fv model (ImmuneBuilder/IgFold) + multi-seed co-fold vs protofibril epitope.
@@ -83,6 +85,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (e) — Boltz-2 A100 GPU smoke test PASSED
+- `slurm/smoke_boltz2.sbatch` + `slurm/smoke/boltz2_gb1.yaml` (single-seq GB1, `msa: empty` → runs OFFLINE). Job **11542978** on frnt154, COMPLETED ~1 min → `boltz2_gb1_model_0.pdb` (56 res) + confidence (**ptm 0.909, complex_plddt 0.94**). Outputs on scratch: `$SCRATCH/results/phase0_smoke/boltz2_11542978/`.
+- **Fix that mattered:** plain `boltz` install fails on GPU at the triangle-multiply kernel (`ModuleNotFoundError: cuequivariance_torch`). Boltz-2's GPU forward path **requires `boltz[cuda]`** → reinstalled with the extra; pip resolved **torch 2.12.0+cu130** (cuequivariance_ops needs newer nvidia libs than torch 2.6 pins). Don't cap torch in lecam-fold. Build script + `lecam-fold.versions.txt` updated.
+- **R-MODULES resolved:** A100 driver **595.58.03** (CUDA 13.2); torch's bundled CUDA runs with **no `module load cuda`**; **no `--partition`** (SLURM routes gpu:a100 → gpubase_6hrs). Recorded in `slurm/_template.sbatch`.
+- Submit pattern (keep REPO_ROOT correct, log to scratch): `cd $repo && sbatch --output=$SCRATCH_ROOT/logs/<name>-%j.out slurm/<job>.sbatch`.
 
 ### 2026-06-03 (d) — Built lecam-fold (Boltz-2) + lecam-chai (Chai-1)
 - **Boltz-2** (`lecam-fold`, `build_lecam-fold.frontenac.sh`): boltz 2.2.1, CUDA torch 2.6 cu124, numpy 1.26, lightning 2.5.0; `boltz.main` imports, `pip check` clean. Weights → `$SCRATCH/cache/boltz` (7.9G): `boltz2_conf.ckpt` (struct) + **`boltz2_aff.ckpt` (affinity model)** + CCD `mols/`. Download via `boltz.main.download_boltz2(Path(cache))`.

@@ -1,17 +1,18 @@
 # Campaign Dashboard — lecanemab-am
 
-**Last updated:** 2026-06-03 by frontenac — lecam-ab + lecam-fold(Boltz-2) + lecam-chai(Chai-1) built, weights cached on scratch; build-needed lecam-dev/AF3 + A100 GPU smoke tests remain; no SLURM jobs running.
+**Last updated:** 2026-06-03 by frontenac — **Boltz-2 A100 smoke test PASSED** (ptm 0.909; R-MODULES resolved); lecam-ab/-fold/-chai built; build-needed lecam-dev/AF3 + remaining smoke tests; no SLURM jobs running.
 
 ## Cluster status
 | Cluster | Agent | Current work | SLURM jobs | Last update |
 |---|---|---|---|---|
-| Frontenac | F | Boltz-2 + Chai-1 envs built+verified (weights cached); next: A100 smoke tests + lecam-dev → Stage 2 | — | 2026-06-03 |
+| Frontenac | F | Boltz-2 A100-verified (GB1 fold OK); next: lecam-dev + remaining smoke tests (Chai/ColabFold/RFdiff/BindCraft) → Stage 2 | — | 2026-06-03 |
 | Narval | Narval | not activated | — | — |
 | Nibi | Nibi | not activated | — | — |
 
 ## Recent actions
 | Date | Agent | Action |
 |---|---|---|
+| 2026-06-03 | frontenac | **Boltz-2 A100 smoke test PASSED** (job 11542978, GB1 ptm 0.909); boltz[cuda]+torch2.12 cu130 required; R-MODULES resolved (no partition/CUDA module) |
 | 2026-06-03 | frontenac | Built **lecam-fold** (Boltz-2, +affinity model) & **lecam-chai** (Chai-1) co-folding oracles; weights cached on scratch (7.9G+6.6G); split envs (dep conflict) |
 | 2026-06-03 | frontenac | Built **lecam-ab** env (ImmuneBuilder/IgFold/AntiBERTy/AbLang2, torch2.5.1 cpu); solved CC wheelhouse + _manylinux pip hazards |
 | 2026-06-03 | frontenac | Phase-0 env mapping → `docs/env/env_mapping.md` + `frontenac.env` (design/AF2/PyRosetta covered; lecam-ab/-fold/-dev build-needed) |

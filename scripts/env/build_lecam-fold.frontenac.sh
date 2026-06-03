@@ -23,10 +23,15 @@ PIP() { env -u PYTHONPATH PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null \
         conda run -n "$ENV" pip install --no-cache-dir --index-url https://pypi.org/simple "$@"; }
 run() { if [[ "$DRY" == 1 ]]; then echo "[dry-run] $*"; else eval "$@"; fi; }
 
-# 1) env core (numpy<2 — Boltz pin). 2) Boltz-2 (cap torch<2.7). 3) matplotlib
-#    (torchmetrics imports matplotlib.axes via pytorch-lightning).
+# 1) env core (numpy<2 — Boltz pin).
+# 2) Boltz-2 WITH the [cuda] extra — REQUIRED, not optional: the GPU forward path calls
+#    cuequivariance_torch for the triangle-multiply kernel (a plain `boltz` install fails at
+#    runtime with ModuleNotFoundError: cuequivariance_torch). Do NOT cap torch — cuequivariance_ops
+#    needs newer nvidia-cu12/cu13 libs than torch 2.6 pins; pip resolves torch 2.12 cu130 (works on
+#    the A100 driver 595.58 / CUDA 13.2). Verified end-to-end on A100 2026-06-03 (GB1, ptm 0.909).
+# 3) matplotlib (torchmetrics imports matplotlib.axes via pytorch-lightning).
 run "conda create -y -n $ENV -c conda-forge python=3.11 pip 'numpy=1.26'"
-run "PIP boltz 'torch<2.7'"
+run "PIP 'boltz[cuda]==2.2.1'"
 run "PIP matplotlib"
 
 # 4) pre-download weights to scratch on the LOGIN node (compute nodes have no internet):
