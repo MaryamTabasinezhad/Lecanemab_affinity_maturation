@@ -1,0 +1,27 @@
+{
+  "n_residues_H": 120,
+  "mean_pred_error_overall_H": 0.334,
+  "cdrh3_residues": [
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121
+  ],
+  "cdrh3_mean_pred_error": 0.816,
+  "cdrh3_max_pred_error": 2.436,
+  "framework_mean_pred_error_H": 0.254,
+  "note": "predicted error in Angstrom (ABodyBuilder2 B-factor); CDR-H3 expected highest (guardrail 2)."
+}

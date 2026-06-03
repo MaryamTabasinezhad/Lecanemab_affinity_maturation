@@ -1,6 +1,6 @@
 # PROJECT_STATUS.md — lecanemab-am
 
-**Last updated:** 2026-06-03  ·  **Updated by:** Hamid (with Claude)  ·  **Phase:** Phase 0 (done) → Stage 1 (in progress)
+**Last updated:** 2026-06-03  ·  **Updated by:** Hamid (with Claude)  ·  **Phase:** Phase 0 (envs done; Boltz-2 A100-verified) → Stage 2 started (WT Fv model built)
 **GitHub:** `git@github.com:MaryamTabasinezhad/Lecanemab_affinity_maturation.git`  ·  **Project root:** `/global/project/hpcg6049/lecanemab-am` (Frontenac)  ·  **Coordinator:** Frontenac · **Workers:** none active yet
 
 ---
@@ -18,7 +18,7 @@ Immediate next action: **PI decision on OQ-7** (epitope-homology template set); 
 |---|---|---|
 | 0 | Provisioning (repo, envs, HPC paths, ledger) | ◐ scaffold+ledger+`lecam`+`lecam-ab`+`lecam-fold`+`lecam-chai` built; **Boltz-2 A100-verified** (R-MODULES resolved); build-needed `lecam-dev`/AF3 + remaining smoke tests (Chai/ColabFold/RFdiffusion/BindCraft) |
 | 1 | Inputs, Targets & Objective Lock-In | ◐ Fv+CDRs+antigens+B1–B7 done; monomer template resolved (D-009) + coords fetched; metrics thresholds await Stage-2 baseline; OQ-7 homology-set open |
-| 2 | Structural Modeling & Conformational Ensembles | ☐ |
+| 2 | Structural Modeling & Conformational Ensembles | ◐ 2.1 WT Fv model built (ABodyBuilder2; CDR-H3 flagged); next 2.2 multi-seed Boltz-2 co-fold vs epitope, 2.3 ensemble (needs `lecam-md`) |
 | 3 | Paratope Mapping & Design-Space Definition | ☐ |
 | 4 | Variant Generation (multi-track) | ☐ |
 | 5 | In Silico Affinity Scoring & Consensus Ranking | ☐ |
@@ -97,6 +97,7 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 
 ## Changelog
 
+- **2026-06-03 (f)** — **Stage 2 started — 2.1 WT Fv model** (`scripts/stage2_model/model_fv_wt.py`, env `lecam-ab`/ABodyBuilder2 1.2): refined Fv from the Stage-1 VH/VL → `results/stage2/fv-wt-20260603/` (+ `data/interim/fv_model.pdb`). Geometry (predicted error, Å): framework-H **0.25**, CDR-H3 **0.82 mean / 2.44 max** — CDR-H3 least certain as expected (guardrail 2), the loop most needing the pose ensemble. New runtime gotcha solved: CC StdEnv's `LD_LIBRARY_PATH` forces system libstdc++ → OpenMM `GLIBCXX_3.4.29` import error; fix = force `LD_LIBRARY_PATH=$CONDA_PREFIX/lib` (docs/env + memory). Next: 2.2 multi-seed Boltz-2 co-fold vs protofibril epitope (D-010 homology ensemble), 2.3 MD ensemble (needs `lecam-md`).
 - **2026-06-03 (e)** — **Boltz-2 A100 GPU smoke test PASSED** (job 11542978, frnt154, ~1 min): single-seq GB1 fold from offline scratch weights → valid 56-res structure, ptm 0.909 / complex_plddt 0.94 (`slurm/smoke_boltz2.sbatch` + `slurm/smoke/boltz2_gb1.yaml`). Fixed: Boltz-2's GPU forward path **requires the `boltz[cuda]` extra** (cuequivariance kernels) — pip resolved torch 2.12 cu130 (build script + versions updated). **R-MODULES resolved:** A100 driver 595.58.03 (CUDA 13.2), no system CUDA module needed, no `--partition` (auto-routes to gpubase_*); recorded in `slurm/_template.sbatch`.
 - **2026-06-03 (d)** — Built **`lecam-fold`** (Boltz-2 2.2.1) and **`lecam-chai`** (Chai-1 0.6.1) co-folding oracles (`scripts/env/build_lecam-{fold,chai}.frontenac.sh`; versions in `docs/env/lecam-{fold,chai}.versions.txt`). Both: py3.11, CUDA torch 2.6 cu124, numpy<2; imports verified, `pip check` clean. Weights pre-fetched to **scratch** (login node, since compute nodes are offline): Boltz `$SCRATCH/cache/boltz` 7.9G (struct + **affinity** model + CCD), Chai `$SCRATCH/cache/chai` 6.6G (6 components + traced ESM2-3B + conformers). **Split into two envs** because chai_lab conflicts with Boltz on requests/protobuf/pandas/rdkit (§5 isolation rule). Created the scratch tree (`$SCRATCH_ROOT`); cache-path vars added to `clusters/frontenac.env`. **Owed:** A100 GPU fold smoke tests + AF3 container.
 - **2026-06-03 (c)** — Built **`lecam-ab`** env (`scripts/env/build_lecam-ab.frontenac.sh`; versions in `docs/env/lecam-ab.versions.txt`): ImmuneBuilder/ABodyBuilder2, IgFold, AntiBERTy, AbLang2 — all verified loading (py3.10, CPU torch 2.5.1, numpy 2.2.6; weights cached on login node). Resolved Frontenac pip hazards: CC wheelhouse hijack (`PIP_CONFIG_FILE=/dev/null`) **and** the CC `_manylinux` shim on `PYTHONPATH` that disabled manylinux wheels (`env -u PYTHONPATH`); pinned transformers 4.40.2 (antiberty breaks on 5.x) and torch 2.5.1 (2.6 weights_only break vs IgFold ckpts). **Deferred:** BioPhi/Sapiens humanness → own env (fairseq/Flask conflicts).

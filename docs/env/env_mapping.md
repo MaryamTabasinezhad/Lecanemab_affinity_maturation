@@ -44,6 +44,10 @@ The CC StdEnv breaks PyPI pip installs two ways — both must be neutralized or 
 
 Canonical wrapper: `env -u PYTHONPATH PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null conda run -n <env> pip install --index-url https://pypi.org/simple ...`
 
+### Runtime gotcha (compiled libs, e.g. OpenMM) — `LD_LIBRARY_PATH`
+The CC StdEnv may put a `LD_LIBRARY_PATH` into the shell that forces the **system** `/lib64/libstdc++.so.6` (too old — lacks `GLIBCXX_3.4.29`) ahead of the conda env's own, so OpenMM/pdbfixer imports fail with `ImportError: ... GLIBCXX_3.4.29 not found`. It is intermittent (depends on whether the StdEnv was sourced in that shell). **Fix: force the env's lib first** — set `LD_LIBRARY_PATH=$CONDA_PREFIX/lib` (NOT just `-u`, which is a no-op when the shell hasn't set it). Canonical runtime wrapper for envs with compiled deps (lecam-ab OpenMM, lecam-md, ...):
+`env -u PYTHONPATH PYTHONNOUSERSITE=1 LD_LIBRARY_PATH=/global/home/hpc6049/.conda/envs/<env>/lib conda run -n <env> python ...`
+
 ## Smoke tests (A100)
 - [x] **Boltz-2** 1-sample fold — **PASSED 2026-06-03** (job 11542978, frnt154, ~1 min): GB1 single-seq from offline scratch weights → valid 56-res PDB, ptm 0.909 / complex_plddt 0.94. **R-MODULES resolved:** A100 driver **595.58.03** (CUDA 13.2-capable); torch's bundled CUDA (cu130) runs with **no system CUDA module load** — and **no `--partition`** needed (SLURM auto-routes to `gpubase_6hrs`). NOTE: `boltz[cuda]` extra (cuequivariance kernels) is **required** for the GPU forward path. Job script: `slurm/smoke_boltz2.sbatch`.
 - [ ] **Chai-1** 1 fold (`lecam-chai`, `CHAI_DOWNLOADS_DIR=$SCRATCH/cache/chai`)

@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Phase 0 (scaffold+ledger+`lecam` done) → Stage 1 (research deliverables done; only metrics thresholds remain for the gate)
+**Phase / Stage:** Phase 0 envs done (Boltz-2 A100-verified) → **Stage 2 in progress** (2.1 WT Fv model built; next 2.2 Boltz-2 co-fold vs epitope, 2.3 ensemble). Stage-1 gate item (metrics thresholds) still awaits Stage-2 WT baseline scores.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -28,7 +28,12 @@ git pull origin main
 #                 Remaining smoke tests: Chai-1, ColabFold, RFdiffusion, BindCraft (pattern: copy smoke_boltz2.sbatch).
 # PIP ON FRONTENAC (every env): env -u PYTHONPATH PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null conda run -n <env> \
 #                 pip install --index-url https://pypi.org/simple ...   (CC wheelhouse + _manylinux shim else break wheels)
-# Stage 2 start: Fv model (ImmuneBuilder/IgFold) + multi-seed co-fold vs protofibril epitope.
+# DONE 2026-06-03: Stage 2.1 WT Fv model (ABodyBuilder2) -> results/stage2/fv-wt-20260603/ + data/interim/fv_model.pdb.
+#                 RUN compiled-dep envs with: env -u PYTHONPATH PYTHONNOUSERSITE=1 \
+#                   LD_LIBRARY_PATH=/global/home/hpc6049/.conda/envs/<env>/lib conda run -n <env> python ...
+# Stage 2 next: 2.2 multi-seed Boltz-2 co-fold of Fv vs protofibril epitope (D-010 homology ensemble;
+#               use lecam-fold on A100, boltz YAML protein(Fv)+protein(Abeta epitope), multi-seed, keep all samples);
+#               2.3 MD/AlphaFlow ensemble of Abeta N-terminus + CDR loops (needs lecam-md — not built yet).
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
 
@@ -85,6 +90,11 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (f) — Stage 2.1: WT Fv model (ABodyBuilder2)
+- `scripts/stage2_model/model_fv_wt.py` (env lecam-ab) → refined Fv `results/stage2/fv-wt-20260603/fv_model.pdb` (+ `data/interim/fv_model.pdb`), `geometry_report.json`, `manifest.json`.
+- Geometry (ABodyBuilder2 predicted error, Å, in B-factor col): framework-H **0.254**, CDR-H3 **0.816 mean / 2.436 max**, overall-H 0.334 → CDR-H3 least certain (expected; guardrail 2). This is the WT structural baseline for Stage 2.2 co-fold + the eventual metrics.yaml WT reference.
+- **Gotcha solved (generalizable):** CC StdEnv `LD_LIBRARY_PATH` intermittently forces system libstdc++ ahead of conda's → OpenMM import `GLIBCXX_3.4.29 not found`. Fix = `LD_LIBRARY_PATH=$CONDA_PREFIX/lib` (force env lib; `-u` alone is unreliable). In memory + docs/env/env_mapping.md.
 
 ### 2026-06-03 (e) — Boltz-2 A100 GPU smoke test PASSED
 - `slurm/smoke_boltz2.sbatch` + `slurm/smoke/boltz2_gb1.yaml` (single-seq GB1, `msa: empty` → runs OFFLINE). Job **11542978** on frnt154, COMPLETED ~1 min → `boltz2_gb1_model_0.pdb` (56 res) + confidence (**ptm 0.909, complex_plddt 0.94**). Outputs on scratch: `$SCRATCH/results/phase0_smoke/boltz2_11542978/`.

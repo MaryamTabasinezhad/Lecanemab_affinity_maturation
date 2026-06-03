@@ -1,0 +1,19 @@
+{
+  "stage": 2,
+  "step": "2.1_fv_model",
+  "run_id": "fv-wt-20260603",
+  "tool": "ImmuneBuilder.ABodyBuilder2",
+  "immunebuilder_version": "1.2",
+  "torch_version": "2.5.1+cpu",
+  "env": "lecam-ab",
+  "input_fasta": "data/raw/lecanemab_fv.fasta",
+  "input_fasta_sha256": "abe2ce6415041afac412f60db3aed0ede14395636a57def0bc0e52ad0b345a3f",
+  "seq_H": "EVQLVESGGGLVQPGGSLRLSCSASGFTFSSFGMHWVRQAPGKGLEWVAYISSGSSTIYYGDTVKGRFTISRDNAKNSLFLQMSSLRAEDTAVYYCAREGGYYYGRSYYTMDYWGQGTTVTVSS",
+  "seq_L": "DVVMTQSPLSLPVTPGAPASISCRSSQSIVHSNGNTYLEWYLQKPGQSPKLLIYKVSNRFSGVPDRFSGSGSGTDFTLRISRVEAEDVGIYYCFQGSHVPPTFGPGTKLEIK",
+  "git_commit": "f15d59695a869515370f4d379ba0afe2c9543cee",
+  "outputs": [
+    "fv_model.pdb",
+    "geometry_report.json"
+  ],
+  "interim_copy": "data/interim/fv_model.pdb"
+}
