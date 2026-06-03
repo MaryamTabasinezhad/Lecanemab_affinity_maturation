@@ -8,6 +8,10 @@ __pycache__/
 # Per-agent local Claude Code settings (permission posture is machine-local, not shared across clusters).
 .claude/
 data/interim/
+# Fetched antigen/reference coordinate files — heavy + reproducible via
+# scripts/stage1_inputs/fetch_antigen_templates.sh; the git-tracked source of
+# truth is data/raw/antigen/antigen_templates.md (IDs + provenance).
+data/raw/antigen/coords/
 results/**/samples/
 results/**/*.pdb
 results/**/*.cif

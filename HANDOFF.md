@@ -16,10 +16,13 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 ```bash
 cd /global/project/hpcg6049/lecanemab-am
 git pull origin main
-# Stage 1 leftovers: set configs/metrics.yaml thresholds once a Stage-2 WT baseline exists;
-#                    pick Aβ-monomer counter-target template (1IYT/1Z0Q/2LFM) in Stage 2.
-# Phase 0 finish: build remaining envs (several map to existing colabfold/mpnn/rfdiffusion/BindCraft);
-#                 A100 smoke tests (Boltz-2 1-sample, BindCraft 1-design); confirm SLURM module names.
+# OPEN DECISION (OQ-7): expand epitope-homology template set (6CO3/5CSZ/3BKJ/3D6) +
+#                       demote 5MY4 (= anti-pyroGlu Fab c#17, NOT D3) to weak proxy? -> PI sign-off.
+# DONE 2026-06-03: monomer template = 1Z0Q (D-009); antigen coords fetched to data/raw/antigen/coords/
+#                  (fetch_antigen_templates.sh, git-ignored); B5 D3/5MY4 sentence pinned + caveat.
+# Stage 1 leftover: set configs/metrics.yaml thresholds once a Stage-2 WT baseline exists.
+# Phase 0 finish: MAP existing envs (colabfold/mpnn/rfdiffusion/rfd_clean/BindCraft/SE3nv already exist)
+#                 to lecam-* roles; build only what's missing; A100 smoke tests; confirm SLURM modules.
 # Stage 2 start: Fv model (ImmuneBuilder/IgFold) + multi-seed co-fold vs protofibril epitope.
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
@@ -77,6 +80,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 — Stage-1/2 prep: monomer template + antigen coords + 5MY4 discrepancy
+- **D-009:** Aβ-monomer counter-target resolved — **1Z0Q** (Aβ42 aqueous NMR, 30 models) primary; **1IYT rejected** (RCSB citation: solved "in an apolar microenvironment" → helical); **2LFM** (Aβ40) kept as Aβ40-matched control. All RCSB-grounded (no memory-typing). ADR → `docs/decisions/D-009-...md`.
+- **Antigen coords fetched:** new idempotent `scripts/stage1_inputs/fetch_antigen_templates.sh` pulled 10 mmCIFs (targets 9CO4/7Q4B/7Q4M/8BFZ; counters 9CKI/8QN7/8OLN/1Z0Q/2LFM; ref 5MY4) → `data/raw/antigen/coords/` (git-ignored; `.gitignore` updated; manifest in `coords/fetch_manifest.tsv`).
+- **5MY4 discrepancy (OQ-7):** verified via RCSB that PDB **5MY4 = anti-pyroglutamate-Aβ Fab "c#17" (pE3-12 epitope), NOT antibody "D3"** as R-ELIFE/CLAUDE.md B5 state. Our B5 faithfully quotes R-ELIFE (now **pinned**), but 5MY4 is a weak/indirect homology proxy. Proposed (PI sign-off): add full-length N-terminal anti-Aβ Fab co-structures (aducanumab 6CO3, gantenerumab 5CSZ, 3D6/bapineuzumab, WO2 3BKJ) to the pose ensemble; demote 5MY4. **Did NOT change CLAUDE.md/B5 or campaign params** — only annotated + opened OQ-7.
+- **Next:** PI call on OQ-7 → Phase-0 env mapping → Stage 2.
 
 ### 2026-06-01 — Phase 0 executed + Stage 1 research
 - Ran `00_init.sh` (real): repo tree, git repo + remote (SSH auth OK as `hamidghaedi`), coordination scaffold, `db/schema.sql`.

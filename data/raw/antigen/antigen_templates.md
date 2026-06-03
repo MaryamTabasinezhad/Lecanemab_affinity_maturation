@@ -1,6 +1,6 @@
 # Antigen template registry — lecanemab AM (Stage 1)
 
-**Date:** 2026-06-01 · **Status:** IDs identified (downloads deferred — see notes).
+**Date:** 2026-06-03 · **Status:** IDs identified + coordinate files fetched (`coords/`, git-ignored, via `scripts/stage1_inputs/fetch_antigen_templates.sh`). Monomer template resolved (D-009). ⚠ 5MY4 identity caveat — see Reference section.
 Curated per CLAUDE.md §4. Roles map to the objective (§2): **target** = Aβ protofibril/oligomer (flexible N-terminus); **counter-targets** = Aβ monomer + fixed-N-terminus/CAA Aβ40 fibril. Selectivity margin is computed target − counter-target (§2 metric 2).
 
 ## TARGET — Aβ protofibril / oligomer / fibril (flexible, unstructured N-terminus → engaged)
@@ -21,7 +21,8 @@ Curated per CLAUDE.md §4. Roles map to the objective (§2): **target** = Aβ pr
 | **9CKI** | brain-derived Aβ42 oligomer, **Conformation 2** | Aβ42 | (internal: plaque/negative) | negative counter-target | internal (CLAUDE.md §4) |
 | **8QN7** | **leptomeningeal CAA** fibril | Aβ40 | **fixed/ordered** | CAA counter-target | PMC12152531 (R-TG) |
 | **8OLN** | **tg-SwDI DI1** fold | Aβ (SwDI) | **fixed/ordered** | fixed-N counter-target | PMC12152531 (R-TG) |
-| _TBD_ | **Aβ monomer / peptide** | Aβ40/42 | disordered | monomer counter-screen | NMR ensembles, e.g. 1IYT/1Z0Q (Aβ42), 2LFM (Aβ40) — **to select** |
+| **1Z0Q** | Aβ42 monomer, **aqueous** NMR (30 models) | Aβ42 | disordered | **primary monomer counter-screen** (D-009) | Danielsson, ChemBioChem 2006 ("Aqueous Solution Structure ... Aβ(1-42)") |
+| **2LFM** | Aβ40 monomer, aqueous NMR (20 models) | Aβ40 | disordered | Aβ40-matched monomer control (D-009) | Vivekanandan 2011 ("partially folded ... Aβ(1-40) in an aqueous environment") |
 
 > R-TG: tg-SwDI (DI1/DI2/DI3) and human meningeal Aβ40 show "well-ordered and fixed N-termini" → lecanemab-spared (links to low ARIA-E, B4).
 
@@ -29,10 +30,12 @@ Curated per CLAUDE.md §4. Roles map to the objective (§2): **target** = Aβ pr
 
 | ID | What | Use |
 |---|---|---|
-| **5MY4** | antibody **D3** (anti-Aβ N-terminus) | epitope homology model for lecanemab (B5/B6); no public lecanemab co-structure |
+| **5MY4** | Fab **c#17**, anti-**pyroglutamate**-Aβ (pE3-12) — *not* "D3" per RCSB | indirect epitope homology proxy cited by R-ELIFE; **see caveat** |
+
+> ⚠ **5MY4 identity caveat (verified 2026-06-03, RCSB + R-ELIFE).** R-ELIFE (eLife 106156 / PMC12424645) models lecanemab "on the basis of **D3** antibody similarity (PDB **5MY4**), correctly accounting for sequence tolerances at positions **3–7**." Our B5/CLAUDE.md faithfully reflect that sentence. **However, the deposited content of 5MY4 (RCSB, JBC 2017) is "Fab c#17 in complex with human Aβ-pE3-12" — an anti-*pyroglutamate-Aβ* antibody against the N-truncated, modified pE3 species, not a full-length Aβ(1-16) N-terminal binder.** It is therefore a *weak/indirect* homology proxy for lecanemab's conformational N-terminal epitope. Better-matched **full-length N-terminal anti-Aβ Fab co-structures** exist (aducanumab **6CO3**, gantenerumab **5CSZ** Aβ1-11, 3D6/bapineuzumab Aβ1-7, WO2 **3BKJ** Aβ1-16) — **proposed addition to the pose ensemble (D-002), pending PI sign-off** (logged as OQ-7).
 
 ## Notes / open items
-- **Monomer template (OQ):** Aβ monomer is intrinsically disordered — pick an NMR ensemble (1IYT, 1Z0Q, 2LFM) and/or model the linear N-terminal peptide; decide in Stage 2.
+- **Monomer template — RESOLVED (D-009):** primary = **1Z0Q** (Aβ42, aqueous, 30-model ensemble; sequence-matched to the Aβ42 targets). **1IYT rejected** (solved "in an apolar microenvironment" → helical, non-physiological for the soluble aqueous monomer). **2LFM** (Aβ40, aqueous) kept as the Aβ40-matched control to pair against the Aβ40 CAA counter-target (8QN7). Per D-002 + stochastic discipline, the Stage-2 counter-screen folds the Aβ monomer multi-seed (its own ensemble); 1Z0Q/2LFM are the validated experimental references.
 - **EMDB maps:** cryo-EM density (EMDB) IDs for 7Q4B/7Q4M/8BFZ/8QN7/8OLN not yet recorded — add when fetching maps (large data → Globus, not git).
-- **Download:** PDB coordinate files are small (wgettable into `data/raw/antigen/`); EMDB maps are large (Globus). Downloads deferred to a Stage-2 prep step.
+- **Download — DONE:** coordinate mmCIFs fetched to `coords/` (git-ignored) by `scripts/stage1_inputs/fetch_antigen_templates.sh` (idempotent, `--dry-run`); see `coords/fetch_manifest.tsv`. EMDB maps still deferred (large → Globus).
 - **Register meaning:** epitope register is a hypothesis set (B6, D-002) — these templates feed the pose **ensemble**, not a single pose.

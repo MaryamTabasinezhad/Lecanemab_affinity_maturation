@@ -28,7 +28,9 @@ Per CLAUDE.md §8 (source-grounded): every biological claim cites an **exact sen
 ## B5 — No public lecanemab Fab–Aβ co-structure; modeled by similarity to antibody D3 (PDB 5MY4)
 **Sources:** R-ELIFE (eLife 106156); R-REV (Revvity).
 > (R-ELIFE) Under the tested conditions, "Lecanemab showed a certain, but not absolute preference for aggregated forms of Aβ1–42 over monomeric and low-n oligomeric forms." (Consistent with no co-structure; epitope inferred, not co-crystallized.)
-> ⚠ Exact "no co-structure / D3-5MY4 homology" sentence to be pinned from R-ELIFE methods + R-REV. Carried in CLAUDE.md B5.
+> **(R-ELIFE, pinned 2026-06-03)** "Lecanemab's binding profiles align closely with the model proposed on the basis of **D3 antibody similarity (PDB 5MY4)**, correctly accounting for sequence tolerances at positions **3–7**." Modeling is by homology because "chemical structural information regarding the binding of lecanemab to amyloid beta has not yet been released in the global Protein Data Bank." (eLife 106156 / PMC12424645.)
+> ⚠ **5MY4 identity caveat (verified RCSB 2026-06-03):** the *deposited* content of PDB 5MY4 is "Fab **c#17** in complex with human Aβ-pE3-12" — an anti-**pyroglutamate-Aβ** antibody (JBC 2017) against the N-truncated/modified pE3 species, **not** a full-length Aβ(1-16) N-terminal binder. R-ELIFE's "D3"/5MY4 attribution is reproduced faithfully here, but 5MY4 is a weak/indirect homology proxy for lecanemab's epitope → see OQ-7 (expand pose-ensemble templates with full-length N-terminal anti-Aβ Fabs: aducanumab 6CO3, gantenerumab 5CSZ, 3D6/bapineuzumab, WO2 3BKJ).
+> R-REV (Revvity) corroborates "no lecanemab co-structure in the PDB" (B5) — exact sentence still to pin.
 
 ## B6 — Epitope register is model-dependent (hypothesis set, not a fixed pose)
 **Source:** R-ELIFE — eLife 106156 + internal.
@@ -45,6 +47,6 @@ Internal hotspots (Y10/E11/H13/H14/Q15/K16) vs literature "N-terminal, tolerant 
 
 ## Open items
 - **B2:** pin the exact >10⁶-fold sentence from R-ANA (paywalled at fetch).
-- **B5:** pin the exact "no public co-structure" + D3/5MY4 homology sentences from R-ELIFE/R-REV.
+- **B5:** R-ELIFE D3/5MY4 homology sentence PINNED (2026-06-03); 5MY4 identity caveat added (→ OQ-7). R-REV exact "no co-structure" sentence still to pin.
 - R-SD (ScienceDirect S1044743124000344) not yet fetched — secondary corroboration for B3.
 - Store any retrieved PDFs/sentences alongside this file; update CLAUDE.md §11 keys only via the coordinator.
