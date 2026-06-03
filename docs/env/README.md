@@ -26,7 +26,8 @@ Env names may differ per cluster — the canonical name is in clusters/<cluster>
 - [ ] FoldX license + binary  (still missing)
 - [ ] Rosetta flex_ddG + AbLIFT  (still missing → `lecam-rosetta`)
 - [ ] AlphaFold3 container + model params (access-gated)
-- [ ] Boltz-2 + Chai-1 model weights  (→ `lecam-fold`; the Stage-5 ranker, D-004)
+- [x] Boltz-2 — env `lecam-fold` built; weights cached `$SCRATCH/cache/boltz` (7.9G, incl. affinity model)
+- [x] Chai-1 — env `lecam-chai` built (separate; dep conflict); weights `$SCRATCH/cache/chai` (6.6G, incl. ESM2-3B)
 - [x] BindCraft repo+env — present (`…/protein/alzheimer/bindcraft`, env `BindCraft`)
 - [x] ColabFold (AF2) — env + weights present (`~/.cache/colabfold/params`, 5.3G)
 - [x] ProteinMPNN repo — present (`…/protein/ProteinMPNN`); runtime env `mpnn`

@@ -10,7 +10,7 @@ Env names differ from the canonical `lecam-*` labels (CLAUDE.md §5); this table
 |---|---|---|---|---|
 | Orchestration | `lecam` | **lecam** | ✅ full | — |
 | Antibody modeling & LMs | `lecam-ab` | **lecam-ab** (built 2026-06-03) | ✅ core | ImmuneBuilder+IgFold+AntiBERTy+AbLang2 verified; **BioPhi/Sapiens deferred** to own env |
-| Co-folding oracles | `lecam-fold` | **colabfold** (AF2 only) | ◐ partial | build: **Boltz-2**, Chai-1; AF3 container |
+| Co-folding oracles | `lecam-fold` (Boltz-2) + `lecam-chai` (Chai-1) | **lecam-fold**, **lecam-chai** built 2026-06-03; **colabfold** (AF2) | ✅ Boltz-2+Chai-1 | AF3 = container (pending) |
 | Variant generation | `lecam-design` | **mpnn**, **rfd_clean**/**rfdiffusion**/**SE3nv**, **BindCraft** | ◐ strong | RFantibody, LigandMPNN, SolubleMPNN |
 | Physics scoring | `lecam-rosetta` | **BindCraft** (PyRosetta only) | ◐ partial | Rosetta flex_ddG, AbLIFT, FoldX (licensed) |
 | Conformational ensembles | `lecam-md` | OpenMM 8.5.1 inside colabfold/BindCraft | ◐ partial | dedicated env; AlphaFlow (opt) |
@@ -30,7 +30,7 @@ Env names differ from the canonical `lecam-*` labels (CLAUDE.md §5); this table
 
 ## Build-needed (provisioning backlog — Phase 0)
 1. ~~**`lecam-ab`**~~ **BUILT 2026-06-03** (`scripts/env/build_lecam-ab.frontenac.sh`, versions in `lecam-ab.versions.txt`): ImmuneBuilder/ABodyBuilder2 + IgFold + AntiBERTy + AbLang2, all verified loading (CPU torch 2.5.1; weights cached on login node). **Remaining for this role:** BioPhi/Sapiens humanness (Stage 6) → recommend a separate `lecam-hum` env (fairseq/Flask conflicts).
-2. **`lecam-fold` / Boltz-2** — the Stage-5 affinity ranker (D-004 = multi-sample Boltz-2/AF3 ipTM+ipSAE). ColabFold/AF2 is **supplementary**, not a substitute (AF-Multimer weak on CDR-H3/epitope pose — guardrail 2). Chai-1 + AF3 container also pending.
+2. ~~**`lecam-fold` / Boltz-2**~~ **BUILT 2026-06-03** (`scripts/env/build_lecam-fold.frontenac.sh`): Boltz-2 2.2.1, CUDA torch 2.6 cu124, `boltz.main` imports, `pip check` clean; weights cached on scratch (`$SCRATCH/cache/boltz`, 7.9G incl. the **affinity** model `boltz2_aff.ckpt`). **Chai-1 also BUILT** in its own env `lecam-chai` (`build_lecam-chai.frontenac.sh`; weights `$SCRATCH/cache/chai`, 6.6G incl. traced ESM2-3B) — separate because chai_lab conflicts with Boltz on requests/protobuf/pandas/rdkit. **Still pending:** AF3 (container, access-gated) + **A100 GPU fold smoke tests** for both. ColabFold/AF2 remains supplementary only (guardrail 2).
 3. **`lecam-dev`** — developability gate tools (Stage 6).
 4. **`lecam-rosetta`** — flex_ddG + AbLIFT + FoldX (licensed; PyRosetta already usable via BindCraft env).
 5. **`lecam-md`** — dedicated OpenMM/GROMACS env (interim: OpenMM 8.5.1 in colabfold/BindCraft).
@@ -45,6 +45,8 @@ The CC StdEnv breaks PyPI pip installs two ways — both must be neutralized or 
 Canonical wrapper: `env -u PYTHONPATH PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null conda run -n <env> pip install --index-url https://pypi.org/simple ...`
 
 ## Smoke tests still owed (A100, before first heavy submit)
+- [ ] **Boltz-2** 1-sample fold (`lecam-fold`, `--cache $SCRATCH/cache/boltz`) — validates CUDA torch on A100 + offline weights
+- [ ] **Chai-1** 1 fold (`lecam-chai`, `CHAI_DOWNLOADS_DIR=$SCRATCH/cache/chai`)
 - [ ] ColabFold 1-target fold (verify GPU + cached weights)
 - [ ] RFdiffusion 1-design (rfd_clean) on the A100
 - [ ] BindCraft 1-design (validates jax/PyRosetta/OpenMM stack on GPU)

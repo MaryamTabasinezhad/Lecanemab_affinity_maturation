@@ -20,10 +20,10 @@ git pull origin main
 #                  (fetch_antigen_templates.sh, git-ignored); B5 D3/5MY4 sentence pinned + caveat.
 # DONE 2026-06-03: OQ-7 resolved (D-010) -> homology set 6CO3/5CSZ/3BKJ/4HIX; 5MY4 = weak proxy.
 # Stage 1 leftover: set configs/metrics.yaml thresholds once a Stage-2 WT baseline exists.
-# DONE 2026-06-03: env MAPPING -> docs/env/env_mapping.md; lecam-ab BUILT (ImmuneBuilder/IgFold/AntiBERTy/AbLang2).
-# Phase 0 remaining = BUILDS: lecam-fold (Boltz-2/Chai-1 = Stage-5 ranker), lecam-dev (developability),
-#                 dedicated lecam-rosetta (flex_ddG/FoldX)/-md; +RFantibody/LigandMPNN; BioPhi/Sapiens (own env).
-#                 Then A100 smoke tests (ColabFold/RFdiffusion/BindCraft 1-job) + confirm SLURM modules.
+# DONE 2026-06-03: env MAPPING; lecam-ab BUILT; lecam-fold (Boltz-2) + lecam-chai (Chai-1) BUILT, weights cached on scratch.
+# Phase 0 remaining = BUILDS: lecam-dev (developability), AF3 container, dedicated lecam-rosetta (flex_ddG/FoldX)/-md;
+#                 +RFantibody/LigandMPNN; BioPhi/Sapiens (own env).
+#                 Then A100 GPU smoke tests (Boltz-2/Chai-1/ColabFold/RFdiffusion/BindCraft 1-job) + confirm SLURM modules.
 # PIP ON FRONTENAC (every env): env -u PYTHONPATH PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null conda run -n <env> \
 #                 pip install --index-url https://pypi.org/simple ...   (CC wheelhouse + _manylinux shim else break wheels)
 # Stage 2 start: Fv model (ImmuneBuilder/IgFold) + multi-seed co-fold vs protofibril epitope.
@@ -83,6 +83,13 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-03 (d) — Built lecam-fold (Boltz-2) + lecam-chai (Chai-1)
+- **Boltz-2** (`lecam-fold`, `build_lecam-fold.frontenac.sh`): boltz 2.2.1, CUDA torch 2.6 cu124, numpy 1.26, lightning 2.5.0; `boltz.main` imports, `pip check` clean. Weights → `$SCRATCH/cache/boltz` (7.9G): `boltz2_conf.ckpt` (struct) + **`boltz2_aff.ckpt` (affinity model)** + CCD `mols/`. Download via `boltz.main.download_boltz2(Path(cache))`.
+- **Chai-1** (`lecam-chai`, `build_lecam-chai.frontenac.sh`): chai_lab 0.6.1, CUDA torch 2.6, numpy 1.26; imports OK. Weights → `$SCRATCH/cache/chai` (6.6G): 6 components + conformers + **traced ESM2-3B (5.7G)**. Set `CHAI_DOWNLOADS_DIR=$SCRATCH/cache/chai` at runtime (read at import).
+- **Why two envs:** chai_lab conflicts with Boltz on shared deps (boltz pins requests==2.32.3 + wandb needs protobuf<6; chai wants requests 2.34 + protobuf 7) → §5 "one isolated env per heavy tool". Co-installing churns pandas/rdkit too. lecam-fold was repaired to clean Boltz state after the conflict was observed.
+- **Weights MUST be pre-fetched on login node** (compute nodes have no internet) — done. Created scratch tree `$SCRATCH_ROOT`; cache vars `BOLTZ_CACHE`/`CHAI_CACHE` in frontenac.env.
+- **Owed:** A100 GPU fold smoke tests (both) + AF3 container. ColabFold/AF2 stays supplementary (guardrail 2).
 
 ### 2026-06-03 (c) — Built lecam-ab env
 - `scripts/env/build_lecam-ab.frontenac.sh` (reproducible) → **ImmuneBuilder/ABodyBuilder2, IgFold, AntiBERTy, AbLang2** all verified loading (py3.10, CPU **torch 2.5.1**, numpy 2.2.6). Model weights pre-downloaded on login node (compute nodes have no internet). Versions: `docs/env/lecam-ab.versions.txt`.

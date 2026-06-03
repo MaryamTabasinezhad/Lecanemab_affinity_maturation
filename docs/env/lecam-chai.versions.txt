@@ -1,0 +1,17 @@
+# lecam-chai (Chai-1) — pinned versions (Frontenac, 2026-06-03). Verified: chai_lab imports; weights cached on scratch (6.6G).
+# Separate env from lecam-fold (dep conflict). CUDA torch cu124; numpy<2. Set CHAI_DOWNLOADS_DIR=$SCRATCH/cache/chai at runtime. GPU smoke test owed.
+## python
+python 3.11.15
+
+## key packages
+chai_lab                     0.6.1
+gemmi                        0.6.7
+jaxtyping                    0.3.10
+numba                        0.65.1
+numpy                        1.26.4
+nvidia-cuda-runtime-cu12     12.4.127
+pandas                       2.3.3
+pandera                      0.31.1
+rdkit                        2024.9.6
+torch                        2.6.0
+triton                       3.2.0
