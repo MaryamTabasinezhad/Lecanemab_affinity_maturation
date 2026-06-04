@@ -1,0 +1,15 @@
+{
+  "variant_id": "LEC-AM-T1-0003",
+  "n_trajectories": 5,
+  "ddg_reu_mean": 0.017,
+  "ddg_reu_std": 0.166,
+  "ddg_gam_kcal_mean": 0.095,
+  "ddg_gam_kcal_std": 0.096,
+  "per_traj_kcal": [
+    -0.001,
+    0.047,
+    0.146,
+    0.025,
+    0.259
+  ]
+}

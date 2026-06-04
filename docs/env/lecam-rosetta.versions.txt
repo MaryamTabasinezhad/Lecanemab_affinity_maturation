@@ -1,0 +1,12 @@
+# lecam-rosetta — pinned versions (Frontenac, 2026-06-04). PyRosetta physics scoring (flex_ddG).
+# PyRosetta installed via pip (pyrosetta-installer, distributed=True -> thread+serialization build for backrub).
+# Run: env -u PYTHONPATH PYTHONNOUSERSITE=1 LD_LIBRARY_PATH=$CONDA_PREFIX/lib conda run -n lecam-rosetta python ...
+## python
+python 3.10.20
+
+## key packages
+numpy                     2.2.6           py310hefbff90_0    conda-forge
+pandas                    2.3.3           py310h0158d43_2    conda-forge
+pyrosetta                 2026.21+release.36f0c659eb          pypi_0    pypi
+pyrosetta-distributed     0.0.4                    pypi_0    pypi
+pyrosetta-installer       0.1.2                    pypi_0    pypi

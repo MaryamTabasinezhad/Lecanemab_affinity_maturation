@@ -24,7 +24,7 @@ Env names may differ per cluster — the canonical name is in clusters/<cluster>
 ## Manual / licensed / container checklist (do NOT guess install commands)
 - [x] PyRosetta — present (2026.3) in the **BindCraft** env (`CONDA_ENV_PYROSETTA`)
 - [ ] FoldX license + binary  (still missing)
-- [ ] Rosetta flex_ddG + AbLIFT  (still missing → `lecam-rosetta`)
+- [x] Rosetta **flex_ddG** — env `lecam-rosetta` built (PyRosetta 2026.21 + `scripts/_tools/flexddg/`, smoke-tested); AbLIFT protocol TODO
 - [ ] AlphaFold3 container + model params (access-gated)
 - [x] Boltz-2 — env `lecam-fold` built (boltz[cuda], torch 2.12 cu130) + **A100-verified** (GB1, ptm 0.909); weights cached `$SCRATCH/cache/boltz` (7.9G, incl. affinity model)
 - [x] Chai-1 — env `lecam-chai` built (separate; dep conflict); weights `$SCRATCH/cache/chai` (6.6G, incl. ESM2-3B)

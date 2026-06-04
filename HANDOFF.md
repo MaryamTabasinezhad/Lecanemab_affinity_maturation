@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Stage 2 complete → **Stage 4 T1 generated + scored**: 3 CDR-preserving framework mutants (LC:A17D, HC:T70S, HC:S24A), Boltz-2 Δ-ipSAE vs WT all neutral-within-noise (−0.08…−0.14; expected — framework changes don't touch paratope) → ledger status=scored. Generate→score loop closed. Next: (1) build **lecam-dev** → score T1 on developability/humanness (where T1's value actually is); (2) build **lecam-rosetta** (AbLIFT VH-VL redesign expands T1 + flex_ddG 2nd scorer); (3) **T2/T3** CDR tracks (where binding gains come from); (4) set metrics.yaml M1 Δ-ipSAE threshold (decision).
+**Phase / Stage:** Stage 4 T1 generated + scored by **2 independent scorers**: Boltz-2 Δ-ipSAE AND Rosetta flex_ddG (lecam-rosetta built) — all 3 framework mutants **binding-neutral** (consensus; expected — interface-distal). D-004 ≥2-scorer met. Ledger has boltz_ipsae + flexddg_kcal. Next: (1) build **lecam-dev** → score T1 developability/humanness (its real value axis) → Stage-6 gate; (2) **T2/T3 CDR tracks** (binding gains live here) through the same Boltz+flex_ddG harness — use FULL flex_ddG (nstruct=35, backrub=35000) for interface muts; (3) set metrics.yaml M1 Δ-ipSAE threshold (decision); (4) AbLIFT/FoldX add-ons to lecam-rosetta.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -43,10 +43,13 @@ git pull origin main
 # DONE 2026-06-04: Stage 4 T1 generated (3 framework variants) AND scored (Boltz-2 Δ-ipSAE vs WT,
 #       array job 11673009): all neutral-within-noise -> ledger status=scored. Loop closed.
 #       Reusable: scripts/stage4_score/{make_variant_yamls,collect_scores}.py + slurm/stage4_score_cofold.sbatch.
-# Next: (1) build lecam-dev -> score T1 developability/humanness (T1's real value axis);
-#       (2) build lecam-rosetta (AbLIFT VH-VL redesign + flex_ddG 2nd scorer) -> expand+re-score T1;
-#       (3) T2/T3 CDR tracks (binding gains live here) into the same scoring harness;
-#       (4) set metrics.yaml M1 threshold as Δ-ipSAE gate (decision).
+# DONE 2026-06-04: lecam-rosetta built (PyRosetta 2026.21) + flex_ddG 2nd scorer; T1 ΔΔG all ~0 (binding-neutral,
+#       agrees with Boltz). scripts/_tools/flexddg/{flexddg_run,aggregate_flexddg}.py + slurm/stage5_flexddg.sbatch.
+#       flex_ddG RUN: env -u PYTHONPATH PYTHONNOUSERSITE=1 LD_LIBRARY_PATH=$CONDA_PREFIX/lib conda run -n lecam-rosetta.
+#       For CDR/interface muts use FULL settings (nstruct=35, backrub=35000); framework used reduced (5/10000).
+# Next: (1) build lecam-dev -> score T1 + WT developability/humanness (T1's real value) -> Stage-6 gate;
+#       (2) T2/T3 CDR tracks (binding gains) through the Boltz+flex_ddG harness;
+#       (3) set metrics.yaml M1 threshold as Δ-ipSAE gate (decision); (4) AbLIFT/FoldX add-ons.
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
 
@@ -103,6 +106,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-04 (b) — lecam-rosetta + flex_ddG 2nd scorer (T1 binding-neutral consensus)
+- Built `lecam-rosetta` (PyRosetta 2026.21, pip via pyrosetta-installer distributed=True). Run flex_ddG via PyRosetta RosettaScriptsParser on the Kortemme `ddG-backrub.xml` — **no compiled rosetta_scripts binary needed**. Tools in `scripts/_tools/flexddg/`.
+- CPU array (job 11675128, 15 traj, ~7 min each): per variant 5 trajectories, backrub=10000 (REDUCED). `aggregate_flexddg.py` → ddG (REU + zemu-GAM kcal).
+- **ΔΔG (GAM kcal):** HC:T70S −0.00±0.03, LC:A17D +0.06±0.13, HC:S24A +0.10±0.10 — all binding-neutral; **agrees with Boltz-2 Δ-ipSAE** → 2-scorer consensus (D-004). Ledger `flexddg_kcal` set; `db/exports/variants.csv`. → `results/stage5/t1_consensus_scores.json`.
+- WT complex used: best-ipSAE pose `data/interim/flexddg/wt_complex.pdb`; resfiles use Boltz sequential resnums (NOT IMGT).
 
 ### 2026-06-04 — Scored the 3 T1 variants (Boltz-2 Δ-ipSAE vs WT)
 - Per-variant 5-seed×5-sample Boltz-2 co-fold vs Aβ1-16 (A100 array 11673009, 5 min), reusing the WT 2.2 harness. `scripts/stage4_score/make_variant_yamls.py` + `slurm/stage4_score_cofold.sbatch` + `collect_scores.py`.

@@ -1,0 +1,39 @@
+{
+  "stage": 5,
+  "step": "consensus_T1_2scorers",
+  "scorers": [
+    "Boltz-2 multi-seed \u0394-ipSAE (25 samples)",
+    "Rosetta flex_ddG zemu-GAM kcal (5 traj, backrub=10000 REDUCED)"
+  ],
+  "conclusion": "All 3 T1 framework mutants are binding-NEUTRAL on both independent scorers (\u0394-ipSAE \u22120.08..\u22120.14 within noise; flex_ddG 0.00..0.10 kcal within noise). Expected: framework mutations are interface-distal. D-004 \u22652-scorer consensus satisfied. T1 advancement -> decide on developability/humanness (Stage 6).",
+  "caveats": "flex_ddG REDUCED settings (nstruct=5, backrub=10000 vs full 35/35000) \u2014 adequate here since framework muts are interface-distal (ddG~0); use full settings for CDR/interface mutations. In-silico = soft prioritization (guardrail 5).",
+  "variants": [
+    {
+      "variant_id": "LEC-AM-T1-0001",
+      "mutation": "LC:A17D",
+      "boltz_delta_ipsae_vs_wt": -0.136,
+      "flexddg_ddG_gam_kcal": 0.062,
+      "flexddg_std": 0.129,
+      "flexddg_n_traj": 5,
+      "consensus": "binding-neutral (both scorers within noise)"
+    },
+    {
+      "variant_id": "LEC-AM-T1-0002",
+      "mutation": "HC:T70S",
+      "boltz_delta_ipsae_vs_wt": -0.105,
+      "flexddg_ddG_gam_kcal": -0.002,
+      "flexddg_std": 0.034,
+      "flexddg_n_traj": 5,
+      "consensus": "binding-neutral (both scorers within noise)"
+    },
+    {
+      "variant_id": "LEC-AM-T1-0003",
+      "mutation": "HC:S24A",
+      "boltz_delta_ipsae_vs_wt": -0.077,
+      "flexddg_ddG_gam_kcal": 0.095,
+      "flexddg_std": 0.096,
+      "flexddg_n_traj": 5,
+      "consensus": "binding-neutral (both scorers within noise)"
+    }
+  ]
+}

@@ -12,7 +12,7 @@ Env names differ from the canonical `lecam-*` labels (CLAUDE.md §5); this table
 | Antibody modeling & LMs | `lecam-ab` | **lecam-ab** (built 2026-06-03) | ✅ core | ImmuneBuilder+IgFold+AntiBERTy+AbLang2 verified; **BioPhi/Sapiens deferred** to own env |
 | Co-folding oracles | `lecam-fold` (Boltz-2) + `lecam-chai` (Chai-1) | **lecam-fold**, **lecam-chai** built 2026-06-03; **colabfold** (AF2) | ✅ Boltz-2+Chai-1 | AF3 = container (pending) |
 | Variant generation | `lecam-design` | **mpnn**, **rfd_clean**/**rfdiffusion**/**SE3nv**, **BindCraft** | ◐ strong | RFantibody, LigandMPNN, SolubleMPNN |
-| Physics scoring | `lecam-rosetta` | **BindCraft** (PyRosetta only) | ◐ partial | Rosetta flex_ddG, AbLIFT, FoldX (licensed) |
+| Physics scoring | `lecam-rosetta` | **lecam-rosetta** built 2026-06-04 (PyRosetta 2026.21 + flex_ddG) | ✅ flex_ddG | AbLIFT protocol + FoldX (licensed) TODO |
 | Conformational ensembles | `lecam-md` | **lecam-md** built 2026-06-03 (OpenMM 8.2 CUDA, A100-verified) | ✅ | AlphaFlow (opt) still TODO |
 | Developability | `lecam-dev` | *(none)* | ⛔ missing | build: Aggrescan3D, NetSolP, SoluProt, TAP, DeepViscosity, DE-STRESS |
 
@@ -32,7 +32,7 @@ Env names differ from the canonical `lecam-*` labels (CLAUDE.md §5); this table
 1. ~~**`lecam-ab`**~~ **BUILT 2026-06-03** (`scripts/env/build_lecam-ab.frontenac.sh`, versions in `lecam-ab.versions.txt`): ImmuneBuilder/ABodyBuilder2 + IgFold + AntiBERTy + AbLang2, all verified loading (CPU torch 2.5.1; weights cached on login node). **Remaining for this role:** BioPhi/Sapiens humanness (Stage 6) → recommend a separate `lecam-hum` env (fairseq/Flask conflicts).
 2. ~~**`lecam-fold` / Boltz-2**~~ **BUILT 2026-06-03** (`scripts/env/build_lecam-fold.frontenac.sh`): Boltz-2 2.2.1, CUDA torch 2.6 cu124, `boltz.main` imports, `pip check` clean; weights cached on scratch (`$SCRATCH/cache/boltz`, 7.9G incl. the **affinity** model `boltz2_aff.ckpt`). **Chai-1 also BUILT** in its own env `lecam-chai` (`build_lecam-chai.frontenac.sh`; weights `$SCRATCH/cache/chai`, 6.6G incl. traced ESM2-3B) — separate because chai_lab conflicts with Boltz on requests/protobuf/pandas/rdkit. **Still pending:** AF3 (container, access-gated) + **A100 GPU fold smoke tests** for both. ColabFold/AF2 remains supplementary only (guardrail 2).
 3. **`lecam-dev`** — developability gate tools (Stage 6).
-4. **`lecam-rosetta`** — flex_ddG + AbLIFT + FoldX (licensed; PyRosetta already usable via BindCraft env).
+4. ~~**`lecam-rosetta`**~~ **BUILT 2026-06-04** (`scripts/env/build_lecam-rosetta.frontenac.sh`): PyRosetta 2026.21 (pip, thread+serialization build) + **flex_ddG** ΔΔG via PyRosetta RosettaScriptsParser (`scripts/_tools/flexddg/`, smoke-tested). Remaining: AbLIFT VH-VL redesign protocol + FoldX (separate licensed binary).
 5. ~~**`lecam-md`**~~ **BUILT 2026-06-03** (`scripts/env/build_lecam-md.frontenac.sh`): OpenMM 8.2 (CUDA, A100-verified job 11570164) + pdbfixer + mdtraj. AlphaFlow (optional) still TODO.
 6. **Design extras** — RFantibody (antibody-specific RFdiffusion), LigandMPNN, SolubleMPNN.
 
