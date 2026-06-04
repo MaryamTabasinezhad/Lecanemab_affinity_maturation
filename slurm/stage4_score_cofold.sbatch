@@ -16,7 +16,7 @@ set -uo pipefail
 REPO_ROOT="${SLURM_SUBMIT_DIR:-$PWD}"
 source "$REPO_ROOT/scripts/_detect_cluster.sh"
 
-LIST="$REPO_ROOT/configs/stage4/variant_yaml_list.tsv"
+LIST="${LIST_FILE:-$REPO_ROOT/configs/stage4/variant_yaml_list.tsv}"
 LINE=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$LIST")
 VID=$(echo "$LINE" | cut -f1); YAML=$(echo "$LINE" | cut -f2)
 echo "==== task ${SLURM_ARRAY_TASK_ID}: $VID ===="; hostname; date

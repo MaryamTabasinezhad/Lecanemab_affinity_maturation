@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Stage 4 — T1 (3 framework, scored, binding-neutral on 2 scorers) + **T2 done** (30 CDR point-mut variants registered, `status=generated`). Ledger: 33 variants (3 T1 + 30 T2). Next: (1) **score the 30 T2 variants** — Boltz-2 multi-seed Δ-ipSAE (reuse `make_variant_yamls.py`+`stage4_score_cofold.sbatch`) + **FULL flex_ddG** (nstruct=35, backrub=35000 — these ARE interface muts, unlike T1) via `stage5_flexddg.sbatch` (raise array size + settings); consensus rank by Δ-ipSAE; (2) build **lecam-dev** + Stage-6 selectivity counter-screen (vs monomer + CAA fibril — MANDATORY for CDR muts) + developability; (3) set metrics.yaml M1 Δ-ipSAE threshold (decision); (4) T3/T4 tracks; AbLIFT/FoldX add-ons.
+**Phase / Stage:** Stage 4/5 — T1 (neutral) + **T2 (30 CDR variants) SCORED** (Boltz Δ-ipSAE + REDUCED flex_ddG triage; consensus_rank in ledger). **First above-noise binding signal:** T2-0021 LC:K56N+V114Y Δipsae +0.21, T2-0017 LC:H31A flexddg −0.69, T2-0001 LC:V114Y +0.09; LC:V114Y/K56N/H31A recur. Next, IN ORDER: (1) **Stage-6 selectivity counter-screen — MANDATORY before any T2 advances** (guardrail 1): co-fold top T2 vs Aβ monomer (1Z0Q) + CAA fibril (8QN7); require Δprotofibril−Δmonomer>0 & ≥WT — a higher Aβ1-16-peptide ipSAE may be MONOMER DRIFT (bad). Build **lecam-dev** (developability) too; (2) re-run top ~5 T2 with FULL flex_ddG (nstruct=35/backrub=35000); (3) metrics.yaml M1 threshold (decision); (4) T3/T4.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -106,6 +106,11 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-04 (e) — Scored the 30 T2 variants (first above-noise binding signal)
+- Boltz-2 multi-seed Δ-ipSAE (array 11829065, 30 tasks) + REDUCED flex_ddG triage (array 11829066, 150 traj, nstruct=5/backrub=10000). Generalized harness: `make_variant_yamls.py --list-name`, `stage4_score_cofold.sbatch` (LIST_FILE env), `gen_resfiles.py` (IMGT→seq_pos, multi-mut), `stage5_flexddg_array.sbatch` (VLIST/NSTRUCT/BACKRUB env), `collect_t2_scores.py` (consensus = z(Δipsae)−z(flexddg)).
+- **Top consensus:** T2-0021 LC:K56N+LC:V114Y **Δipsae +0.209** (~3×SEM), T2-0017 LC:H31A flexddg **−0.69**, T2-0019 HC:Y110P+V114Y +0.136, T2-0001 LC:V114Y +0.094, T2-0011 HC:E107D flexddg −0.65. → `results/stage4/t2_scores_summary.json`. Ledger: boltz_ipsae/flexddg_kcal/consensus_rank/status=scored.
+- **CAVEATS:** flex_ddG reduced (triage only); ipSAE soft prioritization (guardrail 5); **SELECTIVITY UNCHECKED — improved Aβ1-16-peptide ipSAE could = monomer drift; Stage-6 counter-screen mandatory before any hit (guardrail 1).**
 
 ### 2026-06-04 (d) — T2 conservative CDR point-mutation panel (30 variants registered)
 - PI chose "conservative point mutations". `scripts/stage4_gen/t2_conservative_pointmuts.py`: ProteinMPNN `--conditional_probs_only` on the Fv–Aβ complex → per-CDR-position log p(aa | rest-WT + backbone + bound Aβ). 17 single CDR muts clear log-odds≥1.0 (LC:V114Y 3.9, HC:G59D 3.8, HC:Y110P 3.3, LC:K56N 2.9, HC:T29D 2.8, HC:R112B→D 2.5, …; span H1/H2/H3/L2/L3), + low-edit combos → **30 T2 registered** (LEC-AM-T2-0001..30). `results/stage4/t2c-20260604/`.

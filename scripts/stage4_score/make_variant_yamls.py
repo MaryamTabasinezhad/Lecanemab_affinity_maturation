@@ -27,6 +27,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--fasta", required=True)
     ap.add_argument("--outdir", default="configs/stage4")
+    ap.add_argument("--list-name", default="variant_yaml_list.tsv")
     args = ap.parse_args()
     out = REPO / args.outdir; out.mkdir(parents=True, exist_ok=True)
     entries, vid, mut = [], None, None
@@ -43,7 +44,7 @@ def main():
         yml = out / f"cofold_{vid}.yaml"
         yml.write_text(TMPL.format(vid=vid, mut=mut, VH=vh, VL=vl, AB=ABETA))
         rows.append(f"{vid}\t{yml}")
-    (out / "variant_yaml_list.tsv").write_text("\n".join(rows) + "\n")
+    (out / args.list_name).write_text("\n".join(rows) + "\n")
     print(f"wrote {len(rows)} variant YAMLs + variant_yaml_list.tsv")
     for r in rows:
         print(" ", r)

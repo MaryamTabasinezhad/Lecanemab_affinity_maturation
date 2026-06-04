@@ -1,0 +1,13 @@
+{
+  "stage": 2,
+  "step": "ipSAE",
+  "tool": "ipsae.py v4",
+  "n_poses": 25,
+  "pae_cutoff": 10,
+  "dist_cutoff": 10,
+  "scratch_dir": "/global/scratch/hpc6049/lecanemab-am/results/stage4/score-LEC-AM-T2-0004",
+  "git_commit": "e379bbfc9fd72c0a30e4e2a12e8fa3330818f220",
+  "outputs": [
+    "ipsae_summary.json"
+  ]
+}

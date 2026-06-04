@@ -1,17 +1,18 @@
 # Campaign Dashboard — lecanemab-am
 
-**Last updated:** 2026-06-04 by frontenac — **T2 conservative CDR panel registered** (30 point-mut variants via ProteinMPNN conditional-probs, after full-redesign found too aggressive). Ledger: 33 variants (3 T1 + 30 T2). No SLURM jobs running.
+**Last updated:** 2026-06-04 by frontenac — **T2 (30 CDR variants) SCORED** (Boltz Δ-ipSAE + reduced flex_ddG): first above-noise binding signal (LC:V114Y/K56N/H31A). Ledger: 33 variants, T2 ranked. No SLURM jobs running.
 
 ## Cluster status
 | Cluster | Agent | Current work | SLURM jobs | Last update |
 |---|---|---|---|---|
-| Frontenac | F | T2 panel (30 CDR point-muts) generated; next: score (Boltz Δ-ipSAE + FULL flex_ddG) + Stage-6 selectivity counter-screen (build lecam-dev) | — | 2026-06-04 |
+| Frontenac | F | T2 scored (top: K56N+V114Y Δipsae +0.21); next: Stage-6 SELECTIVITY counter-screen (MANDATORY) + lecam-dev; full flex_ddG on top hits | — | 2026-06-04 |
 | Narval | Narval | not activated | — | — |
 | Nibi | Nibi | not activated | — | — |
 
 ## Recent actions
 | Date | Agent | Action |
 |---|---|---|
+| 2026-06-04 | frontenac | **Scored 30 T2** (Boltz Δ-ipSAE + reduced flex_ddG, jobs 11829065/66): first above-noise signal — K56N+V114Y Δipsae +0.21, H31A flexddg −0.69; consensus_rank in ledger |
 | 2026-06-04 | frontenac | **T2 conservative panel**: ProteinMPNN conditional-probs CDR point-muts → 30 registered (17 singles+13 doubles; LEC-AM-T2-0001..30); top LC:V114Y/HC:G59D/HC:Y110P |
 | 2026-06-04 | frontenac | **T2 ProteinMPNN 1st pass** (reused ../protein/ProteinMPNN): vanilla full-CDR redesign rewrites 27-35/56 CDR pos → too aggressive (guardrail 1); 0 registered, awaiting PI constraint |
 | 2026-06-04 | frontenac | Built **lecam-rosetta** + **flex_ddG** 2nd scorer (job 11675128): T1 ΔΔG −0.00/+0.06/+0.10 kcal — binding-neutral, agrees with Boltz → 2-scorer consensus |
