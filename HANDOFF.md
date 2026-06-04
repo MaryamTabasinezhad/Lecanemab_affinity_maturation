@@ -107,6 +107,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 
 ## Session log (most recent first)
 
+### 2026-06-04 (c) — T2 ProteinMPNN first pass: too-aggressive finding (awaiting PI constraint)
+- `scripts/stage4_gen/t2_cdr_proteinmpnn.py` (reuses `../protein/ProteinMPNN` + `mpnn` env, CPU). Vanilla MPNN, Fv–Aβ complex, Aβ+framework fixed, 6 IMGT CDRs designable, 96 seqs.
+- **Every design rewrites 27–35/56 CDR positions** (median 31) → near-complete CDR rewrite, NOT conservative AM. Would erode conformational selectivity (guardrail 1). **0 registered to ledger** (by design). Finding: `results/stage4/t2-20260604/T2_FINDING.md`.
+- **AWAITING PI decision** on how to constrain T2: (1) fix CDR-H3 + WT-bias the rest; (2) conservative point-muts only (cap ~2-4); (3) accept aggressive + stringent Stage-6 selectivity counter-screen. Then re-run with the chosen constraint, register, score via the Boltz+flex_ddG harness (FULL flex_ddG for these interface muts).
+- Note: ProteinMPNN helper `make_fixed_positions_dict.py --specify_non_fixed` lets you pass the designable positions directly. CDR seq positions: H={...33 pos}, L={...23 pos} in the manifest.
+
 ### 2026-06-04 (b) — lecam-rosetta + flex_ddG 2nd scorer (T1 binding-neutral consensus)
 - Built `lecam-rosetta` (PyRosetta 2026.21, pip via pyrosetta-installer distributed=True). Run flex_ddG via PyRosetta RosettaScriptsParser on the Kortemme `ddG-backrub.xml` — **no compiled rosetta_scripts binary needed**. Tools in `scripts/_tools/flexddg/`.
 - CPU array (job 11675128, 15 traj, ~7 min each): per variant 5 trajectories, backrub=10000 (REDUCED). `aggregate_flexddg.py` → ddG (REU + zemu-GAM kcal).

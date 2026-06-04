@@ -5,13 +5,14 @@
 ## Cluster status
 | Cluster | Agent | Current work | SLURM jobs | Last update |
 |---|---|---|---|---|
-| Frontenac | F | T1 2-scorer consensus done (binding-neutral); next: build lecam-dev (T1 developability) + T2/T3 CDR tracks | — | 2026-06-04 |
+| Frontenac | F | T2 ProteinMPNN too-aggressive (awaiting PI constraint choice); then re-run + score. lecam-dev still to build | — | 2026-06-04 |
 | Narval | Narval | not activated | — | — |
 | Nibi | Nibi | not activated | — | — |
 
 ## Recent actions
 | Date | Agent | Action |
 |---|---|---|
+| 2026-06-04 | frontenac | **T2 ProteinMPNN 1st pass** (reused ../protein/ProteinMPNN): vanilla full-CDR redesign rewrites 27-35/56 CDR pos → too aggressive (guardrail 1); 0 registered, awaiting PI constraint |
 | 2026-06-04 | frontenac | Built **lecam-rosetta** + **flex_ddG** 2nd scorer (job 11675128): T1 ΔΔG −0.00/+0.06/+0.10 kcal — binding-neutral, agrees with Boltz → 2-scorer consensus |
 | 2026-06-04 | frontenac | **Scored T1** (Boltz-2 Δ-ipSAE vs WT, array 11673009): S24A −0.077, T70S −0.105, A17D −0.136 — neutral-within-noise → ledger status=scored |
 | 2026-06-03 | frontenac | **Stage 4 T1**: AbLang2/OAS-prior framework reversions → 3 CDR-preserving variants in ledger (LC:A17D/HC:T70S/HC:S24A); framework already humanized |
