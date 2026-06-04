@@ -1,0 +1,15 @@
+{
+  "stage": 2,
+  "step": "2.2_cofold_wt_Abeta1-16",
+  "tool": "Boltz-2 (lecam-fold)",
+  "input_yaml": "configs/stage4/cofold_LEC-AM-T1-0001.yaml",
+  "input_yaml_sha256": "ebf85522b054b72e7a1bfbf637941f04a25a9f2bd40edad333f32ff3852ed286",
+  "seeds": "1 2 3 4 5",
+  "samples_per_seed": 5,
+  "n_samples": 25,
+  "scratch_outputs": "/global/scratch/hpc6049/lecanemab-am/results/stage4/score-LEC-AM-T1-0001",
+  "git_commit": "a060edb1a9b3c4b8265f467b9a0013afa31bd7dc",
+  "outputs": [
+    "summary.json"
+  ]
+}

@@ -1,17 +1,18 @@
 # Campaign Dashboard — lecanemab-am
 
-**Last updated:** 2026-06-03 by frontenac — **Stage 4 T1 started**: 3 CDR-preserving framework variants in ledger (LC:A17D/HC:T70S/HC:S24A; framework already humanized). Stage 2 complete. No SLURM jobs running.
+**Last updated:** 2026-06-04 by frontenac — **Stage 4 T1 generated + scored**: 3 framework mutants, Boltz-2 Δ-ipSAE vs WT all neutral-within-noise (−0.08…−0.14; expected). Generate→score loop closed. No SLURM jobs running.
 
 ## Cluster status
 | Cluster | Agent | Current work | SLURM jobs | Last update |
 |---|---|---|---|---|
-| Frontenac | F | Stage 4 T1 (3 variants generated); next: score T1 (Boltz-2 Δ-ipSAE) + build lecam-dev/lecam-rosetta; T2/T3/T4 | — | 2026-06-03 |
+| Frontenac | F | T1 scored (neutral binding, as expected); next: build lecam-dev (T1 developability) + lecam-rosetta; T2/T3 CDR tracks | — | 2026-06-04 |
 | Narval | Narval | not activated | — | — |
 | Nibi | Nibi | not activated | — | — |
 
 ## Recent actions
 | Date | Agent | Action |
 |---|---|---|
+| 2026-06-04 | frontenac | **Scored T1** (Boltz-2 Δ-ipSAE vs WT, array 11673009): S24A −0.077, T70S −0.105, A17D −0.136 — neutral-within-noise → ledger status=scored |
 | 2026-06-03 | frontenac | **Stage 4 T1**: AbLang2/OAS-prior framework reversions → 3 CDR-preserving variants in ledger (LC:A17D/HC:T70S/HC:S24A); framework already humanized |
 | 2026-06-03 | frontenac | Built **lecam-md** (OpenMM CUDA, A100-verified) + **Stage 2.3 MD**: B3 confirmed (Aβ N-term RMSF 2.1Å/98% coil; core ordered) → STAGE 2 COMPLETE |
 | 2026-06-03 | frontenac | **ipSAE on 25 poses**: Fv-Aβ 0.53±0.26 (vs VH-VL 0.96) → iptm-inflation confirmed; M1 baseline = ipSAE → ipsae_summary.json |

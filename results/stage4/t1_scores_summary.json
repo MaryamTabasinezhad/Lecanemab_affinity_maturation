@@ -1,0 +1,36 @@
+{
+  "stage": 5,
+  "step": "score_T1_cofold_Abeta1-16",
+  "wt_baseline": {
+    "ipsae_FvAb_mean": 0.5305,
+    "iptm_mean": 0.9612,
+    "run": "results/stage2/cofold-wt-Abeta1-16-11544623"
+  },
+  "variants": [
+    {
+      "variant_id": "LEC-AM-T1-0003",
+      "mutation": "HC:S24A",
+      "ipsae_mean": 0.4535,
+      "ipsae_std": 0.2505,
+      "delta_ipsae_vs_wt": -0.077,
+      "iptm_mean": 0.9531
+    },
+    {
+      "variant_id": "LEC-AM-T1-0002",
+      "mutation": "HC:T70S",
+      "ipsae_mean": 0.4258,
+      "ipsae_std": 0.2281,
+      "delta_ipsae_vs_wt": -0.1047,
+      "iptm_mean": 0.9542
+    },
+    {
+      "variant_id": "LEC-AM-T1-0001",
+      "mutation": "LC:A17D",
+      "ipsae_mean": 0.3944,
+      "ipsae_std": 0.2129,
+      "delta_ipsae_vs_wt": -0.1361,
+      "iptm_mean": 0.9506
+    }
+  ],
+  "note": "\u0394-ipSAE vs WT (single-seq A\u03b21-16). Ab-Ag interface confidence noisy (ipSAE std ~0.25); |\u0394|<~1 std is within noise. T1 framework changes are expected ~neutral on binding (value is developability/humanness). Pose=hypothesis (D-002)."
+}

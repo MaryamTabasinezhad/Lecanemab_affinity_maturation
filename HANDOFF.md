@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Stage 2 complete → **Stage 4 T1 started**: AbLang2/OAS-prior CDR-preserving framework reversions → 3 single mutants in ledger (LEC-AM-T1-0001..3: LC:A17D, HC:T70S, HC:S24A). Framework already humanized → AbLIFT/Rosetta VH-VL half of T1 pending lecam-rosetta. Next: SCORE T1 (Boltz-2 Δ-ipSAE vs WT, reuse stage2_cofold harness per variant) + developability (build lecam-dev); then T2/T3/T4.
+**Phase / Stage:** Stage 2 complete → **Stage 4 T1 generated + scored**: 3 CDR-preserving framework mutants (LC:A17D, HC:T70S, HC:S24A), Boltz-2 Δ-ipSAE vs WT all neutral-within-noise (−0.08…−0.14; expected — framework changes don't touch paratope) → ledger status=scored. Generate→score loop closed. Next: (1) build **lecam-dev** → score T1 on developability/humanness (where T1's value actually is); (2) build **lecam-rosetta** (AbLIFT VH-VL redesign expands T1 + flex_ddG 2nd scorer); (3) **T2/T3** CDR tracks (where binding gains come from); (4) set metrics.yaml M1 Δ-ipSAE threshold (decision).
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -40,12 +40,13 @@ git pull origin main
 # DONE 2026-06-03: lecam-md built (OpenMM 8.2 CUDA, A100-verified); Stage 2.3 MD -> B3 CONFIRMED
 #                 (Aβ N-term flexible RMSF 2.1Å/98% coil; core 6-11 ordered) -> results/stage2/md-flex-11570164.
 #                 STAGE 2 COMPLETE.
-# DONE 2026-06-03: Stage 4 T1 (LM-prior) -> 3 framework variants in ledger (LEC-AM-T1-0001..3).
-#       Loader: scripts/_tools/ledger_load_csv.py (lecam). Gen: scripts/stage4_gen/t1_framework_lm.py (lecam-ab).
-# Next: (1) SCORE T1 variants = per-variant Boltz-2 multi-seed co-fold vs Aβ1-16, Δ-ipSAE vs WT
-#       (reuse slurm/stage2_cofold.sbatch + aggregate_cofold/compute_ipsae; make a per-variant YAML);
-#       (2) build lecam-dev (developability) + lecam-rosetta (AbLIFT/flex_ddG/FoldX) to expand+score T1;
-#       (3) T2/T3/T4 tracks; (4) set metrics.yaml M1 threshold as Δ-ipSAE gate (decision).
+# DONE 2026-06-04: Stage 4 T1 generated (3 framework variants) AND scored (Boltz-2 Δ-ipSAE vs WT,
+#       array job 11673009): all neutral-within-noise -> ledger status=scored. Loop closed.
+#       Reusable: scripts/stage4_score/{make_variant_yamls,collect_scores}.py + slurm/stage4_score_cofold.sbatch.
+# Next: (1) build lecam-dev -> score T1 developability/humanness (T1's real value axis);
+#       (2) build lecam-rosetta (AbLIFT VH-VL redesign + flex_ddG 2nd scorer) -> expand+re-score T1;
+#       (3) T2/T3 CDR tracks (binding gains live here) into the same scoring harness;
+#       (4) set metrics.yaml M1 threshold as Δ-ipSAE gate (decision).
 ```
 Re-run Fv numbering anytime: `PYTHONNOUSERSITE=1 conda run -n lecam python scripts/stage1_inputs/number_fv.py`.
 
@@ -102,6 +103,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-04 — Scored the 3 T1 variants (Boltz-2 Δ-ipSAE vs WT)
+- Per-variant 5-seed×5-sample Boltz-2 co-fold vs Aβ1-16 (A100 array 11673009, 5 min), reusing the WT 2.2 harness. `scripts/stage4_score/make_variant_yamls.py` + `slurm/stage4_score_cofold.sbatch` + `collect_scores.py`.
+- Δ-ipSAE vs WT (0.531): HC:S24A **−0.077**, HC:T70S **−0.105**, LC:A17D **−0.136** — all within noise (ipSAE std ~0.25). Expected: CDR-preserving framework changes are ~neutral on binding (none improves it). iptm ~0.95 all (intra-Fv-inflated, same as WT).
+- Ledger updated: boltz_ipsae/boltz_iptm/status=scored/stage_reached=5 → `db/exports/variants.csv`. Comparison → `results/stage4/t1_scores_summary.json`.
+- T1 advancement should be driven by **developability/humanness** (Stage 6, needs lecam-dev), not these binding deltas. Guardrail 5: in-silico ipSAE = soft prioritization, display decides.
 
 ### 2026-06-03 (k) — Stage 4 T1 (framework, LM-prior) — first variants in ledger
 - `scripts/stage4_gen/t1_framework_lm.py` (lecam-ab, AbLang2 paired OAS prior): CDR-preserving framework/Vernier point mutants by per-position log-odds (logit[mut]−logit[wt]); IMGT CDRs protected; Vernier (Kabat) tagged.
