@@ -1,0 +1,18 @@
+{
+  "stage": 4,
+  "track": "T2",
+  "subtrack": "conservative_point_mutations",
+  "run_id": "t2c-20260604",
+  "tool": "ProteinMPNN --conditional_probs_only (vanilla)",
+  "mpnn_repo": "/global/project/hpcg6049/protein/ProteinMPNN",
+  "logodds_threshold": 1.0,
+  "max_combo": 3,
+  "panel_cap": 30,
+  "n_singles": 17,
+  "n_registered": 30,
+  "git_commit": "efc42c09ebcc54ec17d335cb45d14d082002fb2f",
+  "outputs": [
+    "t2_variants.csv",
+    "t2_variants.fasta"
+  ]
+}

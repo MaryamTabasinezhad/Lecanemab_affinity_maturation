@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Stage 4 T1 generated + scored by **2 independent scorers**: Boltz-2 Δ-ipSAE AND Rosetta flex_ddG (lecam-rosetta built) — all 3 framework mutants **binding-neutral** (consensus; expected — interface-distal). D-004 ≥2-scorer met. Ledger has boltz_ipsae + flexddg_kcal. Next: (1) build **lecam-dev** → score T1 developability/humanness (its real value axis) → Stage-6 gate; (2) **T2/T3 CDR tracks** (binding gains live here) through the same Boltz+flex_ddG harness — use FULL flex_ddG (nstruct=35, backrub=35000) for interface muts; (3) set metrics.yaml M1 Δ-ipSAE threshold (decision); (4) AbLIFT/FoldX add-ons to lecam-rosetta.
+**Phase / Stage:** Stage 4 — T1 (3 framework, scored, binding-neutral on 2 scorers) + **T2 done** (30 CDR point-mut variants registered, `status=generated`). Ledger: 33 variants (3 T1 + 30 T2). Next: (1) **score the 30 T2 variants** — Boltz-2 multi-seed Δ-ipSAE (reuse `make_variant_yamls.py`+`stage4_score_cofold.sbatch`) + **FULL flex_ddG** (nstruct=35, backrub=35000 — these ARE interface muts, unlike T1) via `stage5_flexddg.sbatch` (raise array size + settings); consensus rank by Δ-ipSAE; (2) build **lecam-dev** + Stage-6 selectivity counter-screen (vs monomer + CAA fibril — MANDATORY for CDR muts) + developability; (3) set metrics.yaml M1 Δ-ipSAE threshold (decision); (4) T3/T4 tracks; AbLIFT/FoldX add-ons.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -106,6 +106,11 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-04 (d) — T2 conservative CDR point-mutation panel (30 variants registered)
+- PI chose "conservative point mutations". `scripts/stage4_gen/t2_conservative_pointmuts.py`: ProteinMPNN `--conditional_probs_only` on the Fv–Aβ complex → per-CDR-position log p(aa | rest-WT + backbone + bound Aβ). 17 single CDR muts clear log-odds≥1.0 (LC:V114Y 3.9, HC:G59D 3.8, HC:Y110P 3.3, LC:K56N 2.9, HC:T29D 2.8, HC:R112B→D 2.5, …; span H1/H2/H3/L2/L3), + low-edit combos → **30 T2 registered** (LEC-AM-T2-0001..30). `results/stage4/t2c-20260604/`.
+- IMGT notation handles insertion codes (e.g. R112B, Y111A in CDR-H3). Conditioned on the uncertain pose → counter-screen mandatory.
+- Next: score (Boltz Δ-ipSAE + FULL flex_ddG) + Stage-6 selectivity counter-screen.
 
 ### 2026-06-04 (c) — T2 ProteinMPNN first pass: too-aggressive finding (awaiting PI constraint)
 - `scripts/stage4_gen/t2_cdr_proteinmpnn.py` (reuses `../protein/ProteinMPNN` + `mpnn` env, CPU). Vanilla MPNN, Fv–Aβ complex, Aβ+framework fixed, 6 IMGT CDRs designable, 96 seqs.
