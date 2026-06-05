@@ -4,7 +4,7 @@ Reuses the WT Stage-2.2 setup so variant scores are comparable (deltas vs WT).""
 import argparse
 from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
-ABETA = "DAEFRHDSGYEVHHQK"
+ABETA = "DAEFRHDSGYEVHHQK"   # default target: Aβ N-terminal 1-16 epitope; override with --antigen-seq
 TMPL = """# Stage 4 scoring — {vid} ({mut}) co-fold vs Aβ1-16. Same settings as WT Stage 2.2.
 version: 1
 sequences:
@@ -28,7 +28,10 @@ def main():
     ap.add_argument("--fasta", required=True)
     ap.add_argument("--outdir", default="configs/stage4")
     ap.add_argument("--list-name", default="variant_yaml_list.tsv")
+    ap.add_argument("--antigen-seq", default=ABETA, help="P-chain antigen sequence (default Aβ1-16)")
+    ap.add_argument("--prefix", default="cofold", help="YAML filename prefix")
     args = ap.parse_args()
+    antigen = args.antigen_seq
     out = REPO / args.outdir; out.mkdir(parents=True, exist_ok=True)
     entries, vid, mut = [], None, None
     pairs = []
@@ -41,8 +44,8 @@ def main():
             pairs.append((vid, mut, vh, vl))
     rows = []
     for vid, mut, vh, vl in sorted(pairs):
-        yml = out / f"cofold_{vid}.yaml"
-        yml.write_text(TMPL.format(vid=vid, mut=mut, VH=vh, VL=vl, AB=ABETA))
+        yml = out / f"{args.prefix}_{vid}.yaml"
+        yml.write_text(TMPL.format(vid=vid, mut=mut, VH=vh, VL=vl, AB=antigen))
         rows.append(f"{vid}\t{yml}")
     (out / args.list_name).write_text("\n".join(rows) + "\n")
     print(f"wrote {len(rows)} variant YAMLs + variant_yaml_list.tsv")

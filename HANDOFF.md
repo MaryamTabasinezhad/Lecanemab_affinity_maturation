@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Stage 4/5 — T1 (neutral) + **T2 (30 CDR variants) SCORED** (Boltz Δ-ipSAE + REDUCED flex_ddG triage; consensus_rank in ledger). **First above-noise binding signal:** T2-0021 LC:K56N+V114Y Δipsae +0.21, T2-0017 LC:H31A flexddg −0.69, T2-0001 LC:V114Y +0.09; LC:V114Y/K56N/H31A recur. Next, IN ORDER: (1) **Stage-6 selectivity counter-screen — MANDATORY before any T2 advances** (guardrail 1): co-fold top T2 vs Aβ monomer (1Z0Q) + CAA fibril (8QN7); require Δprotofibril−Δmonomer>0 & ≥WT — a higher Aβ1-16-peptide ipSAE may be MONOMER DRIFT (bad). Build **lecam-dev** (developability) too; (2) re-run top ~5 T2 with FULL flex_ddG (nstruct=35/backrub=35000); (3) metrics.yaml M1 threshold (decision); (4) T3/T4.
+**Phase / Stage:** Stage 6 — monomer counter-screen **REJECTED all top-6 T2 hits** (monomer drift; ΔM ≫ ΔT). WT validates the method (epitope 0.53 vs monomer 0.14). **Key lesson (validates §2):** monovalent affinity gains erode selectivity; a single-Fv co-fold can't separate protofibril from monomer (same epitope; selectivity is AVIDITY). **STRATEGY PIVOT NEEDED — PI decision** among: (A) **avidity / multivalent formats (Stage 7)** — the real lever (B7); (B) **protofibril/oligomer target model** so the affinity axis is aggregation-specific (vs the current 1-16 peptide ≈ monomer); (C) **selectivity-aware generation** (counter-screen inside the design loop). Also still owed: CAA/fixed-N axis (needs fibril template), build lecam-dev (developability/humanness). See `results/stage6/SELECTIVITY_FINDING.md`.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -106,6 +106,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-04 (f) — Stage-6 monomer counter-screen: all top T2 hits rejected (validates §2)
+- Co-fold WT + top-6 T2 vs full Aβ42 monomer (counter-target; `make_variant_yamls.py --antigen-seq`, array 11875669) → M2 margin via `scripts/stage6_select/collect_selectivity.py`.
+- **WT: epitope ipSAE 0.53 vs monomer 0.14** (method discriminates — matches lecanemab's weak monomer binding). **All 6 top T2 hits: ΔM (monomer) +0.21..+0.41 ≫ ΔT (epitope); sel_margin −0.08..−0.26 → MONOMER-DRIFT.** Marked `status=rejected, monomer_screen=positive`.
+- The counter-screen rejected the affinity-ranked top variants → validates the campaign thesis. Monovalent co-fold conflates protofibril & monomer (selectivity is avidity). `results/stage6/SELECTIVITY_FINDING.md`.
+- **PATH BUG to fix:** counter-screen reused `results/stage4/score-<vid>/` (overwrote T2 epitope dirs). Epitope numbers safe in `t2_scores_summary.json` + ledger. Parametrize the score sbatch out-dir per assay next time.
 
 ### 2026-06-04 (e) — Scored the 30 T2 variants (first above-noise binding signal)
 - Boltz-2 multi-seed Δ-ipSAE (array 11829065, 30 tasks) + REDUCED flex_ddG triage (array 11829066, 150 traj, nstruct=5/backrub=10000). Generalized harness: `make_variant_yamls.py --list-name`, `stage4_score_cofold.sbatch` (LIST_FILE env), `gen_resfiles.py` (IMGT→seq_pos, multi-mut), `stage5_flexddg_array.sbatch` (VLIST/NSTRUCT/BACKRUB env), `collect_t2_scores.py` (consensus = z(Δipsae)−z(flexddg)).

@@ -1,0 +1,70 @@
+{
+  "stage": 6,
+  "step": "monomer_selectivity_topT2",
+  "metric": "M2 (monovalent proxy)",
+  "wt_ipsae_epitope": 0.5305,
+  "wt_ipsae_monomer": 0.142,
+  "caveat": "Monovalent proxy; true monomer selectivity is avidity-based (Stage 7/wet-lab). Target=A\u03b21-16 peptide (not protofibril). CAA/fixed-N axis deferred (needs fibril template). Guardrail 5: soft prioritization; display decides.",
+  "variants": [
+    {
+      "variant_id": "LEC-AM-T2-0026",
+      "mutation": "HC:G59D;HC:R112BD",
+      "ipsae_epitope": 0.66,
+      "ipsae_monomer": 0.3503,
+      "delta_target": 0.13,
+      "delta_monomer": 0.208,
+      "sel_margin": -0.078,
+      "flag": "MONOMER-DRIFT"
+    },
+    {
+      "variant_id": "LEC-AM-T2-0030",
+      "mutation": "HC:T29D;LC:K56N",
+      "ipsae_epitope": 0.673,
+      "ipsae_monomer": 0.4736,
+      "delta_target": 0.143,
+      "delta_monomer": 0.331,
+      "sel_margin": -0.188,
+      "flag": "MONOMER-DRIFT"
+    },
+    {
+      "variant_id": "LEC-AM-T2-0021",
+      "mutation": "LC:K56N;LC:V114Y",
+      "ipsae_epitope": 0.74,
+      "ipsae_monomer": 0.5476,
+      "delta_target": 0.21,
+      "delta_monomer": 0.405,
+      "sel_margin": -0.195,
+      "flag": "MONOMER-DRIFT"
+    },
+    {
+      "variant_id": "LEC-AM-T2-0017",
+      "mutation": "LC:H31A",
+      "ipsae_epitope": 0.545,
+      "ipsae_monomer": 0.3615,
+      "delta_target": 0.015,
+      "delta_monomer": 0.219,
+      "sel_margin": -0.204,
+      "flag": "MONOMER-DRIFT"
+    },
+    {
+      "variant_id": "LEC-AM-T2-0019",
+      "mutation": "HC:Y110P;LC:V114Y",
+      "ipsae_epitope": 0.666,
+      "ipsae_monomer": 0.4895,
+      "delta_target": 0.136,
+      "delta_monomer": 0.347,
+      "sel_margin": -0.211,
+      "flag": "MONOMER-DRIFT"
+    },
+    {
+      "variant_id": "LEC-AM-T2-0001",
+      "mutation": "LC:V114Y",
+      "ipsae_epitope": 0.625,
+      "ipsae_monomer": 0.4975,
+      "delta_target": 0.095,
+      "delta_monomer": 0.355,
+      "sel_margin": -0.26,
+      "flag": "MONOMER-DRIFT"
+    }
+  ]
+}

@@ -1,43 +1,43 @@
 {
   "stage": 2,
   "step": "2.x_ipSAE_wt_Abeta1-16",
-  "n_poses": 25,
+  "n_poses": 50,
   "pae_cutoff": 10,
   "dist_cutoff": 10,
   "tool": "ipsae.py v4 (Dunbrack 2025, doi:10.1101/2025.02.10.637595)",
   "aggregate": {
     "ipsae_FvAb_max": {
-      "n": 25,
-      "mean": 0.6245,
-      "std": 0.2319,
-      "min": 0.0257,
+      "n": 50,
+      "mean": 0.4975,
+      "std": 0.2815,
+      "min": 0.0142,
       "max": 0.9136
     },
     "ipsae_HP": {
-      "n": 25,
-      "mean": 0.6245,
-      "std": 0.232,
-      "min": 0.0252,
+      "n": 50,
+      "mean": 0.4975,
+      "std": 0.2816,
+      "min": 0.0132,
       "max": 0.9136
     },
     "ipsae_LP": {
-      "n": 25,
-      "mean": 0.5905,
-      "std": 0.2291,
-      "min": 0.0257,
+      "n": 50,
+      "mean": 0.4586,
+      "std": 0.2759,
+      "min": 0.0142,
       "max": 0.8932
     },
     "ipsae_HL_intraFv": {
-      "n": 25,
-      "mean": 0.9663,
-      "std": 0.0072,
-      "min": 0.9501,
+      "n": 50,
+      "mean": 0.9516,
+      "std": 0.0192,
+      "min": 0.9091,
       "max": 0.9801
     },
     "pdockq_HP": {
-      "n": 25,
-      "mean": 0.1844,
-      "std": 0.0755,
+      "n": 50,
+      "mean": 0.1625,
+      "std": 0.0751,
       "min": 0.0407,
       "max": 0.3714
     }
@@ -94,6 +94,56 @@
       "pdockq_LP": 0.1025
     },
     {
+      "pose": "seed1/monomer_LEC-AM-T2-0001_model_0",
+      "seed": "1",
+      "ipsae_HP": 0.596488,
+      "ipsae_LP": 0.551418,
+      "ipsae_FvAb_max": 0.596488,
+      "ipsae_HL_intraFv": 0.945045,
+      "pdockq_HP": 0.2118,
+      "pdockq_LP": 0.1023
+    },
+    {
+      "pose": "seed1/monomer_LEC-AM-T2-0001_model_1",
+      "seed": "1",
+      "ipsae_HP": 0.894312,
+      "ipsae_LP": 0.86963,
+      "ipsae_FvAb_max": 0.894312,
+      "ipsae_HL_intraFv": 0.968543,
+      "pdockq_HP": 0.1542,
+      "pdockq_LP": 0.1285
+    },
+    {
+      "pose": "seed1/monomer_LEC-AM-T2-0001_model_2",
+      "seed": "1",
+      "ipsae_HP": 0.394772,
+      "ipsae_LP": 0.352763,
+      "ipsae_FvAb_max": 0.394772,
+      "ipsae_HL_intraFv": 0.935509,
+      "pdockq_HP": 0.1937,
+      "pdockq_LP": 0.0839
+    },
+    {
+      "pose": "seed1/monomer_LEC-AM-T2-0001_model_3",
+      "seed": "1",
+      "ipsae_HP": 0.154971,
+      "ipsae_LP": 0.105783,
+      "ipsae_FvAb_max": 0.154971,
+      "ipsae_HL_intraFv": 0.932535,
+      "pdockq_HP": 0.1131,
+      "pdockq_LP": 0.1641
+    },
+    {
+      "pose": "seed1/monomer_LEC-AM-T2-0001_model_4",
+      "seed": "1",
+      "ipsae_HP": 0.013197,
+      "ipsae_LP": 0.014199,
+      "ipsae_FvAb_max": 0.014199,
+      "ipsae_HL_intraFv": 0.909137,
+      "pdockq_HP": 0.0498,
+      "pdockq_LP": 0.0266
+    },
+    {
       "pose": "seed2/cofold_LEC-AM-T2-0001_model_0",
       "seed": "2",
       "ipsae_HP": 0.913588,
@@ -142,6 +192,56 @@
       "ipsae_HL_intraFv": 0.953915,
       "pdockq_HP": 0.1455,
       "pdockq_LP": 0.0931
+    },
+    {
+      "pose": "seed2/monomer_LEC-AM-T2-0001_model_0",
+      "seed": "2",
+      "ipsae_HP": 0.770216,
+      "ipsae_LP": 0.736159,
+      "ipsae_FvAb_max": 0.770216,
+      "ipsae_HL_intraFv": 0.953837,
+      "pdockq_HP": 0.1966,
+      "pdockq_LP": 0.1185
+    },
+    {
+      "pose": "seed2/monomer_LEC-AM-T2-0001_model_1",
+      "seed": "2",
+      "ipsae_HP": 0.518394,
+      "ipsae_LP": 0.467982,
+      "ipsae_FvAb_max": 0.518394,
+      "ipsae_HL_intraFv": 0.941152,
+      "pdockq_HP": 0.2028,
+      "pdockq_LP": 0.1514
+    },
+    {
+      "pose": "seed2/monomer_LEC-AM-T2-0001_model_2",
+      "seed": "2",
+      "ipsae_HP": 0.554921,
+      "ipsae_LP": 0.427558,
+      "ipsae_FvAb_max": 0.554921,
+      "ipsae_HL_intraFv": 0.952899,
+      "pdockq_HP": 0.1388,
+      "pdockq_LP": 0.0372
+    },
+    {
+      "pose": "seed2/monomer_LEC-AM-T2-0001_model_3",
+      "seed": "2",
+      "ipsae_HP": 0.016498,
+      "ipsae_LP": 0.016529,
+      "ipsae_FvAb_max": 0.016529,
+      "ipsae_HL_intraFv": 0.920437,
+      "pdockq_HP": 0.0583,
+      "pdockq_LP": 0.0513
+    },
+    {
+      "pose": "seed2/monomer_LEC-AM-T2-0001_model_4",
+      "seed": "2",
+      "ipsae_HP": 0.020916,
+      "ipsae_LP": 0.020761,
+      "ipsae_FvAb_max": 0.020916,
+      "ipsae_HL_intraFv": 0.914418,
+      "pdockq_HP": 0.057,
+      "pdockq_LP": 0.0766
     },
     {
       "pose": "seed3/cofold_LEC-AM-T2-0001_model_0",
@@ -194,6 +294,56 @@
       "pdockq_LP": 0.0939
     },
     {
+      "pose": "seed3/monomer_LEC-AM-T2-0001_model_0",
+      "seed": "3",
+      "ipsae_HP": 0.711995,
+      "ipsae_LP": 0.578431,
+      "ipsae_FvAb_max": 0.711995,
+      "ipsae_HL_intraFv": 0.953322,
+      "pdockq_HP": 0.2048,
+      "pdockq_LP": 0.0719
+    },
+    {
+      "pose": "seed3/monomer_LEC-AM-T2-0001_model_1",
+      "seed": "3",
+      "ipsae_HP": 0.495978,
+      "ipsae_LP": 0.466326,
+      "ipsae_FvAb_max": 0.495978,
+      "ipsae_HL_intraFv": 0.941119,
+      "pdockq_HP": 0.1018,
+      "pdockq_LP": 0.1308
+    },
+    {
+      "pose": "seed3/monomer_LEC-AM-T2-0001_model_2",
+      "seed": "3",
+      "ipsae_HP": 0.21179,
+      "ipsae_LP": 0.156811,
+      "ipsae_FvAb_max": 0.21179,
+      "ipsae_HL_intraFv": 0.933566,
+      "pdockq_HP": 0.254,
+      "pdockq_LP": 0.1809
+    },
+    {
+      "pose": "seed3/monomer_LEC-AM-T2-0001_model_3",
+      "seed": "3",
+      "ipsae_HP": 0.671173,
+      "ipsae_LP": 0.579443,
+      "ipsae_FvAb_max": 0.671173,
+      "ipsae_HL_intraFv": 0.959575,
+      "pdockq_HP": 0.0784,
+      "pdockq_LP": 0.0203
+    },
+    {
+      "pose": "seed3/monomer_LEC-AM-T2-0001_model_4",
+      "seed": "3",
+      "ipsae_HP": 0.131623,
+      "ipsae_LP": 0.084347,
+      "ipsae_FvAb_max": 0.131623,
+      "ipsae_HL_intraFv": 0.914307,
+      "pdockq_HP": 0.0774,
+      "pdockq_LP": 0.0888
+    },
+    {
       "pose": "seed4/cofold_LEC-AM-T2-0001_model_0",
       "seed": "4",
       "ipsae_HP": 0.860685,
@@ -244,6 +394,56 @@
       "pdockq_LP": 0.1201
     },
     {
+      "pose": "seed4/monomer_LEC-AM-T2-0001_model_0",
+      "seed": "4",
+      "ipsae_HP": 0.336022,
+      "ipsae_LP": 0.248531,
+      "ipsae_FvAb_max": 0.336022,
+      "ipsae_HL_intraFv": 0.95565,
+      "pdockq_HP": 0.1025,
+      "pdockq_LP": 0.0295
+    },
+    {
+      "pose": "seed4/monomer_LEC-AM-T2-0001_model_1",
+      "seed": "4",
+      "ipsae_HP": 0.380807,
+      "ipsae_LP": 0.332189,
+      "ipsae_FvAb_max": 0.380807,
+      "ipsae_HL_intraFv": 0.938552,
+      "pdockq_HP": 0.1204,
+      "pdockq_LP": 0.0975
+    },
+    {
+      "pose": "seed4/monomer_LEC-AM-T2-0001_model_2",
+      "seed": "4",
+      "ipsae_HP": 0.495589,
+      "ipsae_LP": 0.47445,
+      "ipsae_FvAb_max": 0.495589,
+      "ipsae_HL_intraFv": 0.950555,
+      "pdockq_HP": 0.0686,
+      "pdockq_LP": 0.0727
+    },
+    {
+      "pose": "seed4/monomer_LEC-AM-T2-0001_model_3",
+      "seed": "4",
+      "ipsae_HP": 0.086109,
+      "ipsae_LP": 0.054935,
+      "ipsae_FvAb_max": 0.086109,
+      "ipsae_HL_intraFv": 0.92293,
+      "pdockq_HP": 0.0885,
+      "pdockq_LP": 0.0854
+    },
+    {
+      "pose": "seed4/monomer_LEC-AM-T2-0001_model_4",
+      "seed": "4",
+      "ipsae_HP": 0.065301,
+      "ipsae_LP": 0.039661,
+      "ipsae_FvAb_max": 0.065301,
+      "ipsae_HL_intraFv": 0.924955,
+      "pdockq_HP": 0.1114,
+      "pdockq_LP": 0.0587
+    },
+    {
       "pose": "seed5/cofold_LEC-AM-T2-0001_model_0",
       "seed": "5",
       "ipsae_HP": 0.800878,
@@ -292,6 +492,56 @@
       "ipsae_HL_intraFv": 0.960027,
       "pdockq_HP": 0.2152,
       "pdockq_LP": 0.1204
+    },
+    {
+      "pose": "seed5/monomer_LEC-AM-T2-0001_model_0",
+      "seed": "5",
+      "ipsae_HP": 0.655546,
+      "ipsae_LP": 0.616649,
+      "ipsae_FvAb_max": 0.655546,
+      "ipsae_HL_intraFv": 0.945212,
+      "pdockq_HP": 0.2845,
+      "pdockq_LP": 0.1683
+    },
+    {
+      "pose": "seed5/monomer_LEC-AM-T2-0001_model_1",
+      "seed": "5",
+      "ipsae_HP": 0.6524,
+      "ipsae_LP": 0.612804,
+      "ipsae_FvAb_max": 0.6524,
+      "ipsae_HL_intraFv": 0.940565,
+      "pdockq_HP": 0.1806,
+      "pdockq_LP": 0.0965
+    },
+    {
+      "pose": "seed5/monomer_LEC-AM-T2-0001_model_2",
+      "seed": "5",
+      "ipsae_HP": 0.298325,
+      "ipsae_LP": 0.254532,
+      "ipsae_FvAb_max": 0.298325,
+      "ipsae_HL_intraFv": 0.929431,
+      "pdockq_HP": 0.2603,
+      "pdockq_LP": 0.16
+    },
+    {
+      "pose": "seed5/monomer_LEC-AM-T2-0001_model_3",
+      "seed": "5",
+      "ipsae_HP": 0.114769,
+      "ipsae_LP": 0.083853,
+      "ipsae_FvAb_max": 0.114769,
+      "ipsae_HL_intraFv": 0.926878,
+      "pdockq_HP": 0.1273,
+      "pdockq_LP": 0.131
+    },
+    {
+      "pose": "seed5/monomer_LEC-AM-T2-0001_model_4",
+      "seed": "5",
+      "ipsae_HP": 0.01983,
+      "ipsae_LP": 0.020552,
+      "ipsae_FvAb_max": 0.020552,
+      "ipsae_HL_intraFv": 0.912377,
+      "pdockq_HP": 0.0788,
+      "pdockq_LP": 0.0808
     }
   ],
   "note": "ipSAE is the interface-specific WT baseline (use for delta-vs-WT, M1). Contrast with iptm 0.961 (inflated by intra-Fv VH-VL). Pose is a hypothesis (D-002)."

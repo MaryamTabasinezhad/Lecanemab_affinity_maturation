@@ -1,0 +1,813 @@
+{
+  "stage": 2,
+  "step": "2.2_cofold_wt_Abeta1-16",
+  "n_samples": 25,
+  "seeds": "1 2 3 4 5",
+  "samples_per_seed": 5,
+  "aggregate": {
+    "iptm": {
+      "n": 25,
+      "mean": 0.8468,
+      "std": 0.0506,
+      "min": 0.7809,
+      "max": 0.9623
+    },
+    "ptm": {
+      "n": 25,
+      "mean": 0.9034,
+      "std": 0.0309,
+      "min": 0.863,
+      "max": 0.9745
+    },
+    "complex_plddt": {
+      "n": 25,
+      "mean": 0.8665,
+      "std": 0.0119,
+      "min": 0.8476,
+      "max": 0.8927
+    }
+  },
+  "best_by_iptm": {
+    "file": "seed_2/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_0.json",
+    "seed": "2",
+    "confidence_score": 0.8952318429946899,
+    "ptm": 0.974531888961792,
+    "iptm": 0.9622718095779419,
+    "ligand_iptm": 0.0,
+    "protein_iptm": 0.9622718095779419,
+    "complex_plddt": 0.878471851348877,
+    "complex_iplddt": 0.8155185580253601,
+    "complex_pde": 0.30880895256996155,
+    "complex_ipde": 0.5823824405670166,
+    "pair_chains_iptm": {
+      "0": {
+        "0": 0.9916491508483887,
+        "1": 0.9779736399650574,
+        "2": 0.8859643936157227
+      },
+      "1": {
+        "0": 0.977958619594574,
+        "1": 0.9924160242080688,
+        "2": 0.8630051612854004
+      },
+      "2": {
+        "0": 0.9244664907455444,
+        "1": 0.9215413331985474,
+        "2": 0.9505730867385864
+      }
+    }
+  },
+  "samples": [
+    {
+      "file": "seed_1/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_0.json",
+      "seed": "1",
+      "confidence_score": 0.8965242505073547,
+      "ptm": 0.942389190196991,
+      "iptm": 0.9119091033935547,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.9119091033935547,
+      "complex_plddt": 0.8926779627799988,
+      "complex_iplddt": 0.8428568243980408,
+      "complex_pde": 0.4385947287082672,
+      "complex_ipde": 1.4523019790649414,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9849461317062378,
+          "1": 0.965259850025177,
+          "2": 0.7111523747444153
+        },
+        "1": {
+          "0": 0.9673871397972107,
+          "1": 0.9892231225967407,
+          "2": 0.6547539830207825
+        },
+        "2": {
+          "0": 0.7612919807434082,
+          "1": 0.7592246532440186,
+          "2": 0.8582955598831177
+        }
+      }
+    },
+    {
+      "file": "seed_1/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_1.json",
+      "seed": "1",
+      "confidence_score": 0.8859979510307312,
+      "ptm": 0.9278808236122131,
+      "iptm": 0.8886467814445496,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8886467814445496,
+      "complex_plddt": 0.8853358030319214,
+      "complex_iplddt": 0.8273038864135742,
+      "complex_pde": 0.5249037146568298,
+      "complex_ipde": 1.788353681564331,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9835928678512573,
+          "1": 0.9635617136955261,
+          "2": 0.7964619994163513
+        },
+        "1": {
+          "0": 0.9673708081245422,
+          "1": 0.989311695098877,
+          "2": 0.7992136478424072
+        },
+        "2": {
+          "0": 0.671692430973053,
+          "1": 0.6780816316604614,
+          "2": 0.6569806933403015
+        }
+      }
+    },
+    {
+      "file": "seed_1/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_2.json",
+      "seed": "1",
+      "confidence_score": 0.868209958076477,
+      "ptm": 0.9242681860923767,
+      "iptm": 0.8816347122192383,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8816347122192383,
+      "complex_plddt": 0.8648537397384644,
+      "complex_iplddt": 0.7910552620887756,
+      "complex_pde": 0.5815793871879578,
+      "complex_ipde": 2.4397659301757812,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9834253191947937,
+          "1": 0.9624554514884949,
+          "2": 0.5979881882667542
+        },
+        "1": {
+          "0": 0.968106210231781,
+          "1": 0.9891563653945923,
+          "2": 0.5637168884277344
+        },
+        "2": {
+          "0": 0.6419360637664795,
+          "1": 0.6430209875106812,
+          "2": 0.6619422435760498
+        }
+      }
+    },
+    {
+      "file": "seed_1/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_3.json",
+      "seed": "1",
+      "confidence_score": 0.863120973110199,
+      "ptm": 0.9337655305862427,
+      "iptm": 0.8953421115875244,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8953421115875244,
+      "complex_plddt": 0.855065643787384,
+      "complex_iplddt": 0.793279767036438,
+      "complex_pde": 0.5060598254203796,
+      "complex_ipde": 2.008043050765991,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9867802858352661,
+          "1": 0.9675764441490173,
+          "2": 0.6168915033340454
+        },
+        "1": {
+          "0": 0.970191478729248,
+          "1": 0.9893918037414551,
+          "2": 0.5854067802429199
+        },
+        "2": {
+          "0": 0.6935851573944092,
+          "1": 0.6889958381652832,
+          "2": 0.8205834627151489
+        }
+      }
+    },
+    {
+      "file": "seed_1/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_4.json",
+      "seed": "1",
+      "confidence_score": 0.8463833928108215,
+      "ptm": 0.8811185359954834,
+      "iptm": 0.8114922642707825,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8114922642707825,
+      "complex_plddt": 0.8551061749458313,
+      "complex_iplddt": 0.76900315284729,
+      "complex_pde": 0.7568840384483337,
+      "complex_ipde": 3.6376798152923584,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9711229205131531,
+          "1": 0.9444670081138611,
+          "2": 0.2976650893688202
+        },
+        "1": {
+          "0": 0.9563795328140259,
+          "1": 0.9850631952285767,
+          "2": 0.30405741930007935
+        },
+        "2": {
+          "0": 0.42062678933143616,
+          "1": 0.4301776587963104,
+          "2": 0.5577244162559509
+        }
+      }
+    },
+    {
+      "file": "seed_2/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_0.json",
+      "seed": "2",
+      "confidence_score": 0.8952318429946899,
+      "ptm": 0.974531888961792,
+      "iptm": 0.9622718095779419,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.9622718095779419,
+      "complex_plddt": 0.878471851348877,
+      "complex_iplddt": 0.8155185580253601,
+      "complex_pde": 0.30880895256996155,
+      "complex_ipde": 0.5823824405670166,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9916491508483887,
+          "1": 0.9779736399650574,
+          "2": 0.8859643936157227
+        },
+        "1": {
+          "0": 0.977958619594574,
+          "1": 0.9924160242080688,
+          "2": 0.8630051612854004
+        },
+        "2": {
+          "0": 0.9244664907455444,
+          "1": 0.9215413331985474,
+          "2": 0.9505730867385864
+        }
+      }
+    },
+    {
+      "file": "seed_2/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_1.json",
+      "seed": "2",
+      "confidence_score": 0.8707727789878845,
+      "ptm": 0.8812025785446167,
+      "iptm": 0.8141598105430603,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8141598105430603,
+      "complex_plddt": 0.8849260210990906,
+      "complex_iplddt": 0.8292428851127625,
+      "complex_pde": 0.7118921279907227,
+      "complex_ipde": 3.104867458343506,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9647542834281921,
+          "1": 0.9358207583427429,
+          "2": 0.46439120173454285
+        },
+        "1": {
+          "0": 0.9541417956352234,
+          "1": 0.9848967790603638,
+          "2": 0.3897946774959564
+        },
+        "2": {
+          "0": 0.4525342881679535,
+          "1": 0.44846418499946594,
+          "2": 0.5962306261062622
+        }
+      }
+    },
+    {
+      "file": "seed_2/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_2.json",
+      "seed": "2",
+      "confidence_score": 0.8702623248100281,
+      "ptm": 0.9044135808944702,
+      "iptm": 0.8479457497596741,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8479457497596741,
+      "complex_plddt": 0.875841498374939,
+      "complex_iplddt": 0.810765266418457,
+      "complex_pde": 0.6210782527923584,
+      "complex_ipde": 2.6566405296325684,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9772999286651611,
+          "1": 0.9537255764007568,
+          "2": 0.4911342263221741
+        },
+        "1": {
+          "0": 0.9622950553894043,
+          "1": 0.9871320724487305,
+          "2": 0.4227365553379059
+        },
+        "2": {
+          "0": 0.5468226075172424,
+          "1": 0.5438981056213379,
+          "2": 0.7066164612770081
+        }
+      }
+    },
+    {
+      "file": "seed_2/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_3.json",
+      "seed": "2",
+      "confidence_score": 0.8664833903312683,
+      "ptm": 0.8987781405448914,
+      "iptm": 0.8388051390647888,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8388051390647888,
+      "complex_plddt": 0.873403012752533,
+      "complex_iplddt": 0.8053757548332214,
+      "complex_pde": 0.653221845626831,
+      "complex_ipde": 2.8981943130493164,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9776362180709839,
+          "1": 0.9539097547531128,
+          "2": 0.5397558212280273
+        },
+        "1": {
+          "0": 0.9617679715156555,
+          "1": 0.9870979189872742,
+          "2": 0.48147568106651306
+        },
+        "2": {
+          "0": 0.5087956786155701,
+          "1": 0.5061109066009521,
+          "2": 0.6092793345451355
+        }
+      }
+    },
+    {
+      "file": "seed_2/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_4.json",
+      "seed": "2",
+      "confidence_score": 0.8447162508964539,
+      "ptm": 0.8941447734832764,
+      "iptm": 0.8308029174804688,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8308029174804688,
+      "complex_plddt": 0.8481946587562561,
+      "complex_iplddt": 0.7719356417655945,
+      "complex_pde": 0.7047475576400757,
+      "complex_ipde": 3.2700934410095215,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.975739598274231,
+          "1": 0.950166642665863,
+          "2": 0.4407983422279358
+        },
+        "1": {
+          "0": 0.9605626463890076,
+          "1": 0.986751139163971,
+          "2": 0.3814220428466797
+        },
+        "2": {
+          "0": 0.4817906320095062,
+          "1": 0.4843534827232361,
+          "2": 0.646122395992279
+        }
+      }
+    },
+    {
+      "file": "seed_3/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_0.json",
+      "seed": "3",
+      "confidence_score": 0.8815445899963379,
+      "ptm": 0.9697715640068054,
+      "iptm": 0.9552552700042725,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.9552552700042725,
+      "complex_plddt": 0.8631169199943542,
+      "complex_iplddt": 0.7843619585037231,
+      "complex_pde": 0.34014320373535156,
+      "complex_ipde": 0.8313388824462891,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9905034303665161,
+          "1": 0.9757005572319031,
+          "2": 0.8027074337005615
+        },
+        "1": {
+          "0": 0.9768198728561401,
+          "1": 0.9920827746391296,
+          "2": 0.8343179225921631
+        },
+        "2": {
+          "0": 0.8869084119796753,
+          "1": 0.8987242579460144,
+          "2": 0.9199844002723694
+        }
+      }
+    },
+    {
+      "file": "seed_3/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_1.json",
+      "seed": "3",
+      "confidence_score": 0.853585422039032,
+      "ptm": 0.8932150602340698,
+      "iptm": 0.8296681642532349,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8296681642532349,
+      "complex_plddt": 0.8595647811889648,
+      "complex_iplddt": 0.8058280348777771,
+      "complex_pde": 0.6731035113334656,
+      "complex_ipde": 2.8692755699157715,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9784018397331238,
+          "1": 0.9545454978942871,
+          "2": 0.5007787942886353
+        },
+        "1": {
+          "0": 0.9616146683692932,
+          "1": 0.9866258502006531,
+          "2": 0.44858720898628235
+        },
+        "2": {
+          "0": 0.47374966740608215,
+          "1": 0.46859270334243774,
+          "2": 0.5688234567642212
+        }
+      }
+    },
+    {
+      "file": "seed_3/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_2.json",
+      "seed": "3",
+      "confidence_score": 0.8503147959709167,
+      "ptm": 0.8898431658744812,
+      "iptm": 0.8235495686531067,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8235495686531067,
+      "complex_plddt": 0.8570060729980469,
+      "complex_iplddt": 0.7751550674438477,
+      "complex_pde": 0.7109672427177429,
+      "complex_ipde": 3.3934454917907715,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9754605889320374,
+          "1": 0.949114978313446,
+          "2": 0.39648503065109253
+        },
+        "1": {
+          "0": 0.9586240649223328,
+          "1": 0.9869330525398254,
+          "2": 0.35798707604408264
+        },
+        "2": {
+          "0": 0.46600836515426636,
+          "1": 0.46592867374420166,
+          "2": 0.6428827047348022
+        }
+      }
+    },
+    {
+      "file": "seed_3/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_3.json",
+      "seed": "3",
+      "confidence_score": 0.8489484190940857,
+      "ptm": 0.8766252398490906,
+      "iptm": 0.8024623990058899,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8024623990058899,
+      "complex_plddt": 0.8605698347091675,
+      "complex_iplddt": 0.7927078008651733,
+      "complex_pde": 0.765393853187561,
+      "complex_ipde": 3.4560141563415527,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9687304496765137,
+          "1": 0.9395595192909241,
+          "2": 0.39362233877182007
+        },
+        "1": {
+          "0": 0.9531193375587463,
+          "1": 0.984316885471344,
+          "2": 0.35498663783073425
+        },
+        "2": {
+          "0": 0.40414348244667053,
+          "1": 0.3993259370326996,
+          "2": 0.5223612785339355
+        }
+      }
+    },
+    {
+      "file": "seed_3/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_4.json",
+      "seed": "3",
+      "confidence_score": 0.8415422439575195,
+      "ptm": 0.8635320067405701,
+      "iptm": 0.780860185623169,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.780860185623169,
+      "complex_plddt": 0.856712818145752,
+      "complex_iplddt": 0.7680403590202332,
+      "complex_pde": 0.8669645190238953,
+      "complex_ipde": 4.039708614349365,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9685285687446594,
+          "1": 0.939552366733551,
+          "2": 0.502809464931488
+        },
+        "1": {
+          "0": 0.9556103944778442,
+          "1": 0.9859753847122192,
+          "2": 0.49583643674850464
+        },
+        "2": {
+          "0": 0.31692934036254883,
+          "1": 0.31763482093811035,
+          "2": 0.36640918254852295
+        }
+      }
+    },
+    {
+      "file": "seed_4/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_0.json",
+      "seed": "4",
+      "confidence_score": 0.8808738589286804,
+      "ptm": 0.9417093396186829,
+      "iptm": 0.909210205078125,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.909210205078125,
+      "complex_plddt": 0.8737898468971252,
+      "complex_iplddt": 0.8047806024551392,
+      "complex_pde": 0.47269338369369507,
+      "complex_ipde": 1.5962836742401123,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9878321886062622,
+          "1": 0.9714416861534119,
+          "2": 0.8422486782073975
+        },
+        "1": {
+          "0": 0.9737335443496704,
+          "1": 0.9910590052604675,
+          "2": 0.8343498706817627
+        },
+        "2": {
+          "0": 0.7304900884628296,
+          "1": 0.7274891138076782,
+          "2": 0.7362844944000244
+        }
+      }
+    },
+    {
+      "file": "seed_4/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_1.json",
+      "seed": "4",
+      "confidence_score": 0.8623461127281189,
+      "ptm": 0.9096847772598267,
+      "iptm": 0.8587216138839722,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8587216138839722,
+      "complex_plddt": 0.8632521629333496,
+      "complex_iplddt": 0.782651960849762,
+      "complex_pde": 0.6449939608573914,
+      "complex_ipde": 2.730782985687256,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.981252133846283,
+          "1": 0.9574954509735107,
+          "2": 0.48381686210632324
+        },
+        "1": {
+          "0": 0.962343692779541,
+          "1": 0.9875444769859314,
+          "2": 0.47371914982795715
+        },
+        "2": {
+          "0": 0.5691764950752258,
+          "1": 0.5746322274208069,
+          "2": 0.6042822003364563
+        }
+      }
+    },
+    {
+      "file": "seed_4/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_2.json",
+      "seed": "4",
+      "confidence_score": 0.8547711372375488,
+      "ptm": 0.870218813419342,
+      "iptm": 0.791357696056366,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.791357696056366,
+      "complex_plddt": 0.8706245422363281,
+      "complex_iplddt": 0.7871692180633545,
+      "complex_pde": 0.8186690807342529,
+      "complex_ipde": 4.038792133331299,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9707015752792358,
+          "1": 0.9458150267601013,
+          "2": 0.5055333375930786
+        },
+        "1": {
+          "0": 0.9590314626693726,
+          "1": 0.9873477816581726,
+          "2": 0.4991149604320526
+        },
+        "2": {
+          "0": 0.3409956991672516,
+          "1": 0.34096968173980713,
+          "2": 0.42085063457489014
+        }
+      }
+    },
+    {
+      "file": "seed_4/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_3.json",
+      "seed": "4",
+      "confidence_score": 0.8432387709617615,
+      "ptm": 0.8910781741142273,
+      "iptm": 0.8258668780326843,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8258668780326843,
+      "complex_plddt": 0.847581684589386,
+      "complex_iplddt": 0.7661624550819397,
+      "complex_pde": 0.7206844091415405,
+      "complex_ipde": 3.3580803871154785,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9837251901626587,
+          "1": 0.965101957321167,
+          "2": 0.446372926235199
+        },
+        "1": {
+          "0": 0.9687925577163696,
+          "1": 0.9894296526908875,
+          "2": 0.39441338181495667
+        },
+        "2": {
+          "0": 0.4201588034629822,
+          "1": 0.41924765706062317,
+          "2": 0.5145494937896729
+        }
+      }
+    },
+    {
+      "file": "seed_4/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_4.json",
+      "seed": "4",
+      "confidence_score": 0.8365265130996704,
+      "ptm": 0.8630495071411133,
+      "iptm": 0.7811760902404785,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.7811760902404785,
+      "complex_plddt": 0.850364089012146,
+      "complex_iplddt": 0.7585151195526123,
+      "complex_pde": 0.8768526315689087,
+      "complex_ipde": 4.402034282684326,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9695313572883606,
+          "1": 0.9424901604652405,
+          "2": 0.2443113625049591
+        },
+        "1": {
+          "0": 0.9575618505477905,
+          "1": 0.9867128133773804,
+          "2": 0.1823260486125946
+        },
+        "2": {
+          "0": 0.3055145740509033,
+          "1": 0.3088998794555664,
+          "2": 0.45483484864234924
+        }
+      }
+    },
+    {
+      "file": "seed_5/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_0.json",
+      "seed": "5",
+      "confidence_score": 0.8782512545585632,
+      "ptm": 0.9295030832290649,
+      "iptm": 0.8902894854545593,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8902894854545593,
+      "complex_plddt": 0.8752416968345642,
+      "complex_iplddt": 0.7996013760566711,
+      "complex_pde": 0.5040827989578247,
+      "complex_ipde": 1.9586527347564697,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9839151501655579,
+          "1": 0.9630923867225647,
+          "2": 0.6301527619361877
+        },
+        "1": {
+          "0": 0.9657689929008484,
+          "1": 0.988611102104187,
+          "2": 0.588350236415863
+        },
+        "2": {
+          "0": 0.6823711395263672,
+          "1": 0.6825059056282043,
+          "2": 0.7993922829627991
+        }
+      }
+    },
+    {
+      "file": "seed_5/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_1.json",
+      "seed": "5",
+      "confidence_score": 0.8643841743469238,
+      "ptm": 0.8871328234672546,
+      "iptm": 0.8199045658111572,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8199045658111572,
+      "complex_plddt": 0.8755040764808655,
+      "complex_iplddt": 0.8022327423095703,
+      "complex_pde": 0.7219837307929993,
+      "complex_ipde": 3.115129232406616,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9706259965896606,
+          "1": 0.9412776827812195,
+          "2": 0.4648800790309906
+        },
+        "1": {
+          "0": 0.9528809189796448,
+          "1": 0.9840763211250305,
+          "2": 0.4383890628814697
+        },
+        "2": {
+          "0": 0.46629729866981506,
+          "1": 0.4624444544315338,
+          "2": 0.5590750575065613
+        }
+      }
+    },
+    {
+      "file": "seed_5/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_2.json",
+      "seed": "5",
+      "confidence_score": 0.8589249849319458,
+      "ptm": 0.8735171556472778,
+      "iptm": 0.799124538898468,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.799124538898468,
+      "complex_plddt": 0.8738750219345093,
+      "complex_iplddt": 0.803545355796814,
+      "complex_pde": 0.8240465521812439,
+      "complex_ipde": 4.059561252593994,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9663678407669067,
+          "1": 0.9369879961013794,
+          "2": 0.4650880992412567
+        },
+        "1": {
+          "0": 0.9568460583686829,
+          "1": 0.9861946702003479,
+          "2": 0.45496463775634766
+        },
+        "2": {
+          "0": 0.38570937514305115,
+          "1": 0.3803040385246277,
+          "2": 0.49694129824638367
+        }
+      }
+    },
+    {
+      "file": "seed_5/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_3.json",
+      "seed": "5",
+      "confidence_score": 0.8534800410270691,
+      "ptm": 0.8881092667579651,
+      "iptm": 0.8204060196876526,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.8204060196876526,
+      "complex_plddt": 0.8617485761642456,
+      "complex_iplddt": 0.777371346950531,
+      "complex_pde": 0.7457941174507141,
+      "complex_ipde": 3.4655439853668213,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.9748477339744568,
+          "1": 0.9462994933128357,
+          "2": 0.5359378457069397
+        },
+        "1": {
+          "0": 0.9577444195747375,
+          "1": 0.9866939783096313,
+          "2": 0.5440025925636292
+        },
+        "2": {
+          "0": 0.45787638425827026,
+          "1": 0.4489235281944275,
+          "2": 0.5370694398880005
+        }
+      }
+    },
+    {
+      "file": "seed_5/boltz_results_monomer_lecanemab_WT/predictions/monomer_lecanemab_WT/confidence_monomer_lecanemab_WT_model_4.json",
+      "seed": "5",
+      "confidence_score": 0.8471366167068481,
+      "ptm": 0.8749030232429504,
+      "iptm": 0.7998073697090149,
+      "ligand_iptm": 0.0,
+      "protein_iptm": 0.7998073697090149,
+      "complex_plddt": 0.8589689135551453,
+      "complex_iplddt": 0.7874637246131897,
+      "complex_pde": 0.8260160088539124,
+      "complex_ipde": 4.00375509262085,
+      "pair_chains_iptm": {
+        "0": {
+          "0": 0.971424400806427,
+          "1": 0.9473022222518921,
+          "2": 0.4557030200958252
+        },
+        "1": {
+          "0": 0.9629998803138733,
+          "1": 0.9872497320175171,
+          "2": 0.4608442187309265
+        },
+        "2": {
+          "0": 0.3641802966594696,
+          "1": 0.37025558948516846,
+          "2": 0.43682119250297546
+        }
+      }
+    }
+  ],
+  "note": "WT baseline. iptm = interface confidence (Fv+A\u03b21-16). Pose is a hypothesis (D-002); single-sequence mode; deltas vs WT use identical settings."
+}
