@@ -1,17 +1,18 @@
 # Campaign Dashboard — lecanemab-am
 
-**Last updated:** 2026-06-04 by frontenac — **Stage-6 monomer counter-screen REJECTED all top-6 T2 hits** (monomer drift). Validates §2 (monovalent affinity gains erode selectivity). Strategy pivot needed. No SLURM jobs running.
+**Last updated:** 2026-06-06 by frontenac — pivot to **protofibril-target model**: structural ground-truth mapped; de-novo 3-chain co-fold failed (Aβ self-aggregates, Fv unbound) → need templated 9CO4 + docking. No SLURM jobs running.
 
 ## Cluster status
 | Cluster | Agent | Current work | SLURM jobs | Last update |
 |---|---|---|---|---|
-| Frontenac | F | Top T2 hits rejected (monomer-drift); awaiting PI strategy pivot (avidity / protofibril-target / selectivity-aware design) | — | 2026-06-04 |
+| Frontenac | F | Building protofibril-target model (templated 9CO4 + Fv dock); de-novo co-fold ruled out | — | 2026-06-06 |
 | Narval | Narval | not activated | — | — |
 | Nibi | Nibi | not activated | — | — |
 
 ## Recent actions
 | Date | Agent | Action |
 |---|---|---|
+| 2026-06-06 | frontenac | **Protofibril-target model** design+feasibility: 9CO4 core 9-42/flexible-N (B3), 8QN7 fixed-N (B4); de-novo 3-chain co-fold failed (Aβ self-aggregates) → templated docking needed |
 | 2026-06-04 | frontenac | **Stage-6 monomer counter-screen** (job 11875669): ALL top-6 T2 hits = monomer-drift → rejected. WT validates (epitope 0.53 vs monomer 0.14). Validates §2 |
 | 2026-06-04 | frontenac | **Scored 30 T2** (Boltz Δ-ipSAE + reduced flex_ddG, jobs 11829065/66): first above-noise signal — K56N+V114Y Δipsae +0.21, H31A flexddg −0.69; consensus_rank in ledger |
 | 2026-06-04 | frontenac | **T2 conservative panel**: ProteinMPNN conditional-probs CDR point-muts → 30 registered (17 singles+13 doubles; LEC-AM-T2-0001..30); top LC:V114Y/HC:G59D/HC:Y110P |

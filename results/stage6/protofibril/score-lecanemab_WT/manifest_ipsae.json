@@ -1,0 +1,13 @@
+{
+  "stage": 2,
+  "step": "ipSAE",
+  "tool": "ipsae.py v4",
+  "n_poses": 25,
+  "pae_cutoff": 10,
+  "dist_cutoff": 10,
+  "scratch_dir": "/global/scratch/hpc6049/lecanemab-am/results/stage6/protofibril/score-lecanemab_WT",
+  "git_commit": "a74f5353fc33dc749212c1f0ba3b3563f06dd4c1",
+  "outputs": [
+    "ipsae_summary.json"
+  ]
+}

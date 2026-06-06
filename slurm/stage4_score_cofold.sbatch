@@ -26,8 +26,9 @@ conda activate lecam-fold; unset PYTHONPATH; export PYTHONNOUSERSITE=1
 export BOLTZ_CACHE="${BOLTZ_CACHE:-$SCRATCH_ROOT/cache/boltz}"
 
 RUNID="score-${VID}"
-SCRATCH_RUN="$SCRATCH_ROOT/results/stage4/$RUNID"
-REPO_OUT="$REPO_ROOT/results/stage4/$RUNID"
+SUBDIR="${OUT_SUBDIR:-stage4}"             # per-assay out dir (avoids overwriting other assays)
+SCRATCH_RUN="$SCRATCH_ROOT/results/$SUBDIR/$RUNID"
+REPO_OUT="$REPO_ROOT/results/$SUBDIR/$RUNID"
 SEEDS="1 2 3 4 5"; SAMPLES=5
 mkdir -p "$SCRATCH_RUN"
 for s in $SEEDS; do

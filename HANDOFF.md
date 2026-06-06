@@ -8,7 +8,7 @@ Coordinator (Frontenac) session-to-session state for the **git-coordinated, mult
 
 ## Resume here (next action)
 
-**Phase / Stage:** Stage 6 — monomer counter-screen **REJECTED all top-6 T2 hits** (monomer drift; ΔM ≫ ΔT). WT validates the method (epitope 0.53 vs monomer 0.14). **Key lesson (validates §2):** monovalent affinity gains erode selectivity; a single-Fv co-fold can't separate protofibril from monomer (same epitope; selectivity is AVIDITY). **STRATEGY PIVOT NEEDED — PI decision** among: (A) **avidity / multivalent formats (Stage 7)** — the real lever (B7); (B) **protofibril/oligomer target model** so the affinity axis is aggregation-specific (vs the current 1-16 peptide ≈ monomer); (C) **selectivity-aware generation** (counter-screen inside the design loop). Also still owed: CAA/fixed-N axis (needs fibril template), build lecam-dev (developability/humanness). See `results/stage6/SELECTIVITY_FINDING.md`.
+**Phase / Stage:** Stage 6 — monomer counter-screen rejected all top-6 T2 (monomer-drift; validates §2). **PI pivot = protofibril-target model.** Done so far: structural ground-truth (9CO4/7Q4B core 9-42, flexible N-term 1-8 = B3; 8QN7 CAA N-term 1-38 ordered = B4); feasibility test (WT Fv + 3× free Aβ42) FAILED — Aβ self-aggregates, Fv unbound. **NEXT (the build):** template protofibril from 9CO4 (rigid 9-42 core, model flexible 1-8 on a central chain) + DOCK the Fv onto the protruding N-terminus — via PyRosetta (`lecam-rosetta`: superpose Stage-2 bound Aβ1-16 onto a central chain's 9-16 → local dock+score) OR Boltz pocket/contact constraints pinning Fv to the central chain. Validate WT protofibril>monomer, then re-screen T2 on M2 + CAA (8QN7). See `results/stage6/PROTOFIBRIL_MODEL_NOTES.md`. Also owed: lecam-dev (developability/humanness); avidity (Stage 7) is the other lever.
 
 **Env note:** `conda activate lecam`; **always set `PYTHONNOUSERSITE=1`** (a py3.12 pydantic in `~/.local` leaks into conda's plugin loader → noisy `anaconda-cloud-auth`/GLIBC warnings; harmless, just suppress). Env built from **conda-forge/bioconda** (NOT the CC wheelhouse — glibc 2.28 mismatch, D-007). Versions pinned in `docs/env/lecam.versions.txt`.
 
@@ -106,6 +106,12 @@ On paste-back, Claude will: interpret → update the DuckDB ledger → update `P
 ---
 
 ## Session log (most recent first)
+
+### 2026-06-06 — Protofibril-target model: ground-truth + feasibility (de-novo failed)
+- Structural ground-truth (fetched coords): 9CO4/7Q4B = 10× Aβ42 stack, core res 9-42, N-term 1-8 unresolved/flexible (B3); 8QN7 CAA N-term 1-38 ordered (B4); monomer fully disordered.
+- Feasibility: WT Fv + 3× free Aβ42 de-novo Boltz co-fold (job 11942230) → Aβ self-aggregated (P-Q-R 52-138 CA contacts<8Å) but Fv unbound (all Fv×Aβ ipSAE=0). De-novo multi-chain co-fold is NOT a usable protofibril target.
+- → Build plan (PROTOFIBRIL_MODEL_NOTES.md): templated 9CO4 scaffold + Fv docking (PyRosetta or Boltz constraints). Generalized stage4_score_cofold.sbatch with OUT_SUBDIR (per-assay out dir; fixes the earlier score-<vid> overwrite bug).
+- NOTE: compute_ipsae.py only handles H-P/L-P pairs — generalize to max over all Fv×Aβ chains for multi-Aβ targets.
 
 ### 2026-06-04 (f) — Stage-6 monomer counter-screen: all top T2 hits rejected (validates §2)
 - Co-fold WT + top-6 T2 vs full Aβ42 monomer (counter-target; `make_variant_yamls.py --antigen-seq`, array 11875669) → M2 margin via `scripts/stage6_select/collect_selectivity.py`.

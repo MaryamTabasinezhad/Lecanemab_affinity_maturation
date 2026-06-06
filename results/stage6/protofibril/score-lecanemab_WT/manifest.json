@@ -1,0 +1,15 @@
+{
+  "stage": 2,
+  "step": "2.2_cofold_wt_Abeta1-16",
+  "tool": "Boltz-2 (lecam-fold)",
+  "input_yaml": "configs/stage6/protofibril3_lecanemab_WT.yaml",
+  "input_yaml_sha256": "7cff99336bb1dd991d3f87142858d29c5c0109dd7bbc4b6c6c8cc02826abcb55",
+  "seeds": "1 2 3 4 5",
+  "samples_per_seed": 5,
+  "n_samples": 25,
+  "scratch_outputs": "/global/scratch/hpc6049/lecanemab-am/results/stage6/protofibril/score-lecanemab_WT",
+  "git_commit": "a74f5353fc33dc749212c1f0ba3b3563f06dd4c1",
+  "outputs": [
+    "summary.json"
+  ]
+}
