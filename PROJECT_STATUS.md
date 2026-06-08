@@ -66,6 +66,9 @@ Legend: ☐ not started · ◐ in progress · ☑ done · ⊘ blocked
 
 ## Open questions / risks
 
+> **Consolidated PI decision memo (phase-by-phase, restart-ready): `docs/decisions/DESIGN_DECISION_MEMO.md`** — top asks: protofibril target construct (S2-3), M1/M2 thresholds (S5-2/S6-1), avidity policy + multivalent format (S6-2/S7-1), selectivity-aware generation (S4-4).
+
+
 - **OQ-1 — epitope register.** **INFORMED 2026-06-03 (Stage 2.4, 25-pose ensemble):** consensus Fv footprint on Aβ = positions **1–11, 13, 14, 15** (core 2–10 at 100%); this covers **both** the literature "3–7" register (3-7 all 100%) **and** the internal B6 hotspots (Y10/E11/H13/H14/Q15 in consensus; K16 not) → neither contradicted; broad N-terminal footprint. Per D-002 still treated as a **hypothesis set**, not locked. `results/stage2/cofold-wt-Abeta1-16-11544623/pose_hypotheses.json`. (iptm overconfident; confirm flexibility in 2.3 MD.)
 - **OQ-2 — display platform.** Yeast surface display vs phage; protofibril reagent prep, stability, and immobilization for counter-selection (Stage 8 dependency).
 - **OQ-3 — avidity metric.** Define a concrete valency-aware "avidity-adjusted affinity" score for in-silico use (Stage 6).
