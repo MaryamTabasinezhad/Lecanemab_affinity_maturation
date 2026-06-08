@@ -64,3 +64,28 @@ free 1-16 peptide was a poor target proxy — and it means a protofibril complex
 3. **Validate on WT** before trusting it: require WT to engage the protofibril favourably AND
    (key control) to be **occluded on 8QN7** (CAA, ordered N-terminus 1-38) — reproducing B3 (binds
    flexible-N protofibril) vs B4 (spares fixed-N CAA). Only then score variants on Δprotofibril−Δmonomer.
+
+---
+
+## Build attempt 2 — PyRosetta local docking (PIPELINE VALIDATED, 2026-06-08)
+`scripts/stage6_select/dock_fv_protofibril.py` (modes: `seed`, `dock`).
+- **Clash-free seed works:** geometric placement (paratope facing the epitope, 12 Å standoff) onto a
+  3-chain 9CO4 segment (E/F/G, res 9-42, central F) gives **0 Fv–receptor clashes** (vs 80 for the
+  rigid graft). `results/stage6/dock_9co4_wt/seed_report.json`.
+- **Local dock works:** PyRosetta `DockMCMProtocol` (receptor rigid) + `InterfaceAnalyzerMover` →
+  WT Fv docks onto the 9CO4 epitope with a favourable refined interface: **dG_separated −5.69 REU,
+  16 interface residues, 459 Å² buried** (1-decoy smoke test). Scaled run (20 decoys) = job 11950541.
+- **Methods-consistency requirement found:** InterfaceAnalyzer on the *raw* Boltz monomer complex
+  gives +257 REU (it is not Rosetta-relaxed) — meaningless. **Target and every counter-target must be
+  scored through the IDENTICAL dock+refine protocol** (DockMCM already refines), else the numbers are
+  not comparable. → monomer/CAA baselines must be re-docked/refined the same way, not InterfaceAnalyzer'd raw.
+
+## Remaining for a usable selectivity score (next)
+1. Robust WT 9CO4 score (multi-decoy; job 11950541) + the same protocol on the **monomer** (dock WT
+   Fv onto free Aβ1-16) and **CAA**.
+2. CAA control needs the **8QN7 fibril stack** (deposited cif is 1 chain; apply helical symmetry to
+   build neighbours so the ordered N-terminus is packed/occluded) — the key B4 discriminator.
+3. Validate: WT favourable on 9CO4, occluded/worse on 8QN7; only then re-screen variants on the
+   protofibril-vs-monomer/CAA margin.
+4. Caveat stands: monovalent docking captures conformational + steric (B3/B4) selectivity, NOT avidity
+   (the monomer lever) — that remains Stage 7 + wet-lab.

@@ -1,0 +1,15 @@
+{
+  "mode": "seed",
+  "receptor": "9co4",
+  "chains": [
+    "E",
+    "F",
+    "G"
+  ],
+  "central": "F",
+  "epitope_res": "9-16",
+  "standoff_A": 12.0,
+  "fv_receptor_clashes_<2.5A": 0,
+  "ok": true,
+  "note": "clash-free seed ready for local docking"
+}
