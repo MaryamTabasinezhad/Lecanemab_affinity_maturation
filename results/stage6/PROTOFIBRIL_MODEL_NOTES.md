@@ -35,3 +35,32 @@ Template the protofibril from the REAL structure; do not let Boltz refold the A�
 Even a templated monovalent dock captures only the CONFORMATIONAL selectivity (rigid core +
 presented flexible N-terminus, B3/B4) — NOT avidity (the dominant monomer-selectivity lever,
 Stage 7). Both are needed; this addresses the conformational axis.
+
+---
+
+## Build attempt 1 — rigid graft of the WT Fv pose onto 9CO4 (2026-06-08)
+`scripts/stage6_select/build_protofibril_target.py`: superposed the Stage-2 WT co-fold (Fv + bound
+Aβ1-16) onto a central 9CO4 chain (F) via the overlapping ordered epitope residues 9-16, then assembled
+Fv + bound epitope + the 10-chain 9CO4 core.
+
+**Result = OCCLUDED (informative failure):** align RMSD on res 9-16 = **3.4 Å** (the epitope's 9-16
+backbone is in a different conformation in the cross-β fibril than in our free-peptide-bound pose);
+the grafted Fv has **80 clashing atoms (<2.5 Å)** with the protofibril core (183 contacts <4.5 Å).
+→ The free-peptide binding pose **does not transfer** to the protofibril by rigid superposition.
+
+**Interpretation.** Two things differ between the free-peptide target and the protofibril: (1) the
+ordered epitope (9-16) adopts the cross-β fibril conformation, not the free conformation our Fv bound;
+(2) the rigid stacked core sterically blocks the free-peptide approach. This is exactly *why* the
+free 1-16 peptide was a poor target proxy — and it means a protofibril complex must be obtained by
+**flexible docking**, not grafting.
+
+## Refined build plan (flexible docking)
+1. Prepare the protofibril receptor: a 3-5 chain 9CO4 segment (central chain + neighbours, res 9-42),
+   kept rigid; model the flexible N-terminus (1-8) on the central chain so the epitope 1-16 protrudes
+   into solvent.
+2. **Dock the Fv** onto the protruding N-terminus allowing it to find a clash-free, core-compatible
+   binding mode (PyRosetta local docking biased to the N-terminal epitope, fibril core fixed; or
+   Boltz with pocket/contact constraints to the central chain's N-terminus). Refine + relieve clashes.
+3. **Validate on WT** before trusting it: require WT to engage the protofibril favourably AND
+   (key control) to be **occluded on 8QN7** (CAA, ordered N-terminus 1-38) — reproducing B3 (binds
+   flexible-N protofibril) vs B4 (spares fixed-N CAA). Only then score variants on Δprotofibril−Δmonomer.

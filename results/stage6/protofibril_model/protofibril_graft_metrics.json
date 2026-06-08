@@ -1,0 +1,12 @@
+{
+  "step": "S2-3A_protofibril_graft",
+  "protofibril": "9CO4",
+  "central_chain": "F",
+  "align_residues": "9-16",
+  "align_rmsd_A": 3.369,
+  "fv_epitope_contact_atoms": 128,
+  "fv_core_clash_atoms_<2.5A": 80,
+  "fv_core_contact_atoms_<4.5A": 183,
+  "verdict": "OCCLUDED \u2014 pose incompatible with protofibril core (real docking needed)",
+  "note": "Graft via overlapping ordered epitope (9-16); bound A\u03b21-16 supplies the flexible N-term in engaged conformation. Low core-clash = epitope accessible on the rigid stacked core (B3). Next: refine + Rosetta interface score; repeat vs 8QN7 (CAA, fixed-N) which should occlude (B4)."
+}
