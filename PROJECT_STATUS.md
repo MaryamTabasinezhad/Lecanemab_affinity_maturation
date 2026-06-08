@@ -1,6 +1,6 @@
 # PROJECT_STATUS.md — lecanemab-am
 
-**Last updated:** 2026-06-04  ·  **Updated by:** Hamid (with Claude)  ·  **Phase:** Stage 6 — monomer counter-screen **REJECTED all top-6 T2 hits** (monomer drift); validates §2 (monovalent affinity gains erode selectivity). Strategy pivot needed (avidity / protofibril-target / selectivity-aware design)
+**Last updated:** 2026-06-08  ·  **Updated by:** Hamid (with Claude)  ·  **Phase:** Stage 6 — **protofibril-target model BUILT + WT-validated** (PyRosetta dock reproduces B3/B4; monomer −27.56 > protofibril −8.62 > CAA occluded → preference is avidity). Next: re-screen variants on the protofibril-vs-monomer margin
 **GitHub:** `git@github.com:MaryamTabasinezhad/Lecanemab_affinity_maturation.git`  ·  **Project root:** `/global/project/hpcg6049/lecanemab-am` (Frontenac)  ·  **Coordinator:** Frontenac · **Workers:** none active yet
 
 ---
@@ -22,7 +22,7 @@ Immediate next action: **PI decision on OQ-7** (epitope-homology template set); 
 | 3 | Paratope Mapping & Design-Space Definition | ☐ |
 | 4 | Variant Generation (multi-track) | ◐ **T1 done** (3 framework, scored, neutral). **T2 done**: 1st-pass full-CDR redesign too aggressive (27-35/56 → finding) → PI chose conservative; ProteinMPNN conditional-probs CDR point-muts → **30 registered** (17 singles + 13 doubles; LEC-AM-T2-0001..30) `status=generated`. T3/T4 not started |
 | 5 | In Silico Affinity Scoring & Consensus Ranking | ◐ 2 scorers (Boltz Δ-ipSAE + flex_ddG) live; ran on T1 (neutral) + **T2 (30 vars): first above-noise signal** — top LC:K56N+V114Y Δipsae +0.21, LC:H31A flexddg −0.69; consensus_rank in ledger. flex_ddG was REDUCED triage → re-run top hits full settings |
-| 6 | Selectivity Counter-Design, Humanness & Developability | ◐ monomer screen rejected all top-6 T2 (validates §2). **Protofibril-target model (S2-3A): PyRosetta local-docking PIPELINE VALIDATED** — clash-free seed (0 clashes) + DockMCM on 9CO4 → WT favourable interface (dG −5.69 REU, 459Å²); scale-up job 11950541. **Next:** same protocol on monomer+CAA (8QN7 needs fibril stack), WT validation, re-screen. CAA axis + `lecam-dev` pending |
+| 6 | Selectivity Counter-Design, Humanness & Developability | ◐ **Protofibril-target model (S2-3A) BUILT + WT-VALIDATED** (PyRosetta dock): WT dG monomer **−27.56** > protofibril **−8.62** > CAA **OCCLUDED** → reproduces B3/B4 and shows protofibril preference is AVIDITY not monovalent (explains §2 + the T2 monomer-drift). **Next: re-screen variants on the protofibril-vs-monomer margin.** `lecam-dev` + humanness still pending |
 | 7 | Format, Valency & Delivery Engineering | ☐ |
 | 8 | Experimental Validation & Active-Learning Loop | ☐ |
 
