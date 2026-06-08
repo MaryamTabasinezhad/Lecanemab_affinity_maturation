@@ -1,0 +1,17 @@
+{
+  "mode": "seed",
+  "receptor": "8qn7_stack",
+  "chains": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "central": "C",
+  "epitope_res": "1-16",
+  "standoff_A": 12.0,
+  "fv_receptor_clashes_<2.5A": 205,
+  "ok": false,
+  "note": "seed still clashes \u2014 increase standoff or pick a more exposed epitope face"
+}

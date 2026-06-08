@@ -89,3 +89,17 @@ free 1-16 peptide was a poor target proxy — and it means a protofibril complex
    protofibril-vs-monomer/CAA margin.
 4. Caveat stands: monovalent docking captures conformational + steric (B3/B4) selectivity, NOT avidity
    (the monomer lever) — that remains Stage 7 + wet-lab.
+
+---
+
+## WT VALIDATION (2026-06-08) — model reproduces B3/B4 and explains §2
+Same DockMCM+InterfaceAnalyzer protocol on all three forms (`results/stage6/protofibril_model/wt_validation.json`):
+- **Monomer** (free Aβ1-16): dG **-27.56 REU** (49 int res, 1487 Å²) — Fv wraps the whole flexible epitope.
+- **Protofibril** (9CO4): dG **-8.62 REU** (9 int res, 362 Å²) — only the protruding accessible part engaged.
+- **CAA** (8QN7 5-rung stack via NCS op2/op5): **OCCLUDED** (seed 205 clashes; N-term 1-16 buried, 16/16 CA <5 Å to neighbour rungs).
+
+**Validated:** B3 (protofibril engageable) + B4 (CAA occluded). **Key insight:** monovalent affinity is
+*higher* for the MONOMER than the protofibril → the protofibril preference is **avidity**, not monovalent
+affinity. This mechanistically explains why the Stage-6 affinity-improving CDR variants drifted to monomer,
+and validates the §2 objective. **Design implication:** select variants improving the restricted
+protofibril interface WITHOUT improving the monomer wrap.

@@ -1,0 +1,12 @@
+{
+  "step": "S2-3A_WT_validation",
+  "protocol": "PyRosetta DockMCM (receptor rigid) + InterfaceAnalyzer; identical refine for all",
+  "wt_dG_separated_REU": {
+    "monomer_Abeta1-16": {"dG": -27.56, "n_interface_res": 49, "dSASA": 1487.2, "seed_clashes": "n/a (Boltz pose)"},
+    "protofibril_9CO4":   {"dG": -8.62,  "n_interface_res": 9,  "dSASA": 361.6,  "seed_clashes": 0},
+    "CAA_8QN7_stack":     {"dG": "OCCLUDED", "seed_clashes": 205, "note": "N-term 1-16 buried (16/16 CA packed <5A vs neighbor rungs)"}
+  },
+  "verdict": "VALIDATED. Reproduces B3 (protofibril flexible-N engageable) and B4 (CAA buried-N occluded). Key: monovalent affinity MONOMER (-27.56) > PROTOFIBRIL (-8.62) -> protofibril preference is AVIDITY, not monovalent. Mechanistically explains the Stage-6 monomer-drift of affinity-improving CDR muts and validates the §2 objective.",
+  "design_implication": "Select variants that improve the RESTRICTED protofibril-accessible interface WITHOUT improving the full monomer wrap (margin = d-protofibril - d-monomer).",
+  "caveats": "Magnitudes soft: protofibril dock seeded geometrically + local search (may underestimate optimum); monomer started from the Boltz-optimized pose. 8QN7 stack built from NCS op2/op5 (rise), protofilament ops 3/4 omitted. Monovalent only -> captures conformational/steric (B3/B4); avidity (the monomer lever) stays Stage 7 + wet-lab."
+}

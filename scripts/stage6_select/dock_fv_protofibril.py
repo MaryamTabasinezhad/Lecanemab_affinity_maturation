@@ -44,8 +44,11 @@ def seed(args):
     import biotite.structure.io.pdb as pdb
     import biotite.structure.io.pdbx as pdbx
     from scipy.spatial import cKDTree
-    # receptor (fibril chains)
-    rec = pdbx.get_structure(pdbx.CIFFile.read(args.receptor_cif), model=1)
+    # receptor (fibril chains) — accept .cif or .pdb
+    if args.receptor_cif.endswith(".pdb"):
+        rec = pdb.PDBFile.read(args.receptor_cif).get_structure(model=1)
+    else:
+        rec = pdbx.get_structure(pdbx.CIFFile.read(args.receptor_cif), model=1)
     rec = rec[rec.element != "H"]
     chains = args.receptor_chains.split()
     rec = rec[np.isin(rec.chain_id, chains)]
@@ -92,10 +95,11 @@ def dock(args):
     from pyrosetta import pose_from_pdb
     pyrosetta.init("-mute all -ignore_unrecognized_res -ignore_zero_occupancy false -ex1 -ex2")
     out = Path(args.out)
-    pose = pose_from_pdb(str(out / "seed.pdb"))
+    in_pdb = args.input_pdb or str(out / "seed.pdb")
+    pose = pose_from_pdb(in_pdb)
     # partners: receptor chains _ Fv chains (Fv = H,L moved as one rigid body)
     rec_ch = "".join(args.receptor_chains.split())
-    partners = f"{rec_ch}_HL"
+    partners = args.partners or f"{rec_ch}_HL"
     from pyrosetta.rosetta.protocols.docking import setup_foldtree, DockMCMProtocol
     scorefxn = pyrosetta.create_score_function("ref2015")
     from pyrosetta.rosetta.protocols.docking import DockingSlideIntoContact
@@ -126,12 +130,14 @@ def dock(args):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["seed", "dock"], required=True)
-    ap.add_argument("--receptor-cif", required=True)
+    ap.add_argument("--receptor-cif", default=None)   # required for seed mode only
     ap.add_argument("--receptor-chains", default="E F G")
     ap.add_argument("--epitope-res", default="9-16")
     ap.add_argument("--fv-pdb", default=str(REPO / "data/interim/flexddg/wt_complex.pdb"))
     ap.add_argument("--standoff", type=float, default=12.0)
     ap.add_argument("--ndecoys", type=int, default=10)
+    ap.add_argument("--input-pdb", default=None, help="dock mode: complex to refine (default <out>/seed.pdb)")
+    ap.add_argument("--partners", default=None, help="dock mode: e.g. 'P_HL' (receptor_Fv)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     (seed if args.mode == "seed" else dock)(args)

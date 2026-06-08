@@ -1,0 +1,12 @@
+{
+  "mode": "dock",
+  "partners": "P_HL",
+  "ndecoys": 20,
+  "best": {
+    "decoy": 15,
+    "dG_separated": -27.56,
+    "n_interface_res": 49,
+    "interface_dSASA": 1487.2
+  },
+  "note": "dG_separated = Rosetta interface binding energy (REU, more negative=stronger). Compare 9CO4 target vs 8QN7 CAA counter (B3 vs B4) and vs WT before scoring variants."
+}
